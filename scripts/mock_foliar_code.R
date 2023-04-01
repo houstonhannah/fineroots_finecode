@@ -61,3 +61,7 @@ plot(TukeyHSD(aov_no_defol, 'tissue'))
 
 
 
+
+#####0.5 Defol#############################################################################
+#####In this experimental treatment, designated seedlings had 50% of their needles removed to trigger a root senescence event 
+#####In the control group, cores were rotated to sever mycorrhizal connections
