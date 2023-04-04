@@ -241,10 +241,12 @@ summary(lm_defol_0.5_con_ronly)
 #####In this experimental treatment, designated seedlings had 75% of their needles removed to trigger a root senescence event 
 #####In the control group, cores were rotated to sever mycorrhizal connections, preventing isotopes from moving via mycorrhizae
 
-
+#this will be populated with a duplicate of the above code
 
 
 
 #####1.0 Defol#############################################################################
 #####In this experimental treatment, designated seedlings had 100% of their needles removed to trigger a root senescence event 
 #####In the control group, cores were rotated to sever mycorrhizal connections, preventing isotopes from moving via mycorrhizae
+
+#this will be populated with a duplicate of the above code
