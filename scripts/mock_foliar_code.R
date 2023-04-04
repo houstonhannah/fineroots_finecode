@@ -8,12 +8,20 @@ library(ggplot2)
 library(dplyr)
 library(multcompView)
 library(car)
+library(pwr)
 
 
 #####Power Analysis############################################################################# 
 #####Conduct a power analysis to determine if there are enough experimental replications to detect a trend
 
+pwr.anova.test(f= , k=26, n=5, sig.level=0.05)
 
+#f is the effect size, no data exists yet in the literature about possible effect size. 
+#f will be calculated using preliminary data that is currently being analyzed.
+#k is the number of groups
+#n is the number of pots per group
+#sig.level is the alpha value
+#The higher the power value, the higher the chance is of detecting an effect
 
 #####Make a Big Ol' Graph######################################################################
 
@@ -23,12 +31,12 @@ par(mfrow = c(1,1))
 ggplot(mock_foliar, aes(x=treatment,y=APE,fill=treatment))+geom_boxplot()+ylab("Atomic Percent Enrichment (APE)")+xlab("Treatment")
 dev.off() #where to stop pdf
 
-
+#note: this does not separate APE for donor or recipient seedlings for each treatment
 
 
 
 #####No Defol############################################################################# 
-#####No defoliaiton occured in this experimental treatment. 
+#####No defoliation occurred in this experimental treatment. 
 #####In the control group, cores were rotated to sever mycorrhizal connections.
 
 #subset the data
@@ -126,17 +134,112 @@ dev.off() #where to stop pdf
 
 #####0.5 Defol#############################################################################
 #####In this experimental treatment, designated seedlings had 50% of their needles removed to trigger a root senescence event 
-#####In the control group, cores were rotated to sever mycorrhizal connections
+#####In the control group, cores were rotated to sever mycorrhizal connections; preventing isotopes from moving via mycorrhizae
+
+#subset the data
+defol_0.5 <- subset(mock_foliar, treatment %in% c('0.5_donor_defol', '0.5_recip_defol', 'con_0.5_donor_defol', 'con_0.5_recip_defol'))
+View(defol_0.5)
+data.frame(defol_0.5)
+
+#make a graph: 
+pdf('./figs/defol_0.5.pdf') #pdf will show up in figs folder
+par(mfrow = c(1,1))
+ggplot(defol_0.5, aes(x= treatment, y=APE,fill=treatment))+geom_boxplot()+ylab("Atomic Percent Enrichment (APE)")+xlab("Treatment")
+dev.off()
 
 
+##########0.5 Defol Experimental Group
+###do pairwise Anova's
+
+#Donor defoliation: donors vs recipients
+#subset data a little more
+defol_0.5_donor <- subset(mock_foliar, treatment %in% c('0.5_donor_defol'))
+View(defol_0.5_donor)
+data.frame(defol_0.5_donor)
+#run the lm
+lm_0.5_donor <- lm(APE ~ donor_or_recip, data=defol_0.5_donor)
+Anova(lm_0.5_donor)
+summary(lm_0.5_donor)
+
+#Recipient defoliation: donor vs recipients
+#subset data a little more
+defol_0.5_recip <- subset(mock_foliar, treatment %in% c('0.5_recip_defol'))
+View(defol_0.5_recip)
+data.frame(defol_0.5_recip)
+#run the lm
+lm_0.5_recip <- lm(APE ~ treatment, data=defol_0.5)
+Anova(lm_0.5_recip)
+summary(lm_0.5_recip)
+
+#Donor defoliation: donor vs Recipient defoliation: donor
+#subset the data to get only donors 
+defol_0.5_donly <- subset(defol_0.5, donor_or_recip %in% c('d'))
+defol_0.5_donly <- subset(defol_0.5_donly, treatment %in% c('0.5_donor_defol', '0.5_recip_defol'))
+View(defol_0.5_donly)
+data.frame(defol_0.5_donly)
+#run the lm
+lm_defol_0.5_donly <- lm(APE ~ treatment, data=defol_0.5_donly)
+Anova(lm_defol_0.5_donly)
+summary(lm_defol_0.5_donly)
+
+#Donor defoliation: recipients vs Recipient defoliation: recipients
+defol_0.5_ronly <- subset(defol_0.5, donor_or_recip %in% c('r'))
+defol_0.5_ronly <- subset(defol_0.5_ronly, treatment %in% c('0.5_donor_defol', '0.5_recip_defol'))
+View(defol_0.5_ronly)
+data.frame(defol_0.5_ronly)
+#run the lm
+lm_defol_0.5_ronly <- lm(APE ~ treatment, data=defol_0.5_ronly)
+Anova(lm_defol_0.5_ronly)
+summary(lm_defol_0.5_ronly)
 
 
+##########Control Group
+###do pairwise Anova's
+
+#Donor defoliation: donors vs recipients
+#subset data a little more
+defol_con_0.5_donor <- subset(mock_foliar, treatment %in% c('con_0.5_donor_defol'))
+data.frame(defol_con_0.5_donor)
+#run the lm
+lm_con_0.5_donor <- lm(APE ~ donor_or_recip, data=defol_con_0.5_donor)
+Anova(lm_con_0.5_donor)
+summary(lm_con_0.5_donor)
+
+#Recipient defoliation: donor vs recipients
+#subset data a little more
+defol_con_0.5_recip <- subset(mock_foliar, treatment %in% c('con_0.5_recip_defol'))
+data.frame(defol_con_0.5_recip)
+#run the lm
+lm_con_0.5_recip <- lm(APE ~ donor_or_recip, data=defol_con_0.5_recip)
+Anova(lm_con_0.5_recip)
+summary(lm_con_0.5_recip)
+
+#Donor defoliation: donor vs Recipient defoliation: donor
+#subset the data to get only donors 
+defol_0.5_donly <- subset(defol_0.5, donor_or_recip %in% c('d'))
+defol_0.5_con_donly <- subset(defol_0.5_donly, treatment %in% c('con_0.5_donor_defol', 'con_0.5_recip_defol'))
+View(defol_0.5_con_donly)
+data.frame(defol_0.5_con_donly)
+#run the lm
+lm_defol_0.5_con_donly <- lm(APE ~ treatment, data=defol_0.5_con_donly)
+Anova(lm_defol_0.5_con_donly)
+summary(lm_defol_0.5_con_donly)
+
+#Donor defoliation: recipients vs Recipient defoliation: recipients
+defol_0.5_ronly <- subset(defol_0.5, donor_or_recip %in% c('r'))
+defol_0.5_con_ronly <- subset(defol_0.5_ronly, treatment %in% c('con_0.5_donor_defol', 'con_0.5_recip_defol'))
+View(defol_0.5_con_ronly)
+data.frame(defol_0.5_con_ronly)
+#run the lm
+lm_defol_0.5_con_ronly <- lm(APE ~ treatment, data=defol_0.5_con_ronly)
+Anova(lm_defol_0.5_con_ronly)
+summary(lm_defol_0.5_con_ronly)
 
 
 
 #####0.75 Defol#############################################################################
 #####In this experimental treatment, designated seedlings had 75% of their needles removed to trigger a root senescence event 
-#####In the control group, cores were rotated to sever mycorrhizal connections
+#####In the control group, cores were rotated to sever mycorrhizal connections, preventing isotopes from moving via mycorrhizae
 
 
 
@@ -144,4 +247,4 @@ dev.off() #where to stop pdf
 
 #####1.0 Defol#############################################################################
 #####In this experimental treatment, designated seedlings had 100% of their needles removed to trigger a root senescence event 
-#####In the control group, cores were rotated to sever mycorrhizal connections
+#####In the control group, cores were rotated to sever mycorrhizal connections, preventing isotopes from moving via mycorrhizae
