@@ -1,6 +1,10 @@
 #load the data 
 mock_foliar <- read.csv(file = './data/mock_foliar.csv')
-head(mock_foliar)
+data.frame(mock_foliar)
+
+#drop the random X to X.6  columns 
+mock_foliar <- subset.data.frame(mock_foliar, select = c('plant_num', 'isotope_lab', 'treatment', 'donor_or_recip', 'tissue', 'APE'))
+View(mock_foliar)
 
 #load packages
 library(ggthemes)
@@ -17,8 +21,8 @@ library(pwr)
 pwr.anova.test(f= , k=26, n=5, sig.level=0.05)
 
 #f is the effect size, no data exists yet in the literature about possible effect size. 
-
 #f will be calculated using preliminary data that is currently being analyzed.
+
 #k is the number of groups
 #n is the number of pots per group
 #sig.level is the alpha value
@@ -236,42 +240,61 @@ lm_defol_0.5_con_ronly <- lm(APE ~ treatment, data=defol_0.5_con_ronly)
 Anova(lm_defol_0.5_con_ronly)
 summary(lm_defol_0.5_con_ronly)
 
-#####do Tukey Tests for all tissue groups
-##Experimental Group Tukey Tests
+#####do Tukey Tests for all tissue groups##############
 
-#subset the data more to look at tissue groups and APE for no_defol treatment
-tissue_con_no_defol <- subset(mock_foliar, treatment %in% c('con_no_defol'))
-View(tissue_con_no_defol)
-data.frame(tissue_con_no_defol)
+##Experimental Group Tukey Tests####
+######Donor- Donor
+#subset the data more to look at tissue groups and APE for donors in the donor defoliation treatment
+tissue_0.5_d_defol <- subset(mock_foliar, treatment %in% c('0.5_donor_defol'))
+tissue_0.5_d_defol <- subset(tissue_0.5_d_defol, donor_or_recip %in% c('d'))
+View(tissue_0.5_d_defol)
+data.frame(tissue_0.5_d_defol)
 
 #build the model and run TukeyHSD
-aov_tissue_con_no_defol <- aov(APE ~ tissue, data = tissue_con_no_defol)
-summary(aov_tissue_con_no_defol)
-tukey <- TukeyHSD(aov_tissue_con_no_defol, 'tissue', ordered = TRUE, conf.level = 0.95)
+aov_tissue_0.5_d_defol <- aov(APE ~ tissue, data = tissue_0.5_d_defol)
+summary(aov_tissue_0.5_d_defol)
+tukey <- TukeyHSD(aov_tissue_0.5_d_defol, 'tissue', ordered = TRUE, conf.level = 0.95)
+
 #compact letter display
-cld <- multcompLetters4(aov_tissue_con_no_defol, tukey)
+cld <- multcompLetters4(aov_tissue_0.5_d_defol, tukey)
 
 #table with factors and 3rd quartile 
-tissue_waje <- group_by(tissue_con_no_defol, tissue) %>%
+tissue_waje <- group_by(tissue_0.5_d_defol, tissue) %>%
   summarise(w=mean(APE),sd = sd(APE)) %>%
   arrange(desc(w))
 
 #extracting compact letter display and adding to the Tukey table
 cld <- as.data.frame.list(cld$tissue)
 tissue_waje$cld <- cld$Letters
-print(tissue_waje) #this prints the letters that are assigned based on sigificance, note that for the "mock" data these will not be significant
+print(tissue_waje) #this prints the letters that are assigned based on significance, note that for the "mock" data these will not be significant
 
 #build the graph and save as a PDF to figs folder 
-pdf('./figs/tukey_control_nodefol_tissue.pdf') #pdf will show up in figs folder
+pdf('./figs/tukey_0.5_donor_defol_tissue.pdf') #pdf will show up in figs folder
 ggplot(tissue_waje, aes(tissue, w)) + 
   geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
   geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
   labs(x = "Plant Tissue Types", y = "Atomic Percent Enrichment") +
   geom_text(aes(label = cld, y = w + sd), vjust = -0.5)
 dev.off() #where to stop pdf
+#note: donor seedlings needles were not analyzed, so there will be no APE data for those
 
-##Control Group Tukey Tests
 
 
-#####0.75 Defol and 1.0 Defol#############################################################################
-#in order to analyze APE for the 0.75 defol and 1.0 defol, the above code will be replicated.
+
+
+
+
+
+
+######Donor- Recipients
+######Recipients- Donors
+######Recipients- Recipients 
+
+##Control Group Tukey Tests####
+#Donor- Donor
+#Donor- Recipients
+#Recipients- Donors
+#Recipients- Recipients 
+
+#####0.75 Defol and 1.0 Defol######################################################################################
+#in order to analyze APE for the 0.75 defol and 1.0 defol, the above code will be replicated in a different r script
