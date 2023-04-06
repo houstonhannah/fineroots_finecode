@@ -4,6 +4,9 @@ data.frame(mock_foliar)
 
 #drop the random X to X.6  columns 
 mock_foliar <- subset.data.frame(mock_foliar, select = c('plant_num', 'isotope_lab', 'treatment', 'donor_or_recip', 'tissue', 'APE'))
+
+#delete the NA's from the APE column
+mock_foliar <- mock_foliar %>% drop_na(APE) #donor seedlings in the foliar treatment will have no APE for tissue group needles b/c they were directly labeled with isotope solution 
 View(mock_foliar)
 
 #load packages
@@ -13,6 +16,7 @@ library(dplyr)
 library(multcompView)
 library(car)
 library(pwr)
+library(tidyr)
 
 
 #####Power Analysis############################################################################# 
@@ -49,11 +53,22 @@ no_defol <- subset(mock_foliar, treatment %in% c('no_defol', 'con_no_defol'))
 View(no_defol)
 data.frame(no_defol)
 
-#make a graph: 
+#make a graph: *****this graph needs some help, how to separate into donor vs recips?*****
 pdf('./figs/no_defol.vs.con_no_defol.pdf') #pdf will show up in figs folder
 par(mfrow = c(1,1))
 ggplot(no_defol, aes(x= treatment, y=APE,fill=treatment))+geom_boxplot()+ylab("Atomic Percent Enrichment (APE)")+xlab("Treatment")
 dev.off()
+
+ggplot() +   
+  geom_boxplot(no_defol, aes(x=treatment,y=APE, group=1, colour = 'salmon')) +    
+  geom_boxplot(no_defol, aes(x=treatment,y=APE, group = 2, colour = 'cyan2')) +   
+  ylab('Atomic Percent Enrichment (APE)')+
+  xlab('Treatment')
+
+ggplot(test_data, aes(date)) + 
+  geom_line(aes(x=treatment,y=APE = var0, colour = "salmon")) + 
+  geom_line(aes(y = var1, colour = "var1"))
+
 
 #Create a model: no defol vs. control no defol
 lm_no_defol <- lm(APE ~ treatment, data=no_defol)
@@ -287,8 +302,30 @@ dev.off() #where to stop pdf
 
 
 ######Donor- Recipients
+#subset the data more to look at tissue groups and APE for recipients in the donor defoliation treatment
+tissue_0.5_r_defol <- subset(mock_foliar, treatment %in% c('0.5_donor_defol'))
+tissue_0.5_r_defol <- subset(tissue_0.5_r_defol, donor_or_recip %in% c('r'))
+View(tissue_0.5_r_defol)
+data.frame(tissue_0.5_r_defol)
+
+
 ######Recipients- Donors
+#subset the data more to look at tissue groups and APE for donors in the recipient defoliation treatment
+tissue_con_0.5_d_defol <- subset(mock_foliar, treatment %in% c('con_0.5_recip_defol'))
+tissue_con_0.5_d_defol <- subset(tissue_con_0.5_d_defol, donor_or_recip %in% c('d'))
+View(tissue_con_0.5_d_defol)
+data.frame(tissue_con_0.5_d_defol)
+
+
 ######Recipients- Recipients 
+#subset the data more to look at tissue groups and APE for recipients in the recipient defoliation treatment
+tissue_con_0.5_r_defol <- subset(mock_foliar, treatment %in% c('con_0.5_recip_defol'))
+tissue_con_0.5_r_defol <- subset(tissue_con_0.5_r_defol, donor_or_recip %in% c('r'))
+View(tissue_con_0.5_r_defol)
+data.frame(tissue_con_0.5_r_defol)
+
+
+
 
 ##Control Group Tukey Tests####
 #Donor- Donor
