@@ -246,20 +246,20 @@ summary(lm_defol_0.5_con_ronly)
 ##Experimental Group Tukey Tests####
 ######Donor- Donor
 #subset the data more to look at tissue groups and APE for donors in the donor defoliation treatment
-tissue_0.5_d_defol <- subset(mock_foliar, treatment %in% c('0.5_donor_defol'))
-tissue_0.5_d_defol <- subset(tissue_0.5_d_defol, donor_or_recip %in% c('d'))
-data.frame(tissue_0.5_d_defol)
+tissue_0.5_ddefol_d <- subset(mock_foliar, treatment %in% c('0.5_donor_defol'))
+tissue_0.5_ddefol_d <- subset(tissue_0.5_ddefol_d, donor_or_recip %in% c('d'))
+data.frame(tissue_0.5_ddefol_d)
 
 #build the model and run TukeyHSD
-aov_tissue_0.5_d_defol <- aov(APE ~ tissue, data = tissue_0.5_d_defol)
-summary(aov_tissue_0.5_d_defol)
-tukey <- TukeyHSD(aov_tissue_0.5_d_defol, 'tissue', ordered = TRUE, conf.level = 0.95)
+aov_tissue_0.5_ddefol_d <- aov(APE ~ tissue, data = tissue_0.5_ddefol_d)
+summary(aov_tissue_0.5_ddefol_d)
+tukey <- TukeyHSD(aov_tissue_0.5_ddefol_d, 'tissue', ordered = TRUE, conf.level = 0.95)
 
 #compact letter display
-cld <- multcompLetters4(aov_tissue_0.5_d_defol, tukey)
+cld <- multcompLetters4(aov_tissue_0.5_ddefol_d, tukey)
 
 #table with factors and 3rd quartile 
-tissue_waje <- group_by(tissue_0.5_d_defol, tissue) %>%
+tissue_waje <- group_by(tissue_0.5_ddefol_d, tissue) %>%
   summarise(w=mean(APE),sd = sd(APE)) %>%
   arrange(desc(w))
 
@@ -269,7 +269,7 @@ tissue_waje$cld <- cld$Letters
 print(tissue_waje) #this prints the letters that are assigned based on significance, note that for the "mock" data these will not be significant
 
 #build the graph and save as a PDF to figs folder 
-pdf('./figs/tukey_0.5_donor_defol_tissue.pdf') #pdf will show up in figs folder
+pdf('./figs/tukey_0.5_donor_defol_donor_tissue.pdf') #pdf will show up in figs folder
 ggplot(tissue_waje, aes(tissue, w)) + 
   geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
   geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
@@ -281,20 +281,20 @@ dev.off() #where to stop pdf
 
 ######Donor- Recipients
 #subset the data more to look at tissue groups and APE for recipients in the donor defoliation treatment
-tissue_0.5_r_defol <- subset(mock_foliar, treatment %in% c('0.5_donor_defol'))
-tissue_0.5_r_defol <- subset(tissue_0.5_r_defol, donor_or_recip %in% c('r'))
-data.frame(tissue_0.5_r_defol)
+tissue_0.5_ddefol_r <- subset(mock_foliar, treatment %in% c('0.5_donor_defol'))
+tissue_0.5_ddefol_r <- subset(tissue_0.5_ddefol_r, donor_or_recip %in% c('r'))
+data.frame(tissue_0.5_ddefol_r)
 
 #build the model and run TukeyHSD
-aov_tissue_0.5_r_defol <- aov(APE ~ tissue, data = tissue_0.5_r_defol)
-summary(aov_tissue_0.5_r_defol)
-tukey <- TukeyHSD(aov_tissue_0.5_r_defol, 'tissue', ordered = TRUE, conf.level = 0.95)
+aov_tissue_0.5_ddefol_r <- aov(APE ~ tissue, data = tissue_0.5_ddefol_r)
+summary(aov_tissue_0.5_ddefol_r)
+tukey <- TukeyHSD(aov_tissue_0.5_ddefol_r, 'tissue', ordered = TRUE, conf.level = 0.95)
 
 #compact letter display
-cld <- multcompLetters4(aov_tissue_0.5_r_defol, tukey)
+cld <- multcompLetters4(aov_tissue_0.5_ddefol_r, tukey)
 
 #table with factors and 3rd quartile 
-tissue_waje <- group_by(tissue_0.5_r_defol, tissue) %>%
+tissue_waje <- group_by(tissue_0.5_ddefol_r, tissue) %>%
   summarise(w=mean(APE),sd = sd(APE)) %>%
   arrange(desc(w))
 
@@ -304,7 +304,7 @@ tissue_waje$cld <- cld$Letters
 print(tissue_waje) #this prints the letters that are assigned based on significance, note that for the "mock" data these will not be significant
 
 #build the graph and save as a PDF to figs folder 
-pdf('./figs/tukey_0.5_donor__defol_recip_tissue.pdf') #pdf will show up in figs folder
+pdf('./figs/tukey_0.5_donor_defol_recip_tissue.pdf') #pdf will show up in figs folder
 ggplot(tissue_waje, aes(tissue, w)) + 
   geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
   geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
@@ -315,20 +315,20 @@ dev.off() #where to stop pdf
 
 ######Recipients- Donors
 #subset the data more to look at tissue groups and APE for donors in the recipient defoliation treatment
-tissue_con_0.5_d_defol <- subset(mock_foliar, treatment %in% c('con_0.5_recip_defol'))
-tissue_con_0.5_d_defol <- subset(tissue_con_0.5_d_defol, donor_or_recip %in% c('d'))
-data.frame(tissue_con_0.5_d_defol)
+tissue_0.5_rdefol_d <- subset(mock_foliar, treatment %in% c('0.5_recip_defol'))
+tissue_0.5_rdefol_d <- subset(tissue_0.5_rdefol_d, donor_or_recip %in% c('d'))
+data.frame(tissue_0.5_rdefol_d)
 
 #build the model and run TukeyHSD
-aov_tissue_con_0.5_d_defol <- aov(APE ~ tissue, data = tissue_con_0.5_d_defol)
-summary(aov_tissue_con_0.5_d_defol)
-tukey <- TukeyHSD(aov_tissue_con_0.5_d_defol, 'tissue', ordered = TRUE, conf.level = 0.95)
+aov_tissue_0.5_rdefol_d <- aov(APE ~ tissue, data = tissue_0.5_rdefol_d)
+summary(aov_tissue_0.5_rdefol_d)
+tukey <- TukeyHSD(aov_tissue_0.5_rdefol_d, 'tissue', ordered = TRUE, conf.level = 0.95)
 
 #compact letter display
-cld <- multcompLetters4(aov_tissue_con_0.5_d_defol, tukey)
+cld <- multcompLetters4(aov_tissue_0.5_rdefol_d, tukey)
 
 #table with factors and 3rd quartile 
-tissue_waje <- group_by(tissue_con_0.5_d_defol, tissue) %>%
+tissue_waje <- group_by(tissue_0.5_rdefol_d, tissue) %>%
   summarise(w=mean(APE),sd = sd(APE)) %>%
   arrange(desc(w))
 
@@ -349,20 +349,20 @@ dev.off() #where to stop pdf
 
 ######Recipients- Recipients 
 #subset the data more to look at tissue groups and APE for recipients in the recipient defoliation treatment
-tissue_con_0.5_r_defol <- subset(mock_foliar, treatment %in% c('con_0.5_recip_defol'))
-tissue_con_0.5_r_defol <- subset(tissue_con_0.5_r_defol, donor_or_recip %in% c('r'))
-data.frame(tissue_con_0.5_r_defol)
+tissue_0.5_rdefol_r <- subset(mock_foliar, treatment %in% c('0.5_recip_defol'))
+tissue_0.5_rdefol_r <- subset(tissue_0.5_rdefol_r, donor_or_recip %in% c('r'))
+data.frame(tissue_0.5_rdefol_r)
 
 #build the model and run TukeyHSD
-aov_tissue_con_0.5_r_defol <- aov(APE ~ tissue, data = tissue_con_0.5_r_defol)
-summary(aov_tissue_con_0.5_r_defol)
-tukey <- TukeyHSD(aov_tissue_con_0.5_r_defol, 'tissue', ordered = TRUE, conf.level = 0.95)
+aov_tissue_0.5_rdefol_r <- aov(APE ~ tissue, data = tissue_0.5_rdefol_r)
+summary(aov_tissue_0.5_rdefol_r)
+tukey <- TukeyHSD(aov_tissue_0.5_rdefol_r, 'tissue', ordered = TRUE, conf.level = 0.95)
 
 #compact letter display
-cld <- multcompLetters4(aov_tissue_con_0.5_r_defol, tukey)
+cld <- multcompLetters4(aov_tissue_0.5_rdefol_r, tukey)
 
 #table with factors and 3rd quartile 
-tissue_waje <- group_by(tissue_con_0.5_r_defol, tissue) %>%
+tissue_waje <- group_by(tissue_0.5_rdefol_r, tissue) %>%
   summarise(w=mean(APE),sd = sd(APE)) %>%
   arrange(desc(w))
 
@@ -381,11 +381,47 @@ ggplot(tissue_waje, aes(tissue, w)) +
 dev.off() #where to stop pdf
 
 
+
+
+
+
+
+
+
+
+
 ##Control Group Tukey Tests####
-#Donor- Donor
-#Donor- Recipients
-#Recipients- Donors
-#Recipients- Recipients 
+
+######Control Donor- Donor
+#subset the data more to look at tissue groups and APE for donors in the donor defoliation treatment
+tissue_0.5_ddefol_d <- subset(mock_foliar, treatment %in% c('0.5_donor_defol'))
+tissue_0.5_ddefol_d <- subset(tissue_0.5_ddefol_d, donor_or_recip %in% c('d'))
+data.frame(tissue_0.5_ddefol_d)
+
+
+######Control Donor- Recipients
+#subset the data more to look at tissue groups and APE for recipients in the donor defoliation treatment
+tissue_0.5_ddefol_r <- subset(mock_foliar, treatment %in% c('0.5_donor_defol'))
+tissue_0.5_ddefol_r <- subset(tissue_0.5_ddefol_r, donor_or_recip %in% c('r'))
+data.frame(tissue_0.5_ddefol_r)
+
+
+######Control Recipients- Donors
+#subset the data more to look at tissue groups and APE for donors in the recipient defoliation treatment
+tissue_0.5_rdefol_d <- subset(mock_foliar, treatment %in% c('0.5_recip_defol'))
+tissue_0.5_rdefol_d <- subset(tissue_0.5_rdefol_d, donor_or_recip %in% c('d'))
+data.frame(tissue_0.5_rdefol_d)
+
+
+######Control Recipients- Recipients 
+#subset the data more to look at tissue groups and APE for recipients in the recipient defoliation treatment
+tissue_0.5_rdefol_r <- subset(mock_foliar, treatment %in% c('0.5_recip_defol'))
+tissue_0.5_rdefol_r <- subset(tissue_0.5_rdefol_r, donor_or_recip %in% c('r'))
+data.frame(tissue_0.5_rdefol_r)
+
+
+
+
 
 #####0.75 Defol and 1.0 Defol######################################################################################
 #in order to analyze APE for the 0.75 defol and 1.0 defol, the above code will be replicated in a different r script
