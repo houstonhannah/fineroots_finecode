@@ -50,7 +50,6 @@ dev.off() #where to stop pdf
 
 #subset the data
 no_defol <- subset(mock_foliar, treatment %in% c('no_defol', 'con_no_defol'))
-View(no_defol)
 data.frame(no_defol)
 
 #make a graph: 
