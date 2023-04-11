@@ -32,6 +32,8 @@ pwr.anova.test(f= , k=26, n=5, sig.level=0.05)
 #sig.level is the alpha value
 #The higher the power value, the higher the chance is of detecting an effect
 
+
+
 #####Make a Big Ol' Graph######################################################################
 
 #make a graph looking at all treatment types and export as graph to figs folder
@@ -42,6 +44,29 @@ dev.off() #where to stop pdf
 
 #note: this does not separate APE for donor or recipient seedlings for each treatment
 #can do that by doing fill = donor_or_recip but then the graph looks kind of crazy
+
+
+
+
+######2 x 4 Factorial Anova##################################################################
+#make the model
+lm_mock_foliar <- lm(APE ~ donor_or_recip * tissue, data = mock_foliar)
+summary(lm_mock_foliar)
+
+#check residuals of the model
+par(mfrow = c(2, 2))
+plot(lm_mock_foliar) 
+#the residuals vs. fitted and the Scale-Location graphs: look for normal spread of points along red line, patterns show issues with homoscedasticity
+#The Q-Q plot: look for points hugging red line, deviance from line shows issues with residuals
+#The Residuals vs Leverage graph indicates if there are large outliers that have a disproportionate effect on the regression
+
+#run the Anova
+aov_mock_foliar <- Anova(lm_mock_foliar)
+summary(aov_mock_foliar)
+
+#what is going on there^^^^
+
+
 
 
 
@@ -224,6 +249,8 @@ summary(lm_defol_0.5_donly)
 defol_0.5_ronly <- subset(defol_0.5, donor_or_recip %in% c('r'))
 defol_0.5_ronly <- subset(defol_0.5_ronly, treatment %in% c('0.5_donor_defol', '0.5_recip_defol'))
 data.frame(defol_0.5_ronly)
+
+
 
 
 
