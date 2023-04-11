@@ -1,3 +1,12 @@
+#load packages
+library(ggthemes)
+library(ggplot2)
+library(dplyr)
+library(multcompView)
+library(car)
+library(pwr)
+library(tidyr)
+
 #load the data 
 mock_foliar <- read.csv(file = './data/mock_foliar.csv')
 data.frame(mock_foliar)
@@ -8,15 +17,6 @@ mock_foliar <- subset.data.frame(mock_foliar, select = c('plant_num', 'isotope_l
 #delete the NA's from the APE column
 mock_foliar <- mock_foliar %>% drop_na(APE) #donor seedlings in the foliar treatment will have no APE for tissue group needles b/c they were directly labeled with isotope solution 
 View(mock_foliar)
-
-#load packages
-library(ggthemes)
-library(ggplot2)
-library(dplyr)
-library(multcompView)
-library(car)
-library(pwr)
-library(tidyr)
 
 
 #####Power Analysis############################################################################# 
@@ -41,6 +41,7 @@ ggplot(mock_foliar, aes(x=treatment,y=APE,fill=treatment))+geom_boxplot()+ylab("
 dev.off() #where to stop pdf
 
 #note: this does not separate APE for donor or recipient seedlings for each treatment
+#can do that by doing fill = donor_or_recip but then the graph looks kind of crazy
 
 
 
@@ -149,7 +150,6 @@ dev.off() #where to stop pdf
 
 #subset the data
 defol_0.5 <- subset(mock_foliar, treatment %in% c('0.5_donor_defol', '0.5_recip_defol', 'con_0.5_donor_defol', 'con_0.5_recip_defol'))
-View(defol_0.5)
 data.frame(defol_0.5)
 
 #make a graph: 
@@ -166,6 +166,16 @@ dev.off()
 #subset data a little more
 defol_0.5_donor <- subset(mock_foliar, treatment %in% c('0.5_donor_defol'))
 data.frame(defol_0.5_donor)
+
+#make a graph: 
+pdf('./figs/0.5_ddefol_d_vs_r.pdf') #pdf will show up in figs folder
+par(mfrow = c(1,1))
+ggplot(defol_0.5_donor, aes(x = treatment, y=APE, fill = donor_or_recip)) +
+  geom_boxplot() +
+  ylab("Atomic Percent Enrichment (APE)") + xlab("Treatment") +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
+dev.off()
+
 #run the lm
 lm_0.5_donor <- lm(APE ~ donor_or_recip, data=defol_0.5_donor)
 Anova(lm_0.5_donor)
@@ -175,6 +185,16 @@ summary(lm_0.5_donor)
 #subset data a little more
 defol_0.5_recip <- subset(mock_foliar, treatment %in% c('0.5_recip_defol'))
 data.frame(defol_0.5_recip)
+
+#make a graph: 
+pdf('./figs/0.5_rdefol_d_vs_r.pdf') #pdf will show up in figs folder
+par(mfrow = c(1,1))
+ggplot(defol_0.5_recip, aes(x = treatment, y=APE, fill = donor_or_recip)) +
+  geom_boxplot() +
+  ylab("Atomic Percent Enrichment (APE)") + xlab("Treatment") +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
+dev.off()
+
 #run the lm
 lm_0.5_recip <- lm(APE ~ treatment, data=defol_0.5_recip)
 Anova(lm_0.5_recip)
@@ -185,6 +205,16 @@ summary(lm_0.5_recip)
 defol_0.5_donly <- subset(defol_0.5, donor_or_recip %in% c('d'))
 defol_0.5_donly <- subset(defol_0.5_donly, treatment %in% c('0.5_donor_defol', '0.5_recip_defol'))
 data.frame(defol_0.5_donly)
+
+#make a graph: 
+pdf('./figs/0.5_ddefol_d_vs rdefol_d.pdf') #pdf will show up in figs folder
+par(mfrow = c(1,1))
+ggplot(defol_0.5_donly, aes(x = treatment, y=APE, fill = donor_or_recip)) +
+  geom_boxplot() +
+  ylab("Atomic Percent Enrichment (APE)") + xlab("Treatment") +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors'))
+dev.off()
+
 #run the lm
 lm_defol_0.5_donly <- lm(APE ~ treatment, data=defol_0.5_donly)
 Anova(lm_defol_0.5_donly)
@@ -194,6 +224,23 @@ summary(lm_defol_0.5_donly)
 defol_0.5_ronly <- subset(defol_0.5, donor_or_recip %in% c('r'))
 defol_0.5_ronly <- subset(defol_0.5_ronly, treatment %in% c('0.5_donor_defol', '0.5_recip_defol'))
 data.frame(defol_0.5_ronly)
+
+
+
+#######How to change the color of the boxplot to match the recipient color???
+#make a graph: 
+pdf('./figs/0.5_ddefol_r_vs rdefol_r.pdf') #pdf will show up in figs folder
+par(mfrow = c(1,1))
+ggplot(defol_0.5_ronly, aes(x = treatment, y=APE, fill = donor_or_recip)) +
+  geom_boxplot() +
+  ylab("Atomic Percent Enrichment (APE)") + xlab("Treatment") +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Recipients'))
+dev.off()
+
+
+
+
+
 #run the lm
 lm_defol_0.5_ronly <- lm(APE ~ treatment, data=defol_0.5_ronly)
 Anova(lm_defol_0.5_ronly)
@@ -203,42 +250,78 @@ summary(lm_defol_0.5_ronly)
 ##########Control Group
 ###do pairwise Anova's
 
-#Donor defoliation: donors vs recipients
+#CONTROL Donor defoliation: donors vs recipients
 #subset data a little more
 defol_con_0.5_donor <- subset(mock_foliar, treatment %in% c('con_0.5_donor_defol'))
 data.frame(defol_con_0.5_donor)
+
+#make a graph: 
+pdf('./figs/control_0.5_ddefol_d_vs_r.pdf') #pdf will show up in figs folder
+par(mfrow = c(1,1))
+ggplot(defol_con_0.5_donor, aes(x = treatment, y=APE, fill = donor_or_recip)) +
+  geom_boxplot() +
+  ylab("Atomic Percent Enrichment (APE)") + xlab("Treatment") +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
+dev.off()
+
 #run the lm
 lm_con_0.5_donor <- lm(APE ~ donor_or_recip, data=defol_con_0.5_donor)
 Anova(lm_con_0.5_donor)
 summary(lm_con_0.5_donor)
 
-#Recipient defoliation: donor vs recipients
+#CONTROL Recipient defoliation: donor vs recipients
 #subset data a little more
 defol_con_0.5_recip <- subset(mock_foliar, treatment %in% c('con_0.5_recip_defol'))
 data.frame(defol_con_0.5_recip)
+
+#make a graph: 
+pdf('./figs/control_0.5_rdefol_d_vs_r.pdf') #pdf will show up in figs folder
+par(mfrow = c(1,1))
+ggplot(defol_con_0.5_recip, aes(x = treatment, y=APE, fill = donor_or_recip)) +
+  geom_boxplot() +
+  ylab("Atomic Percent Enrichment (APE)") + xlab("Treatment") +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
+dev.off()
+
 #run the lm
 lm_con_0.5_recip <- lm(APE ~ donor_or_recip, data=defol_con_0.5_recip)
 Anova(lm_con_0.5_recip)
 summary(lm_con_0.5_recip)
 
-#Donor defoliation: donor vs Recipient defoliation: donor
+#CONTROL Donor defoliation: donor vs Recipient defoliation: donor
 #subset the data to get only donors 
 defol_0.5_donly <- subset(defol_0.5, donor_or_recip %in% c('d'))
 defol_0.5_con_donly <- subset(defol_0.5_donly, treatment %in% c('con_0.5_donor_defol', 'con_0.5_recip_defol'))
 data.frame(defol_0.5_con_donly)
+
+#make a graph: 
+pdf('./figs/control_0.5_ddefol_d_vs_rdefol_d.pdf') #pdf will show up in figs folder
+par(mfrow = c(1,1))
+ggplot(defol_0.5_con_donly, aes(x = treatment, y=APE, fill = donor_or_recip)) +
+  geom_boxplot() +
+  ylab("Atomic Percent Enrichment (APE)") + xlab("Treatment") +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors'))
+dev.off()
+
 #run the lm
 lm_defol_0.5_con_donly <- lm(APE ~ treatment, data=defol_0.5_con_donly)
 Anova(lm_defol_0.5_con_donly)
 summary(lm_defol_0.5_con_donly)
 
-#Donor defoliation: recipients vs Recipient defoliation: recipients
+#CONTROL Donor defoliation: recipients vs Recipient defoliation: recipients
 defol_0.5_ronly <- subset(defol_0.5, donor_or_recip %in% c('r'))
 defol_0.5_con_ronly <- subset(defol_0.5_ronly, treatment %in% c('con_0.5_donor_defol', 'con_0.5_recip_defol'))
 data.frame(defol_0.5_con_ronly)
+
+add the graph here once you know how to fix the color thing
+
 #run the lm
 lm_defol_0.5_con_ronly <- lm(APE ~ treatment, data=defol_0.5_con_ronly)
 Anova(lm_defol_0.5_con_ronly)
 summary(lm_defol_0.5_con_ronly)
+
+
+
 
 #####do Tukey Tests for all tissue groups##############
 
@@ -380,46 +463,146 @@ ggplot(tissue_waje, aes(tissue, w)) +
 dev.off() #where to stop pdf
 
 
-
-
-
-
-
-
-
-
-
 ##Control Group Tukey Tests####
 
 ######Control Donor- Donor
 #subset the data more to look at tissue groups and APE for donors in the donor defoliation treatment
-tissue_0.5_ddefol_d <- subset(mock_foliar, treatment %in% c('0.5_donor_defol'))
-tissue_0.5_ddefol_d <- subset(tissue_0.5_ddefol_d, donor_or_recip %in% c('d'))
-data.frame(tissue_0.5_ddefol_d)
+tissue_con_0.5_ddefol_d <- subset(mock_foliar, treatment %in% c('con_0.5_donor_defol'))
+tissue_con_0.5_ddefol_d <- subset(tissue_con_0.5_ddefol_d, donor_or_recip %in% c('d'))
+data.frame(tissue_con_0.5_ddefol_d)
+
+#build the model and run TukeyHSD
+aov_tissue_con_0.5_ddefol_d <- aov(APE ~ tissue, data = tissue_con_0.5_ddefol_d)
+summary(aov_tissue_con_0.5_ddefol_d)
+tukey <- TukeyHSD(aov_tissue_con_0.5_ddefol_d, 'tissue', ordered = TRUE, conf.level = 0.95)
+
+#compact letter display
+cld <- multcompLetters4(aov_tissue_con_0.5_ddefol_d, tukey)
+
+#table with factors and 3rd quartile 
+tissue_waje <- group_by(tissue_con_0.5_ddefol_d, tissue) %>%
+  summarise(w=mean(APE),sd = sd(APE)) %>%
+  arrange(desc(w))
+
+#extracting compact letter display and adding to the Tukey table
+cld <- as.data.frame.list(cld$tissue)
+tissue_waje$cld <- cld$Letters
+print(tissue_waje) #this prints the letters that are assigned based on significance, note that for the "mock" data these will not be significant
+
+#build the graph and save as a PDF to figs folder 
+pdf('./figs/tukey_control_0.5_donor_defol_donor_tissue.pdf') #pdf will show up in figs folder
+ggplot(tissue_waje, aes(tissue, w)) + 
+  geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
+  geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
+  labs(x = "Plant Tissue Types", y = "Atomic Percent Enrichment") +
+  geom_text(aes(label = cld, y = w + sd), vjust = -0.5)
+dev.off() #where to stop pdf
+#note: donor seedlings needles were not analyzed, so there will be no APE data for those
 
 
 ######Control Donor- Recipients
 #subset the data more to look at tissue groups and APE for recipients in the donor defoliation treatment
-tissue_0.5_ddefol_r <- subset(mock_foliar, treatment %in% c('0.5_donor_defol'))
-tissue_0.5_ddefol_r <- subset(tissue_0.5_ddefol_r, donor_or_recip %in% c('r'))
-data.frame(tissue_0.5_ddefol_r)
+tissue_con_0.5_ddefol_r <- subset(mock_foliar, treatment %in% c('con_0.5_donor_defol'))
+tissue_con_0.5_ddefol_r <- subset(tissue_con_0.5_ddefol_r, donor_or_recip %in% c('r'))
+data.frame(tissue_con_0.5_ddefol_r)
+
+#build the model and run TukeyHSD
+aov_tissue_con_0.5_ddefol_r <- aov(APE ~ tissue, data = tissue_con_0.5_ddefol_r)
+summary(aov_tissue_con_0.5_ddefol_r)
+tukey <- TukeyHSD(aov_tissue_con_0.5_ddefol_r, 'tissue', ordered = TRUE, conf.level = 0.95)
+
+#compact letter display
+cld <- multcompLetters4(aov_tissue_con_0.5_ddefol_r, tukey)
+
+#table with factors and 3rd quartile 
+tissue_waje <- group_by(tissue_con_0.5_ddefol_r, tissue) %>%
+  summarise(w=mean(APE),sd = sd(APE)) %>%
+  arrange(desc(w))
+
+#extracting compact letter display and adding to the Tukey table
+cld <- as.data.frame.list(cld$tissue)
+tissue_waje$cld <- cld$Letters
+print(tissue_waje) #this prints the letters that are assigned based on significance, note that for the "mock" data these will not be significant
+
+#build the graph and save as a PDF to figs folder 
+pdf('./figs/tukey_control_0.5_donor_defol_recip_tissue.pdf') #pdf will show up in figs folder
+ggplot(tissue_waje, aes(tissue, w)) + 
+  geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
+  geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
+  labs(x = "Plant Tissue Types", y = "Atomic Percent Enrichment") +
+  geom_text(aes(label = cld, y = w + sd), vjust = -0.5)
+dev.off() #where to stop pdf
 
 
 ######Control Recipients- Donors
 #subset the data more to look at tissue groups and APE for donors in the recipient defoliation treatment
-tissue_0.5_rdefol_d <- subset(mock_foliar, treatment %in% c('0.5_recip_defol'))
-tissue_0.5_rdefol_d <- subset(tissue_0.5_rdefol_d, donor_or_recip %in% c('d'))
-data.frame(tissue_0.5_rdefol_d)
+tissue_con_0.5_rdefol_d <- subset(mock_foliar, treatment %in% c('con_0.5_recip_defol'))
+tissue_con_0.5_rdefol_d <- subset(tissue_con_0.5_rdefol_d, donor_or_recip %in% c('d'))
+data.frame(tissue_con_0.5_rdefol_d)
+
+#build the model and run TukeyHSD
+aov_tissue_con_0.5_rdefol_d <- aov(APE ~ tissue, data = tissue_con_0.5_rdefol_d)
+summary(aov_tissue_con_0.5_rdefol_d)
+tukey <- TukeyHSD(aov_tissue_con_0.5_rdefol_d, 'tissue', ordered = TRUE, conf.level = 0.95)
+
+#compact letter display
+cld <- multcompLetters4(aov_tissue_con_0.5_rdefol_d, tukey)
+
+#table with factors and 3rd quartile 
+tissue_waje <- group_by(tissue_con_0.5_rdefol_d, tissue) %>%
+  summarise(w=mean(APE),sd = sd(APE)) %>%
+  arrange(desc(w))
+
+#extracting compact letter display and adding to the Tukey table
+cld <- as.data.frame.list(cld$tissue)
+tissue_waje$cld <- cld$Letters
+print(tissue_waje) #this prints the letters that are assigned based on significance, note that for the "mock" data these will not be significant
+
+#build the graph and save as a PDF to figs folder 
+pdf('./figs/tukey_control_0.5_recip_defol_donor_tissue.pdf') #pdf will show up in figs folder
+ggplot(tissue_waje, aes(tissue, w)) + 
+  geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
+  geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
+  labs(x = "Plant Tissue Types", y = "Atomic Percent Enrichment") +
+  geom_text(aes(label = cld, y = w + sd), vjust = -0.5)
+dev.off() #where to stop pdf
 
 
 ######Control Recipients- Recipients 
 #subset the data more to look at tissue groups and APE for recipients in the recipient defoliation treatment
-tissue_0.5_rdefol_r <- subset(mock_foliar, treatment %in% c('0.5_recip_defol'))
-tissue_0.5_rdefol_r <- subset(tissue_0.5_rdefol_r, donor_or_recip %in% c('r'))
-data.frame(tissue_0.5_rdefol_r)
+tissue_con_0.5_rdefol_r <- subset(mock_foliar, treatment %in% c('con_0.5_recip_defol'))
+tissue_con_0.5_rdefol_r <- subset(tissue_con_0.5_rdefol_r, donor_or_recip %in% c('r'))
+data.frame(tissue_con_0.5_rdefol_r)
+
+#build the model and run TukeyHSD
+aov_tissue_con_0.5_rdefol_r <- aov(APE ~ tissue, data = tissue_con_0.5_rdefol_r)
+summary(aov_tissue_con_0.5_rdefol_r)
+tukey <- TukeyHSD(aov_tissue_con_0.5_rdefol_r, 'tissue', ordered = TRUE, conf.level = 0.95)
+
+#compact letter display
+cld <- multcompLetters4(aov_tissue_con_0.5_rdefol_r, tukey)
+
+#table with factors and 3rd quartile 
+tissue_waje <- group_by(tissue_con_0.5_rdefol_r, tissue) %>%
+  summarise(w=mean(APE),sd = sd(APE)) %>%
+  arrange(desc(w))
+
+#extracting compact letter display and adding to the Tukey table
+cld <- as.data.frame.list(cld$tissue)
+tissue_waje$cld <- cld$Letters
+print(tissue_waje) #this prints the letters that are assigned based on significance, note that for the "mock" data these will not be significant
+
+#build the graph and save as a PDF to figs folder 
+pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
+ggplot(tissue_waje, aes(tissue, w)) + 
+  geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
+  geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
+  labs(x = "Plant Tissue Types", y = "Atomic Percent Enrichment") +
+  geom_text(aes(label = cld, y = w + sd), vjust = -0.5)
+dev.off() #where to stop pdf
 
 
-
+#Is there a way to get all of the tukey test graphs to show up in one panel??
 
 
 #####0.75 Defol and 1.0 Defol######################################################################################
