@@ -9,7 +9,7 @@ library(tidyr)
 
 #load the data 
 mock_foliar <- read.csv(file = './data/mock_foliar.csv')
-data.frame(mock_foliar)
+mock_foliar$donor_or_recip <- as.factor(mock_foliar$donor_or_recip)
 
 #drop the random X to X.6  columns 
 mock_foliar <- subset.data.frame(mock_foliar, select = c('plant_num', 'isotope_lab', 'treatment', 'donor_or_recip', 'tissue', 'APE'))
@@ -17,6 +17,11 @@ mock_foliar <- subset.data.frame(mock_foliar, select = c('plant_num', 'isotope_l
 #delete the NA's from the APE column
 mock_foliar <- mock_foliar %>% drop_na(APE) #donor seedlings in the foliar treatment will have no APE for tissue group needles b/c they were directly labeled with isotope solution 
 View(mock_foliar)
+
+#assign mean values to each treatment
+with(mock_foliar, expand.grid(unique(donor_or_recip), unique(treatment), unique(tissue))) #lists out all of the individual combos         
+
+
 
 
 #####Power Analysis############################################################################# 
@@ -50,22 +55,28 @@ dev.off() #where to stop pdf
 
 ######2 x 4 Factorial Anova##################################################################
 #make the model
+class(mock_foliar$donor_or_recip)
+contrasts(mock_foliar$donor_or_recip)
+mock_foliar$donor_or_recip <- factor(mock_foliar$donor_or_recip, levels = c('r', 'd'))
+
 lm_mock_foliar <- lm(APE ~ donor_or_recip * tissue, data = mock_foliar)
 summary(lm_mock_foliar)
 
 #check residuals of the model
-par(mfrow = c(2, 2))
+par(mfrow = c(1, 2))
 plot(lm_mock_foliar) 
 #the residuals vs. fitted and the Scale-Location graphs: look for normal spread of points along red line, patterns show issues with homoscedasticity
 #The Q-Q plot: look for points hugging red line, deviance from line shows issues with residuals
 #The Residuals vs Leverage graph indicates if there are large outliers that have a disproportionate effect on the regression
 
 #run the Anova
-aov_mock_foliar <- Anova(lm_mock_foliar)
+anova(lm_mock_foliar)                         # type 1 anova
+aov_mock_foliar <- car::Anova(lm_mock_foliar) # useful if we want to do type 2 or 3 anova
 summary(aov_mock_foliar)
 
 #what is going on there^^^^
 
+vegan::showvarparts(2)
 
 
 
@@ -75,7 +86,7 @@ summary(aov_mock_foliar)
 #####In the control group, cores were rotated to sever mycorrhizal connections.
 
 #subset the data
-no_defol <- subset(mock_foliar, treatment %in% c('no_defol', 'con_no_defol'))
+no_defol <- subset(mock_foliar, treatment %in% c('no_defol_donors','no_defol_recips', 'con_no_defol_donors', 'con_no_defol_recips'))
 data.frame(no_defol)
 
 #make a graph: 
@@ -86,7 +97,6 @@ ggplot(no_defol, aes(x = treatment, y=APE, fill = donor_or_recip)) +
   ylab("Atomic Percent Enrichment (APE)") + xlab("Treatment") +
   scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
 dev.off()
-
 
 #Create a model: no defol vs. control no defol
 lm_no_defol <- lm(APE ~ treatment, data=no_defol)
@@ -169,6 +179,13 @@ dev.off() #where to stop pdf
 
 
 
+
+
+
+
+
+
+
 #####0.5 Defol#############################################################################
 #####In this experimental treatment, designated seedlings had 50% of their needles removed to trigger a root senescence event 
 #####In the control group, cores were rotated to sever mycorrhizal connections; preventing isotopes from moving via mycorrhizae
@@ -182,6 +199,12 @@ pdf('./figs/defol_0.5.pdf') #pdf will show up in figs folder
 par(mfrow = c(1,1))
 ggplot(defol_0.5, aes(x= treatment, y=APE,fill=donor_or_recip))+geom_boxplot()+ylab("Atomic Percent Enrichment (APE)")+xlab("Treatment")+scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
 dev.off()
+
+#sort by donor vs recipients 
+ggplot(defol_0.5, aes(x = treatment, y = APE)) + 
+  geom_boxplot(fill = donor_or_recip) + 
+  facet_wrap(~ donor_or_recip)
+
 
 
 ##########0.5 Defol Experimental Group
@@ -200,6 +223,7 @@ ggplot(defol_0.5_donor, aes(x = treatment, y=APE, fill = donor_or_recip)) +
   ylab("Atomic Percent Enrichment (APE)") + xlab("Treatment") +
   scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
 dev.off()
+
 
 #run the lm
 lm_0.5_donor <- lm(APE ~ donor_or_recip, data=defol_0.5_donor)
@@ -221,7 +245,7 @@ ggplot(defol_0.5_recip, aes(x = treatment, y=APE, fill = donor_or_recip)) +
 dev.off()
 
 #run the lm
-lm_0.5_recip <- lm(APE ~ treatment, data=defol_0.5_recip)
+lm_0.5_recip <- lm(APE ~ donor_or_recip, data=defol_0.5_recip)
 Anova(lm_0.5_recip)
 summary(lm_0.5_recip)
 
@@ -251,22 +275,15 @@ defol_0.5_ronly <- subset(defol_0.5_ronly, treatment %in% c('0.5_donor_defol', '
 data.frame(defol_0.5_ronly)
 
 
-
-
-
 #######How to change the color of the boxplot to match the recipient color???
 #make a graph: 
 pdf('./figs/0.5_ddefol_r_vs rdefol_r.pdf') #pdf will show up in figs folder
 par(mfrow = c(1,1))
 ggplot(defol_0.5_ronly, aes(x = treatment, y=APE, fill = donor_or_recip)) +
-  geom_boxplot() +
+  geom_boxplot(fill = 'cyan2') +
   ylab("Atomic Percent Enrichment (APE)") + xlab("Treatment") +
   scale_fill_discrete(name = 'Seedling Type', label = c('Recipients'))
-dev.off()
-
-
-
-
+dev.off() #the legend is gone here, maybe there is a way to fix that?
 
 #run the lm
 lm_defol_0.5_ronly <- lm(APE ~ treatment, data=defol_0.5_ronly)
