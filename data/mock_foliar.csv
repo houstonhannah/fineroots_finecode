@@ -1,686 +1,129 @@
-﻿plant_num,isotope_lab,treatment,donor_or_recip,tissue,APE
-1,foliar,no_defol_donor,d,needles,NA
-1,foliar,no_defol_donor,d,stem ,0.0275
-1,foliar,no_defol_donor,d,lowroot,0.0538
-1,foliar,no_defol_donor,d,highroot,0.0634
-2,foliar,no_defol_donor,r,needles,0.0668
-2,foliar,no_defol_donor,r,stem ,0.0428
-2,foliar,no_defol_donor,r,lowroot,0.0170
-2,foliar,no_defol_donor,r,highroot,0.0093
-3,foliar,no_defol_donor,d,needles,NA
-3,foliar,no_defol_donor,d,stem ,0.0493
-3,foliar,no_defol_donor,d,lowroot,0.0251
-3,foliar,no_defol_donor,d,highroot,0.0645
-4,foliar,no_defol_donor,r,needles,0.0203
-4,foliar,no_defol_donor,r,stem ,0.0371
-4,foliar,no_defol_donor,r,lowroot,0.0167
-4,foliar,no_defol_donor,r,highroot,0.0387
-5,foliar,no_defol_donor,d,needles,NA
-5,foliar,no_defol_donor,d,stem ,0.0301
-5,foliar,no_defol_donor,d,lowroot,0.0678
-5,foliar,no_defol_donor,d,highroot,0.0411
-6,foliar,no_defol_donor,r,needles,0.0590
-6,foliar,no_defol_donor,r,stem ,0.0594
-6,foliar,no_defol_donor,r,lowroot,0.0236
-6,foliar,no_defol_donor,r,highroot,0.0217
-7,foliar,no_defol_donor,d,needles,NA
-7,foliar,no_defol_donor,d,stem ,0.0272
-7,foliar,no_defol_donor,d,lowroot,0.0637
-7,foliar,no_defol_donor,d,highroot,0.0081
-8,foliar,no_defol_donor,r,needles,0.0425
-8,foliar,no_defol_donor,r,stem ,0.0548
-8,foliar,no_defol_donor,r,lowroot,0.0204
-8,foliar,no_defol_donor,r,highroot,0.0022
-9,foliar,no_defol_donor,d,needles,NA
-9,foliar,no_defol_donor,d,stem ,0.0029
-9,foliar,no_defol_donor,d,lowroot,0.0324
-9,foliar,no_defol_donor,d,highroot,0.0158
-10,foliar,no_defol_donor,r,needles,0.0437
-10,foliar,no_defol_donor,r,stem ,0.0631
-10,foliar,no_defol_donor,r,lowroot,0.0398
-10,foliar,no_defol_donor,r,highroot,0.0677
-11,foliar,no_defol_recip,d,needles,NA
-11,foliar,no_defol_recip,d,stem ,0.0644
-11,foliar,no_defol_recip,d,lowroot,0.0041
-11,foliar,no_defol_recip,d,highroot,0.0231
-12,foliar,no_defol_recip,r,needles,0.0570
-12,foliar,no_defol_recip,r,stem ,0.0015
-12,foliar,no_defol_recip,r,lowroot,0.0101
-12,foliar,no_defol_recip,r,highroot,0.0045
-13,foliar,no_defol_recip,d,needles,NA
-13,foliar,no_defol_recip,d,stem ,0.0396
-13,foliar,no_defol_recip,d,lowroot,0.0584
-13,foliar,no_defol_recip,d,highroot,0.0262
-14,foliar,no_defol_recip,r,needles,0.0075
-14,foliar,no_defol_recip,r,stem ,0.0473
-14,foliar,no_defol_recip,r,lowroot,0.0364
-14,foliar,no_defol_recip,r,highroot,0.0044
-15,foliar,no_defol_recip,d,needles,NA
-15,foliar,no_defol_recip,d,stem ,0.0447
-15,foliar,no_defol_recip,d,lowroot,0.0530
-15,foliar,no_defol_recip,d,highroot,0.0207
-16,foliar,no_defol_recip,r,needles,0.0274
-16,foliar,no_defol_recip,r,stem ,0.0522
-16,foliar,no_defol_recip,r,lowroot,0.0035
-16,foliar,no_defol_recip,r,highroot,0.0106
-17,foliar,no_defol_recip,d,needles,NA
-17,foliar,no_defol_recip,d,stem ,0.0578
-17,foliar,no_defol_recip,d,lowroot,0.0353
-17,foliar,no_defol_recip,d,highroot,0.0300
-18,foliar,no_defol_recip,r,needles,0.0144
-18,foliar,no_defol_recip,r,stem ,0.0276
-18,foliar,no_defol_recip,r,lowroot,0.0287
-18,foliar,no_defol_recip,r,highroot,0.0523
-19,foliar,no_defol_recip,d,needles,NA
-19,foliar,no_defol_recip,d,stem ,0.0387
-19,foliar,no_defol_recip,d,lowroot,0.0374
-19,foliar,no_defol_recip,d,highroot,0.0047
-20,foliar,no_defol_recip,r,needles,0.0577
-20,foliar,no_defol_recip,r,stem ,0.0410
-20,foliar,no_defol_recip,r,lowroot,0.0212
-20,foliar,no_defol_recip,r,highroot,0.0470
-21,foliar,con_no_defol_donor,d,needles,NA
-21,foliar,con_no_defol_donor,d,stem ,0.0545
-21,foliar,con_no_defol_donor,d,lowroot,0.0508
-21,foliar,con_no_defol_donor,d,highroot,0.0546
-22,foliar,con_no_defol_donor,r,needles,0.0168
-22,foliar,con_no_defol_donor,r,stem ,0.0329
-22,foliar,con_no_defol_donor,r,lowroot,0.0436
-22,foliar,con_no_defol_donor,r,highroot,0.0623
-23,foliar,con_no_defol_donor,d,needles,NA
-23,foliar,con_no_defol_donor,d,stem ,0.0696
-23,foliar,con_no_defol_donor,d,lowroot,0.0344
-23,foliar,con_no_defol_donor,d,highroot,0.0410
-24,foliar,con_no_defol_donor,r,needles,0.0141
-24,foliar,con_no_defol_donor,r,stem ,0.0647
-24,foliar,con_no_defol_donor,r,lowroot,0.0057
-24,foliar,con_no_defol_donor,r,highroot,0.0454
-25,foliar,con_no_defol_donor,d,needles,NA
-25,foliar,con_no_defol_donor,d,stem ,0.0555
-25,foliar,con_no_defol_donor,d,lowroot,0.0650
-25,foliar,con_no_defol_donor,d,highroot,0.0202
-26,foliar,con_no_defol_donor,r,needles,0.0128
-26,foliar,con_no_defol_donor,r,stem ,0.0096
-26,foliar,con_no_defol_donor,r,lowroot,0.0561
-26,foliar,con_no_defol_donor,r,highroot,0.0428
-27,foliar,con_no_defol_donor,d,needles,NA
-27,foliar,con_no_defol_donor,d,stem ,0.0677
-27,foliar,con_no_defol_donor,d,lowroot,0.0250
-27,foliar,con_no_defol_donor,d,highroot,0.0291
-28,foliar,con_no_defol_donor,r,needles,0.0347
-28,foliar,con_no_defol_donor,r,stem ,0.0093
-28,foliar,con_no_defol_donor,r,lowroot,0.0492
-28,foliar,con_no_defol_donor,r,highroot,0.0428
-29,foliar,con_no_defol_donor,d,needles,NA
-29,foliar,con_no_defol_donor,d,stem ,0.0475
-29,foliar,con_no_defol_donor,d,lowroot,0.0689
-29,foliar,con_no_defol_donor,d,highroot,0.0110
-30,foliar,con_no_defol_donor,r,needles,0.0260
-30,foliar,con_no_defol_donor,r,stem ,0.0618
-30,foliar,con_no_defol_donor,r,lowroot,0.0436
-30,foliar,con_no_defol_donor,r,highroot,0.0183
-31,foliar,con_no_defol_recip,d,needles,NA
-31,foliar,con_no_defol_recip,d,stem ,0.0482
-31,foliar,con_no_defol_recip,d,lowroot,0.0325
-31,foliar,con_no_defol_recip,d,highroot,0.0625
-32,foliar,con_no_defol_recip,r,needles,0.0487
-32,foliar,con_no_defol_recip,r,stem ,0.0057
-32,foliar,con_no_defol_recip,r,lowroot,0.0461
-32,foliar,con_no_defol_recip,r,highroot,0.0122
-33,foliar,con_no_defol_recip,d,needles,NA
-33,foliar,con_no_defol_recip,d,stem ,0.0530
-33,foliar,con_no_defol_recip,d,lowroot,0.0593
-33,foliar,con_no_defol_recip,d,highroot,0.0400
-34,foliar,con_no_defol_recip,r,needles,0.0337
-34,foliar,con_no_defol_recip,r,stem ,0.0404
-34,foliar,con_no_defol_recip,r,lowroot,0.0141
-34,foliar,con_no_defol_recip,r,highroot,0.0267
-35,foliar,con_no_defol_recip,d,needles,NA
-35,foliar,con_no_defol_recip,d,stem ,0.0296
-35,foliar,con_no_defol_recip,d,lowroot,0.0233
-35,foliar,con_no_defol_recip,d,highroot,0.0648
-36,foliar,con_no_defol_recip,r,needles,0.0134
-36,foliar,con_no_defol_recip,r,stem ,0.0621
-36,foliar,con_no_defol_recip,r,lowroot,0.0018
-36,foliar,con_no_defol_recip,r,highroot,0.0003
-37,foliar,con_no_defol_recip,d,needles,NA
-37,foliar,con_no_defol_recip,d,stem ,0.0467
-37,foliar,con_no_defol_recip,d,lowroot,0.0263
-37,foliar,con_no_defol_recip,d,highroot,0.0246
-38,foliar,con_no_defol_recip,r,needles,0.0106
-38,foliar,con_no_defol_recip,r,stem ,0.0398
-38,foliar,con_no_defol_recip,r,lowroot,0.0458
-38,foliar,con_no_defol_recip,r,highroot,0.0609
-39,foliar,con_no_defol_recip,d,needles,NA
-39,foliar,con_no_defol_recip,d,stem ,0.0202
-39,foliar,con_no_defol_recip,d,lowroot,0.0056
-39,foliar,con_no_defol_recip,d,highroot,0.0244
-40,foliar,con_no_defol_recip,r,needles,0.0590
-40,foliar,con_no_defol_recip,r,stem ,0.0555
-40,foliar,con_no_defol_recip,r,lowroot,0.0193
-40,foliar,con_no_defol_recip,r,highroot,0.0281
-41,foliar,0.5_donor_defol,d,needles,NA
-41,foliar,0.5_donor_defol,d,stem ,0.0315
-41,foliar,0.5_donor_defol,d,lowroot,0.0087
-41,foliar,0.5_donor_defol,d,highroot,0.0290
-42,foliar,0.5_donor_defol,r,needles,0.0439
-42,foliar,0.5_donor_defol,r,stem ,0.0363
-42,foliar,0.5_donor_defol,r,lowroot,0.0236
-42,foliar,0.5_donor_defol,r,highroot,0.0683
-43,foliar,0.5_donor_defol,d,needles,NA
-43,foliar,0.5_donor_defol,d,stem ,0.0477
-43,foliar,0.5_donor_defol,d,lowroot,0.0207
-43,foliar,0.5_donor_defol,d,highroot,0.0035
-44,foliar,0.5_donor_defol,r,needles,0.0680
-44,foliar,0.5_donor_defol,r,stem ,0.0395
-44,foliar,0.5_donor_defol,r,lowroot,0.0386
-44,foliar,0.5_donor_defol,r,highroot,0.0370
-45,foliar,0.5_donor_defol,d,needles,NA
-45,foliar,0.5_donor_defol,d,stem ,0.0683
-45,foliar,0.5_donor_defol,d,lowroot,0.0076
-45,foliar,0.5_donor_defol,d,highroot,0.0159
-46,foliar,0.5_donor_defol,r,needles,0.0635
-46,foliar,0.5_donor_defol,r,stem ,0.0514
-46,foliar,0.5_donor_defol,r,lowroot,0.0039
-46,foliar,0.5_donor_defol,r,highroot,0.0140
-47,foliar,0.5_donor_defol,d,needles,NA
-47,foliar,0.5_donor_defol,d,stem ,0.0327
-47,foliar,0.5_donor_defol,d,lowroot,0.0327
-47,foliar,0.5_donor_defol,d,highroot,0.0233
-48,foliar,0.5_donor_defol,r,needles,0.0092
-48,foliar,0.5_donor_defol,r,stem ,0.0211
-48,foliar,0.5_donor_defol,r,lowroot,0.0067
-48,foliar,0.5_donor_defol,r,highroot,0.0622
-49,foliar,0.5_donor_defol,d,needles,NA
-49,foliar,0.5_donor_defol,d,stem ,0.0611
-49,foliar,0.5_donor_defol,d,lowroot,0.0467
-49,foliar,0.5_donor_defol,d,highroot,0.0681
-50,foliar,0.5_donor_defol,r,needles,0.0270
-50,foliar,0.5_donor_defol,r,stem ,0.0452
-50,foliar,0.5_donor_defol,r,lowroot,0.0660
-50,foliar,0.5_donor_defol,r,highroot,0.0348
-51,foliar,0.5_recip_defol,d,needles,NA
-51,foliar,0.5_recip_defol,d,stem ,0.0391
-51,foliar,0.5_recip_defol,d,lowroot,0.0568
-51,foliar,0.5_recip_defol,d,highroot,0.0519
-52,foliar,0.5_recip_defol,r,needles,0.0446
-52,foliar,0.5_recip_defol,r,stem ,0.0370
-52,foliar,0.5_recip_defol,r,lowroot,0.0514
-52,foliar,0.5_recip_defol,r,highroot,0.0289
-53,foliar,0.5_recip_defol,d,needles,NA
-53,foliar,0.5_recip_defol,d,stem ,0.0562
-53,foliar,0.5_recip_defol,d,lowroot,0.0175
-53,foliar,0.5_recip_defol,d,highroot,0.0626
-54,foliar,0.5_recip_defol,r,needles,0.0210
-54,foliar,0.5_recip_defol,r,stem ,0.0409
-54,foliar,0.5_recip_defol,r,lowroot,0.0684
-54,foliar,0.5_recip_defol,r,highroot,0.0242
-55,foliar,0.5_recip_defol,d,needles,NA
-55,foliar,0.5_recip_defol,d,stem ,0.0658
-55,foliar,0.5_recip_defol,d,lowroot,0.0199
-55,foliar,0.5_recip_defol,d,highroot,0.0045
-56,foliar,0.5_recip_defol,r,needles,0.0700
-56,foliar,0.5_recip_defol,r,stem ,0.0275
-56,foliar,0.5_recip_defol,r,lowroot,0.0051
-56,foliar,0.5_recip_defol,r,highroot,0.0486
-57,foliar,0.5_recip_defol,d,needles,NA
-57,foliar,0.5_recip_defol,d,stem ,0.0477
-57,foliar,0.5_recip_defol,d,lowroot,0.0414
-57,foliar,0.5_recip_defol,d,highroot,0.0441
-58,foliar,0.5_recip_defol,r,needles,0.0224
-58,foliar,0.5_recip_defol,r,stem ,0.0146
-58,foliar,0.5_recip_defol,r,lowroot,0.0262
-58,foliar,0.5_recip_defol,r,highroot,0.0646
-59,foliar,0.5_recip_defol,d,needles,NA
-59,foliar,0.5_recip_defol,d,stem ,0.0095
-59,foliar,0.5_recip_defol,d,lowroot,0.0176
-59,foliar,0.5_recip_defol,d,highroot,0.0483
-60,foliar,0.5_recip_defol,r,needles,0.0305
-60,foliar,0.5_recip_defol,r,stem ,0.0443
-60,foliar,0.5_recip_defol,r,lowroot,0.0570
-60,foliar,0.5_recip_defol,r,highroot,0.0507
-61,foliar,con_0.5_donor_defol,d,needles,NA
-61,foliar,con_0.5_donor_defol,d,stem ,0.0648
-61,foliar,con_0.5_donor_defol,d,lowroot,0.0265
-61,foliar,con_0.5_donor_defol,d,highroot,0.0571
-62,foliar,con_0.5_donor_defol,r,needles,0.0084
-62,foliar,con_0.5_donor_defol,r,stem ,0.0043
-62,foliar,con_0.5_donor_defol,r,lowroot,0.0378
-62,foliar,con_0.5_donor_defol,r,highroot,0.0162
-63,foliar,con_0.5_donor_defol,d,needles,NA
-63,foliar,con_0.5_donor_defol,d,stem ,0.0611
-63,foliar,con_0.5_donor_defol,d,lowroot,0.0545
-63,foliar,con_0.5_donor_defol,d,highroot,0.0507
-64,foliar,con_0.5_donor_defol,r,needles,0.0452
-64,foliar,con_0.5_donor_defol,r,stem ,0.0467
-64,foliar,con_0.5_donor_defol,r,lowroot,0.0106
-64,foliar,con_0.5_donor_defol,r,highroot,0.0183
-65,foliar,con_0.5_donor_defol,d,needles,NA
-65,foliar,con_0.5_donor_defol,d,stem ,0.0434
-65,foliar,con_0.5_donor_defol,d,lowroot,0.0278
-65,foliar,con_0.5_donor_defol,d,highroot,0.0471
-66,foliar,con_0.5_donor_defol,r,needles,0.0138
-66,foliar,con_0.5_donor_defol,r,stem ,0.0062
-66,foliar,con_0.5_donor_defol,r,lowroot,0.0357
-66,foliar,con_0.5_donor_defol,r,highroot,0.0430
-67,foliar,con_0.5_donor_defol,d,needles,NA
-67,foliar,con_0.5_donor_defol,d,stem ,0.0289
-67,foliar,con_0.5_donor_defol,d,lowroot,0.0348
-67,foliar,con_0.5_donor_defol,d,highroot,0.0591
-68,foliar,con_0.5_donor_defol,r,needles,0.0645
-68,foliar,con_0.5_donor_defol,r,stem ,0.0545
-68,foliar,con_0.5_donor_defol,r,lowroot,0.0351
-68,foliar,con_0.5_donor_defol,r,highroot,0.0561
-69,foliar,con_0.5_donor_defol,d,needles,NA
-69,foliar,con_0.5_donor_defol,d,stem ,0.0498
-69,foliar,con_0.5_donor_defol,d,lowroot,0.0668
-69,foliar,con_0.5_donor_defol,d,highroot,0.0661
-70,foliar,con_0.5_donor_defol,r,needles,0.0214
-70,foliar,con_0.5_donor_defol,r,stem ,0.0561
-70,foliar,con_0.5_donor_defol,r,lowroot,0.0116
-70,foliar,con_0.5_donor_defol,r,highroot,0.0291
-71,foliar,con_0.5_recip_defol,d,needles,NA
-71,foliar,con_0.5_recip_defol,d,stem ,0.0655
-71,foliar,con_0.5_recip_defol,d,lowroot,0.0157
-71,foliar,con_0.5_recip_defol,d,highroot,0.0660
-72,foliar,con_0.5_recip_defol,r,needles,0.0281
-72,foliar,con_0.5_recip_defol,r,stem ,0.0159
-72,foliar,con_0.5_recip_defol,r,lowroot,0.0234
-72,foliar,con_0.5_recip_defol,r,highroot,0.0283
-73,foliar,con_0.5_recip_defol,d,needles,NA
-73,foliar,con_0.5_recip_defol,d,stem ,0.0352
-73,foliar,con_0.5_recip_defol,d,lowroot,0.0465
-73,foliar,con_0.5_recip_defol,d,highroot,0.0425
-74,foliar,con_0.5_recip_defol,r,needles,0.0292
-74,foliar,con_0.5_recip_defol,r,stem ,0.0559
-74,foliar,con_0.5_recip_defol,r,lowroot,0.0651
-74,foliar,con_0.5_recip_defol,r,highroot,0.0659
-75,foliar,con_0.5_recip_defol,d,needles,NA
-75,foliar,con_0.5_recip_defol,d,stem ,0.0297
-75,foliar,con_0.5_recip_defol,d,lowroot,0.0144
-75,foliar,con_0.5_recip_defol,d,highroot,0.0076
-76,foliar,con_0.5_recip_defol,r,needles,0.0092
-76,foliar,con_0.5_recip_defol,r,stem ,0.0079
-76,foliar,con_0.5_recip_defol,r,lowroot,0.0468
-76,foliar,con_0.5_recip_defol,r,highroot,0.0559
-77,foliar,con_0.5_recip_defol,d,needles,NA
-77,foliar,con_0.5_recip_defol,d,stem ,0.0618
-77,foliar,con_0.5_recip_defol,d,lowroot,0.0514
-77,foliar,con_0.5_recip_defol,d,highroot,0.0376
-78,foliar,con_0.5_recip_defol,r,needles,0.0338
-78,foliar,con_0.5_recip_defol,r,stem ,0.0124
-78,foliar,con_0.5_recip_defol,r,lowroot,0.0218
-78,foliar,con_0.5_recip_defol,r,highroot,0.0064
-79,foliar,con_0.5_recip_defol,d,needles,NA
-79,foliar,con_0.5_recip_defol,d,stem ,0.0651
-79,foliar,con_0.5_recip_defol,d,lowroot,0.0142
-79,foliar,con_0.5_recip_defol,d,highroot,0.0652
-80,foliar,con_0.5_recip_defol,r,needles,0.0344
-80,foliar,con_0.5_recip_defol,r,stem ,0.0530
-80,foliar,con_0.5_recip_defol,r,lowroot,0.0096
-80,foliar,con_0.5_recip_defol,r,highroot,0.0505
-81,foliar,0.75_donor_defol,d,needles,NA
-81,foliar,0.75_donor_defol,d,stem ,0.0317
-81,foliar,0.75_donor_defol,d,lowroot,0.0208
-81,foliar,0.75_donor_defol,d,highroot,0.0153
-82,foliar,0.75_donor_defol,r,needles,0.0462
-82,foliar,0.75_donor_defol,r,stem ,0.0598
-82,foliar,0.75_donor_defol,r,lowroot,0.0146
-82,foliar,0.75_donor_defol,r,highroot,0.0667
-83,foliar,0.75_donor_defol,d,needles,NA
-83,foliar,0.75_donor_defol,d,stem ,0.0149
-83,foliar,0.75_donor_defol,d,lowroot,0.0020
-83,foliar,0.75_donor_defol,d,highroot,0.0152
-84,foliar,0.75_donor_defol,r,needles,0.0648
-84,foliar,0.75_donor_defol,r,stem ,0.0407
-84,foliar,0.75_donor_defol,r,lowroot,0.0337
-84,foliar,0.75_donor_defol,r,highroot,0.0476
-85,foliar,0.75_donor_defol,d,needles,NA
-85,foliar,0.75_donor_defol,d,stem ,0.0006
-85,foliar,0.75_donor_defol,d,lowroot,0.0115
-85,foliar,0.75_donor_defol,d,highroot,0.0152
-86,foliar,0.75_donor_defol,r,needles,0.0318
-86,foliar,0.75_donor_defol,r,stem ,0.0469
-86,foliar,0.75_donor_defol,r,lowroot,0.0694
-86,foliar,0.75_donor_defol,r,highroot,0.0612
-87,foliar,0.75_donor_defol,d,needles,NA
-87,foliar,0.75_donor_defol,d,stem ,0.0614
-87,foliar,0.75_donor_defol,d,lowroot,0.0525
-87,foliar,0.75_donor_defol,d,highroot,0.0494
-88,foliar,0.75_donor_defol,r,needles,0.0596
-88,foliar,0.75_donor_defol,r,stem ,0.0493
-88,foliar,0.75_donor_defol,r,lowroot,0.0474
-88,foliar,0.75_donor_defol,r,highroot,0.0128
-89,foliar,0.75_donor_defol,d,needles,NA
-89,foliar,0.75_donor_defol,d,stem ,0.0662
-89,foliar,0.75_donor_defol,d,lowroot,0.0588
-89,foliar,0.75_donor_defol,d,highroot,0.0440
-90,foliar,0.75_donor_defol,r,needles,0.0665
-90,foliar,0.75_donor_defol,r,stem ,0.0500
-90,foliar,0.75_donor_defol,r,lowroot,0.0666
-90,foliar,0.75_donor_defol,r,highroot,0.0394
-91,foliar,0.75_recip_defol,d,needles,NA
-91,foliar,0.75_recip_defol,d,stem ,0.0250
-91,foliar,0.75_recip_defol,d,lowroot,0.0249
-91,foliar,0.75_recip_defol,d,highroot,0.0281
-92,foliar,0.75_recip_defol,r,needles,0.0472
-92,foliar,0.75_recip_defol,r,stem ,0.0052
-92,foliar,0.75_recip_defol,r,lowroot,0.0530
-92,foliar,0.75_recip_defol,r,highroot,0.0471
-93,foliar,0.75_recip_defol,d,needles,NA
-93,foliar,0.75_recip_defol,d,stem ,0.0396
-93,foliar,0.75_recip_defol,d,lowroot,0.0678
-93,foliar,0.75_recip_defol,d,highroot,0.0124
-94,foliar,0.75_recip_defol,r,needles,0.0184
-94,foliar,0.75_recip_defol,r,stem ,0.0667
-94,foliar,0.75_recip_defol,r,lowroot,0.0367
-94,foliar,0.75_recip_defol,r,highroot,0.0622
-95,foliar,0.75_recip_defol,d,needles,NA
-95,foliar,0.75_recip_defol,d,stem ,0.0671
-95,foliar,0.75_recip_defol,d,lowroot,0.0353
-95,foliar,0.75_recip_defol,d,highroot,0.0443
-96,foliar,0.75_recip_defol,r,needles,0.0140
-96,foliar,0.75_recip_defol,r,stem ,0.0686
-96,foliar,0.75_recip_defol,r,lowroot,0.0428
-96,foliar,0.75_recip_defol,r,highroot,0.0160
-97,foliar,0.75_recip_defol,d,needles,NA
-97,foliar,0.75_recip_defol,d,stem ,0.0601
-97,foliar,0.75_recip_defol,d,lowroot,0.0507
-97,foliar,0.75_recip_defol,d,highroot,0.0495
-98,foliar,0.75_recip_defol,r,needles,0.0590
-98,foliar,0.75_recip_defol,r,stem ,0.0657
-98,foliar,0.75_recip_defol,r,lowroot,0.0068
-98,foliar,0.75_recip_defol,r,highroot,0.0505
-99,foliar,0.75_recip_defol,d,needles,NA
-99,foliar,0.75_recip_defol,d,stem ,0.0405
-99,foliar,0.75_recip_defol,d,lowroot,0.0178
-99,foliar,0.75_recip_defol,d,highroot,0.0296
-100,foliar,0.75_recip_defol,r,needles,0.0058
-100,foliar,0.75_recip_defol,r,stem ,0.0353
-100,foliar,0.75_recip_defol,r,lowroot,0.0586
-100,foliar,0.75_recip_defol,r,highroot,0.0320
-101,foliar,con_0.75_donor_defol,d,needles,NA
-101,foliar,con_0.75_donor_defol,d,stem ,0.0190
-101,foliar,con_0.75_donor_defol,d,lowroot,0.0101
-101,foliar,con_0.75_donor_defol,d,highroot,0.0233
-102,foliar,con_0.75_donor_defol,r,needles,0.0284
-102,foliar,con_0.75_donor_defol,r,stem ,0.0245
-102,foliar,con_0.75_donor_defol,r,lowroot,0.0312
-102,foliar,con_0.75_donor_defol,r,highroot,0.0055
-103,foliar,con_0.75_donor_defol,d,needles,NA
-103,foliar,con_0.75_donor_defol,d,stem ,0.0039
-103,foliar,con_0.75_donor_defol,d,lowroot,0.0178
-103,foliar,con_0.75_donor_defol,d,highroot,0.0357
-104,foliar,con_0.75_donor_defol,r,needles,0.0209
-104,foliar,con_0.75_donor_defol,r,stem ,0.0543
-104,foliar,con_0.75_donor_defol,r,lowroot,0.0238
-104,foliar,con_0.75_donor_defol,r,highroot,0.0250
-105,foliar,con_0.75_donor_defol,d,needles,NA
-105,foliar,con_0.75_donor_defol,d,stem ,0.0615
-105,foliar,con_0.75_donor_defol,d,lowroot,0.0171
-105,foliar,con_0.75_donor_defol,d,highroot,0.0442
-106,foliar,con_0.75_donor_defol,r,needles,0.0528
-106,foliar,con_0.75_donor_defol,r,stem ,0.0181
-106,foliar,con_0.75_donor_defol,r,lowroot,0.0530
-106,foliar,con_0.75_donor_defol,r,highroot,0.0448
-107,foliar,con_0.75_donor_defol,d,needles,NA
-107,foliar,con_0.75_donor_defol,d,stem ,0.0453
-107,foliar,con_0.75_donor_defol,d,lowroot,0.0204
-107,foliar,con_0.75_donor_defol,d,highroot,0.0172
-108,foliar,con_0.75_donor_defol,r,needles,0.0618
-108,foliar,con_0.75_donor_defol,r,stem ,0.0667
-108,foliar,con_0.75_donor_defol,r,lowroot,0.0046
-108,foliar,con_0.75_donor_defol,r,highroot,0.0035
-109,foliar,con_0.75_donor_defol,d,needles,NA
-109,foliar,con_0.75_donor_defol,d,stem ,0.0090
-109,foliar,con_0.75_donor_defol,d,lowroot,0.0255
-109,foliar,con_0.75_donor_defol,d,highroot,0.0151
-110,foliar,con_0.75_donor_defol,r,needles,0.0036
-110,foliar,con_0.75_donor_defol,r,stem ,0.0334
-110,foliar,con_0.75_donor_defol,r,lowroot,0.0556
-110,foliar,con_0.75_donor_defol,r,highroot,0.0156
-111,foliar,con_0.75_recip_defol,d,needles,NA
-111,foliar,con_0.75_recip_defol,d,stem ,0.0657
-111,foliar,con_0.75_recip_defol,d,lowroot,0.0164
-111,foliar,con_0.75_recip_defol,d,highroot,0.0057
-112,foliar,con_0.75_recip_defol,r,needles,0.0098
-112,foliar,con_0.75_recip_defol,r,stem ,0.0143
-112,foliar,con_0.75_recip_defol,r,lowroot,0.0514
-112,foliar,con_0.75_recip_defol,r,highroot,0.0391
-113,foliar,con_0.75_recip_defol,d,needles,NA
-113,foliar,con_0.75_recip_defol,d,stem ,0.0505
-113,foliar,con_0.75_recip_defol,d,lowroot,0.0290
-113,foliar,con_0.75_recip_defol,d,highroot,0.0687
-114,foliar,con_0.75_recip_defol,r,needles,0.0559
-114,foliar,con_0.75_recip_defol,r,stem ,0.0518
-114,foliar,con_0.75_recip_defol,r,lowroot,0.0054
-114,foliar,con_0.75_recip_defol,r,highroot,0.0612
-115,foliar,con_0.75_recip_defol,d,needles,NA
-115,foliar,con_0.75_recip_defol,d,stem ,0.0302
-115,foliar,con_0.75_recip_defol,d,lowroot,0.0247
-115,foliar,con_0.75_recip_defol,d,highroot,0.0417
-116,foliar,con_0.75_recip_defol,r,needles,0.0062
-116,foliar,con_0.75_recip_defol,r,stem ,0.0684
-116,foliar,con_0.75_recip_defol,r,lowroot,0.0576
-116,foliar,con_0.75_recip_defol,r,highroot,0.0285
-117,foliar,con_0.75_recip_defol,d,needles,NA
-117,foliar,con_0.75_recip_defol,d,stem ,0.0316
-117,foliar,con_0.75_recip_defol,d,lowroot,0.0598
-117,foliar,con_0.75_recip_defol,d,highroot,0.0456
-118,foliar,con_0.75_recip_defol,r,needles,0.0649
-118,foliar,con_0.75_recip_defol,r,stem ,0.0423
-118,foliar,con_0.75_recip_defol,r,lowroot,0.0340
-118,foliar,con_0.75_recip_defol,r,highroot,0.0148
-119,foliar,con_0.75_recip_defol,d,needles,NA
-119,foliar,con_0.75_recip_defol,d,stem ,0.0100
-119,foliar,con_0.75_recip_defol,d,lowroot,0.0608
-119,foliar,con_0.75_recip_defol,d,highroot,0.0505
-120,foliar,con_0.75_recip_defol,r,needles,0.0206
-120,foliar,con_0.75_recip_defol,r,stem ,0.0050
-120,foliar,con_0.75_recip_defol,r,lowroot,0.0367
-120,foliar,con_0.75_recip_defol,r,highroot,0.0654
-121,foliar,1.0_donor_defol,d,needles,NA
-121,foliar,1.0_donor_defol,d,stem ,0.0692
-121,foliar,1.0_donor_defol,d,lowroot,0.0208
-121,foliar,1.0_donor_defol,d,highroot,0.0609
-122,foliar,1.0_donor_defol,r,needles,0.0032
-122,foliar,1.0_donor_defol,r,stem ,0.0396
-122,foliar,1.0_donor_defol,r,lowroot,0.0232
-122,foliar,1.0_donor_defol,r,highroot,0.0261
-123,foliar,1.0_donor_defol,d,needles,NA
-123,foliar,1.0_donor_defol,d,stem ,0.0184
-123,foliar,1.0_donor_defol,d,lowroot,0.0472
-123,foliar,1.0_donor_defol,d,highroot,0.0423
-124,foliar,1.0_donor_defol,r,needles,0.0665
-124,foliar,1.0_donor_defol,r,stem ,0.0331
-124,foliar,1.0_donor_defol,r,lowroot,0.0574
-124,foliar,1.0_donor_defol,r,highroot,0.0651
-125,foliar,1.0_donor_defol,d,needles,NA
-125,foliar,1.0_donor_defol,d,stem ,0.0379
-125,foliar,1.0_donor_defol,d,lowroot,0.0566
-125,foliar,1.0_donor_defol,d,highroot,0.0475
-126,foliar,1.0_donor_defol,r,needles,0.0455
-126,foliar,1.0_donor_defol,r,stem ,0.0361
-126,foliar,1.0_donor_defol,r,lowroot,0.0050
-126,foliar,1.0_donor_defol,r,highroot,0.0438
-127,foliar,1.0_donor_defol,d,needles,NA
-127,foliar,1.0_donor_defol,d,stem ,0.0598
-127,foliar,1.0_donor_defol,d,lowroot,0.0373
-127,foliar,1.0_donor_defol,d,highroot,0.0615
-128,foliar,1.0_donor_defol,r,needles,0.0672
-128,foliar,1.0_donor_defol,r,stem ,0.0049
-128,foliar,1.0_donor_defol,r,lowroot,0.0700
-128,foliar,1.0_donor_defol,r,highroot,0.0587
-129,foliar,1.0_donor_defol,d,needles,NA
-129,foliar,1.0_donor_defol,d,stem ,0.0528
-129,foliar,1.0_donor_defol,d,lowroot,0.0504
-129,foliar,1.0_donor_defol,d,highroot,0.0610
-130,foliar,1.0_donor_defol,r,needles,0.0213
-130,foliar,1.0_donor_defol,r,stem ,0.0658
-130,foliar,1.0_donor_defol,r,lowroot,0.0470
-130,foliar,1.0_donor_defol,r,highroot,0.0531
-131,foliar,1.0_recip_defol,d,needles,NA
-131,foliar,1.0_recip_defol,d,stem ,0.0669
-131,foliar,1.0_recip_defol,d,lowroot,0.0137
-131,foliar,1.0_recip_defol,d,highroot,0.0300
-132,foliar,1.0_recip_defol,r,needles,0.0066
-132,foliar,1.0_recip_defol,r,stem ,0.0097
-132,foliar,1.0_recip_defol,r,lowroot,0.0083
-132,foliar,1.0_recip_defol,r,highroot,0.0071
-133,foliar,1.0_recip_defol,d,needles,NA
-133,foliar,1.0_recip_defol,d,stem ,0.0146
-133,foliar,1.0_recip_defol,d,lowroot,0.0445
-133,foliar,1.0_recip_defol,d,highroot,0.0345
-134,foliar,1.0_recip_defol,r,needles,0.0350
-134,foliar,1.0_recip_defol,r,stem ,0.0600
-134,foliar,1.0_recip_defol,r,lowroot,0.0094
-134,foliar,1.0_recip_defol,r,highroot,0.0183
-135,foliar,1.0_recip_defol,d,needles,NA
-135,foliar,1.0_recip_defol,d,stem ,0.0472
-135,foliar,1.0_recip_defol,d,lowroot,0.0110
-135,foliar,1.0_recip_defol,d,highroot,0.0603
-136,foliar,1.0_recip_defol,r,needles,0.0098
-136,foliar,1.0_recip_defol,r,stem ,0.0292
-136,foliar,1.0_recip_defol,r,lowroot,0.0639
-136,foliar,1.0_recip_defol,r,highroot,0.0016
-137,foliar,1.0_recip_defol,d,needles,NA
-137,foliar,1.0_recip_defol,d,stem ,0.0124
-137,foliar,1.0_recip_defol,d,lowroot,0.0105
-137,foliar,1.0_recip_defol,d,highroot,0.0085
-138,foliar,1.0_recip_defol,r,needles,0.0111
-138,foliar,1.0_recip_defol,r,stem ,0.0531
-138,foliar,1.0_recip_defol,r,lowroot,0.0633
-138,foliar,1.0_recip_defol,r,highroot,0.0276
-139,foliar,1.0_recip_defol,d,needles,NA
-139,foliar,1.0_recip_defol,d,stem ,0.0570
-139,foliar,1.0_recip_defol,d,lowroot,0.0583
-139,foliar,1.0_recip_defol,d,highroot,0.0660
-140,foliar,1.0_recip_defol,r,needles,0.0199
-140,foliar,1.0_recip_defol,r,stem ,0.0661
-140,foliar,1.0_recip_defol,r,lowroot,0.0088
-140,foliar,1.0_recip_defol,r,highroot,0.0347
-141,foliar,con_1.0_donor_defol,d,needles,NA
-141,foliar,con_1.0_donor_defol,d,stem ,0.0203
-141,foliar,con_1.0_donor_defol,d,lowroot,0.0332
-141,foliar,con_1.0_donor_defol,d,highroot,0.0591
-142,foliar,con_1.0_donor_defol,r,needles,0.0426
-142,foliar,con_1.0_donor_defol,r,stem ,0.0461
-142,foliar,con_1.0_donor_defol,r,lowroot,0.0496
-142,foliar,con_1.0_donor_defol,r,highroot,0.0295
-143,foliar,con_1.0_donor_defol,d,needles,NA
-143,foliar,con_1.0_donor_defol,d,stem ,0.0554
-143,foliar,con_1.0_donor_defol,d,lowroot,0.0676
-143,foliar,con_1.0_donor_defol,d,highroot,0.0515
-144,foliar,con_1.0_donor_defol,r,needles,0.0185
-144,foliar,con_1.0_donor_defol,r,stem ,0.0308
-144,foliar,con_1.0_donor_defol,r,lowroot,0.0056
-144,foliar,con_1.0_donor_defol,r,highroot,0.0414
-145,foliar,con_1.0_donor_defol,d,needles,NA
-145,foliar,con_1.0_donor_defol,d,stem ,0.0248
-145,foliar,con_1.0_donor_defol,d,lowroot,0.0078
-145,foliar,con_1.0_donor_defol,d,highroot,0.0688
-146,foliar,con_1.0_donor_defol,r,needles,0.0045
-146,foliar,con_1.0_donor_defol,r,stem ,0.0367
-146,foliar,con_1.0_donor_defol,r,lowroot,0.0313
-146,foliar,con_1.0_donor_defol,r,highroot,0.0384
-147,foliar,con_1.0_donor_defol,d,needles,NA
-147,foliar,con_1.0_donor_defol,d,stem ,0.0392
-147,foliar,con_1.0_donor_defol,d,lowroot,0.0648
-147,foliar,con_1.0_donor_defol,d,highroot,0.0226
-148,foliar,con_1.0_donor_defol,r,needles,0.0596
-148,foliar,con_1.0_donor_defol,r,stem ,0.0518
-148,foliar,con_1.0_donor_defol,r,lowroot,0.0168
-148,foliar,con_1.0_donor_defol,r,highroot,0.0373
-149,foliar,con_1.0_donor_defol,d,needles,NA
-149,foliar,con_1.0_donor_defol,d,stem ,0.0137
-149,foliar,con_1.0_donor_defol,d,lowroot,0.0033
-149,foliar,con_1.0_donor_defol,d,highroot,0.0675
-150,foliar,con_1.0_donor_defol,r,needles,0.0322
-150,foliar,con_1.0_donor_defol,r,stem ,0.0628
-150,foliar,con_1.0_donor_defol,r,lowroot,0.0187
-150,foliar,con_1.0_donor_defol,r,highroot,0.0667
-151,foliar,con_1.0_recip_defol,d,needles,NA
-151,foliar,con_1.0_recip_defol,d,stem ,0.0591
-151,foliar,con_1.0_recip_defol,d,lowroot,0.0457
-151,foliar,con_1.0_recip_defol,d,highroot,0.0609
-152,foliar,con_1.0_recip_defol,r,needles,0.0221
-152,foliar,con_1.0_recip_defol,r,stem ,0.0080
-152,foliar,con_1.0_recip_defol,r,lowroot,0.0637
-152,foliar,con_1.0_recip_defol,r,highroot,0.0055
-153,foliar,con_1.0_recip_defol,d,needles,NA
-153,foliar,con_1.0_recip_defol,d,stem ,0.0154
-153,foliar,con_1.0_recip_defol,d,lowroot,0.0147
-153,foliar,con_1.0_recip_defol,d,highroot,0.0229
-154,foliar,con_1.0_recip_defol,r,needles,0.0376
-154,foliar,con_1.0_recip_defol,r,stem ,0.0685
-154,foliar,con_1.0_recip_defol,r,lowroot,0.0015
-154,foliar,con_1.0_recip_defol,r,highroot,0.0585
-155,foliar,con_1.0_recip_defol,d,needles,NA
-155,foliar,con_1.0_recip_defol,d,stem ,0.0172
-155,foliar,con_1.0_recip_defol,d,lowroot,0.0175
-155,foliar,con_1.0_recip_defol,d,highroot,0.0315
-156,foliar,con_1.0_recip_defol,r,needles,0.0618
-156,foliar,con_1.0_recip_defol,r,stem ,0.0384
-156,foliar,con_1.0_recip_defol,r,lowroot,0.0511
-156,foliar,con_1.0_recip_defol,r,highroot,0.0192
-157,foliar,con_1.0_recip_defol,d,needles,NA
-157,foliar,con_1.0_recip_defol,d,stem ,0.0561
-157,foliar,con_1.0_recip_defol,d,lowroot,0.0288
-157,foliar,con_1.0_recip_defol,d,highroot,0.0193
-158,foliar,con_1.0_recip_defol,r,needles,0.0006
-158,foliar,con_1.0_recip_defol,r,stem ,0.0024
-158,foliar,con_1.0_recip_defol,r,lowroot,0.0587
-158,foliar,con_1.0_recip_defol,r,highroot,0.0315
-159,foliar,con_1.0_recip_defol,d,needles,NA
-159,foliar,con_1.0_recip_defol,d,stem ,0.0581
-159,foliar,con_1.0_recip_defol,d,lowroot,0.0086
-159,foliar,con_1.0_recip_defol,d,highroot,0.0494
-160,foliar,con_1.0_recip_defol,r,needles,0.0454
-160,foliar,con_1.0_recip_defol,r,stem ,0.0629
-160,foliar,con_1.0_recip_defol,r,lowroot,0.0139
-160,foliar,con_1.0_recip_defol,r,highroot,0.0097
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
+﻿,Var1,Var2,Var3,mean
+1,d,no_defol_donor,stem,
+2,r,no_defol_donor,stem,
+3,d,no_defol_recip,stem,
+4,r,no_defol_recip,stem,
+5,d,con_no_defol_donor,stem,
+6,r,con_no_defol_donor,stem,
+7,d,con_no_defol_recip,stem,
+8,r,con_no_defol_recip,stem,
+9,d,0.5_donor_defol,stem,
+10,r,0.5_donor_defol,stem,
+11,d,0.5_recip_defol,stem,
+12,r,0.5_recip_defol,stem,
+13,d,con_0.5_donor_defol,stem,
+14,r,con_0.5_donor_defol,stem,
+15,d,con_0.5_recip_defol,stem,
+16,r,con_0.5_recip_defol,stem,
+17,d,0.75_donor_defol,stem,
+18,r,0.75_donor_defol,stem,
+19,d,0.75_recip_defol,stem,
+20,r,0.75_recip_defol,stem,
+21,d,con_0.75_donor_defol,stem,
+22,r,con_0.75_donor_defol,stem,
+23,d,con_0.75_recip_defol,stem,
+24,r,con_0.75_recip_defol,stem,
+25,d,1.0_donor_defol,stem,
+26,r,1.0_donor_defol,stem,
+27,d,1.0_recip_defol,stem,
+28,r,1.0_recip_defol,stem,
+29,d,con_1.0_donor_defol,stem,
+30,r,con_1.0_donor_defol,stem,
+31,d,con_1.0_recip_defol,stem,
+32,r,con_1.0_recip_defol,stem,
+33,,,,
+34,,,,
+35,,,,
+36,,,,
+37,,,,
+38,,,,
+39,,,,
+40,,,,
+41,,,,
+42,,,,
+43,,,,
+44,,,,
+45,,,,
+46,,,,
+47,,,,
+48,,,,
+49,,,,
+50,,,,
+51,,,,
+52,,,,
+53,,,,
+54,,,,
+55,,,,
+56,,,,
+57,,,,
+58,,,,
+59,,,,
+60,,,,
+61,,,,
+62,,,,
+63,,,,
+64,,,,
+65,,,,
+66,,,,
+67,,,,
+68,,,,
+69,,,,
+70,,,,
+71,,,,
+72,,,,
+73,,,,
+74,,,,
+75,,,,
+76,,,,
+77,,,,
+78,,,,
+79,,,,
+80,,,,
+81,,,,
+82,,,,
+83,,,,
+84,,,,
+85,,,,
+86,,,,
+87,,,,
+88,,,,
+89,,,,
+90,,,,
+91,,,,
+92,,,,
+93,,,,
+94,,,,
+95,,,,
+96,,,,
+97,,,,
+98,,,,
+99,,,,
+100,,,,
+101,,,,
+102,,,,
+103,,,,
+104,,,,
+105,,,,
+106,,,,
+107,,,,
+108,,,,
+109,,,,
+110,,,,
+111,,,,
+112,,,,
+113,,,,
+114,,,,
+115,,,,
+116,,,,
+117,,,,
+118,,,,
+119,,,,
+120,,,,
+121,,,,
+122,,,,
+123,,,,
+124,,,,
+125,,,,
+126,,,,
+127,,,,
+128,,,,
