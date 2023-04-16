@@ -19,10 +19,17 @@ mock_foliar <- mock_foliar %>% drop_na(APE) #donor seedlings in the foliar treat
 View(mock_foliar)
 
 #assign mean values to each treatment
-with(mock_foliar, expand.grid(unique(donor_or_recip), unique(treatment), unique(tissue))) #lists out all of the individual combos         
+with(mock_foliar, expand.grid(unique(donor_or_recip), unique(treatment), unique(tissue))) #lists out all of the individual combos, each one needs a mean
 
+#once means have been assigned, read in data
+assign_means <- read.csv(file = './data/assign_means.csv')
 
+#drop the random X columns 
+assign_means <- subset.data.frame(assign_means, select = c('group_num', 'donor_or_recip', 'treatment','tissue', 'mean'))
 
+#make a for loop to assign APE values that will average to the assigned means
+for(i in assign_means) {}                                            
+ 
 
 #####Power Analysis############################################################################# 
 #####Conduct a power analysis to determine if there are enough experimental replications to detect a trend
