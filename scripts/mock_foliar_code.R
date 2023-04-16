@@ -31,6 +31,11 @@ assign_means <- subset.data.frame(assign_means, select = c('group_num', 'donor_o
 for(i in assign_means) {}                                            
  
 
+
+
+
+
+
 #####Power Analysis############################################################################# 
 #####Conduct a power analysis to determine if there are enough experimental replications to detect a trend
 
