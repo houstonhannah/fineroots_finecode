@@ -28,8 +28,25 @@ assign_means <- read.csv(file = './data/assign_means.csv')
 assign_means <- subset.data.frame(assign_means, select = c('group_num', 'donor_or_recip', 'treatment','tissue', 'mean'))
 
 #make a for loop to assign APE values that will average to the assigned means
-for(i in assign_means) {}                                            
+#has something to do with rnorm(n, mean, sd)?
+#how to set for no negative numbers?
+#how to deal with NA's?
+
+assign_means <- NULL
+for(i in assign_means$mean) {
+  rnorm(5, assign_means$mean, 1). #has the + sign thing, needs more input?
+}                                            
  
+#write out the for loop:
+
+  #loop through treatment in assign_means
+      #if plant is assigned mean then look up its mean and add error
+      #else print NA (for donor seedling needles)
+
+
+loop through each unique treatment
+loop through each unique plant
+if plant is assigned to specific treatment then look up its mean and add error
 
 
 
@@ -84,11 +101,9 @@ plot(lm_mock_foliar)
 #run the Anova
 anova(lm_mock_foliar)                         # type 1 anova
 aov_mock_foliar <- car::Anova(lm_mock_foliar) # useful if we want to do type 2 or 3 anova
-summary(aov_mock_foliar)
+aov_mock_foliar
 
-#what is going on there^^^^
 
-vegan::showvarparts(2)
 
 
 
