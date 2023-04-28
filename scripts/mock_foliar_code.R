@@ -20,34 +20,6 @@ View(mock_foliar)
 
 
 
-#####Attempted for-loop######################
-
-#assign mean values to each treatment
-#with(mock_foliar, expand.grid(unique(donor_or_recip), unique(treatment), unique(tissue))) #lists out all of the individual combos, each one needs a mean
-
-#once means have been assigned, read in data
-#assign_means <- read.csv(file = './data/assign_means.csv')
-
-#drop the random X columns 
-#assign_means <- subset.data.frame(assign_means, select = c('group_num', 'donor_or_recip', 'treatment','tissue', 'mean'))
-
-#make a for loop to assign APE values that will average to the assigned means
-#has something to do with rnorm(n, mean, sd)?
-#how to set for no negative numbers?
-#how to deal with NA's?
-
-#assign_means <- NULL
-#for(i in assign_means$mean) {
-# rnorm(5, assign_means$mean, 1). #has the + sign thing, needs more input?
-#}                                            
- 
-#write out the for loop:
-
-  #loop through treatment in assign_means
-      #if plant is assigned mean then look up its mean and add error
-      #else print NA (for donor seedling needles)
-
-
 
 #####Power Analysis############################################################################# 
 #####Conduct a power analysis to determine if there are enough experimental replications to detect a trend
@@ -111,8 +83,6 @@ aov_mock_foliar
 
 
 
-
-
 #####0.5 Defol#############################################################################
 #####In this experimental treatment, designated seedlings had 50% of their needles removed to trigger a root senescence event 
 #####In the control group, cores were rotated to sever mycorrhizal connections; preventing isotopes from moving via mycorrhizae
@@ -127,9 +97,11 @@ par(mfrow = c(1,1))
 ggplot(defol_0.5, aes(x= treatment, y=APE,fill=donor_or_recip))+geom_boxplot()+ylab("Atomic Percent Enrichment (APE)")+xlab("Treatment")+scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
 dev.off()
 
-#sort by donor vs recipients (not working currently, will figure this out)
-ggplot(defol_0.5, aes(x = treatment, y = APE)) + 
-  geom_boxplot(fill = donor_or_recip) + 
+#sort by donor vs recipients 
+ggplot(defol_0.5, aes(x = treatment, y = APE, fill = donor_or_recip)) + 
+  geom_boxplot() + 
+  ylab("Atomic Percent Enrichment (APE)") + xlab("Treatment") +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
   facet_wrap(~ donor_or_recip)
 
 
@@ -180,7 +152,6 @@ summary(lm_0.5_recip)
 #subset the data to get only donors 
 defol_0.5_donly <- subset(defol_0.5, donor_or_recip %in% c('d'))
 defol_0.5_donly <- subset(defol_0.5_donly, treatment %in% c('0.5_donor_defol', '0.5_recip_defol'))
-data.frame(defol_0.5_donly)
 
 #make a graph: 
 pdf('./figs/0.5_ddefol_d_vs rdefol_d.pdf') #pdf will show up in figs folder
@@ -199,7 +170,7 @@ summary(lm_defol_0.5_donly)
 #Donor defoliation: recipients vs Recipient defoliation: recipients
 defol_0.5_ronly <- subset(defol_0.5, donor_or_recip %in% c('r'))
 defol_0.5_ronly <- subset(defol_0.5_ronly, treatment %in% c('0.5_donor_defol', '0.5_recip_defol'))
-data.frame(defol_0.5_ronly)
+
 
 #make a graph: 
 pdf('./figs/0.5_ddefol_r_vs rdefol_r.pdf') #pdf will show up in figs folder
@@ -222,7 +193,6 @@ summary(lm_defol_0.5_ronly)
 #CONTROL Donor defoliation: donors vs recipients
 #subset data a little more
 defol_con_0.5_donor <- subset(mock_foliar, treatment %in% c('con_0.5_donor_defol'))
-data.frame(defol_con_0.5_donor)
 
 #make a graph: 
 pdf('./figs/control_0.5_ddefol_d_vs_r.pdf') #pdf will show up in figs folder
@@ -241,7 +211,6 @@ summary(lm_con_0.5_donor)
 #CONTROL Recipient defoliation: donor vs recipients
 #subset data a little more
 defol_con_0.5_recip <- subset(mock_foliar, treatment %in% c('con_0.5_recip_defol'))
-data.frame(defol_con_0.5_recip)
 
 #make a graph: 
 pdf('./figs/control_0.5_rdefol_d_vs_r.pdf') #pdf will show up in figs folder
@@ -261,7 +230,6 @@ summary(lm_con_0.5_recip)
 #subset the data to get only donors 
 defol_0.5_donly <- subset(defol_0.5, donor_or_recip %in% c('d'))
 defol_0.5_con_donly <- subset(defol_0.5_donly, treatment %in% c('con_0.5_donor_defol', 'con_0.5_recip_defol'))
-data.frame(defol_0.5_con_donly)
 
 #make a graph: 
 pdf('./figs/control_0.5_ddefol_d_vs_rdefol_d.pdf') #pdf will show up in figs folder
@@ -280,7 +248,6 @@ summary(lm_defol_0.5_con_donly)
 #CONTROL Donor defoliation: recipients vs Recipient defoliation: recipients
 defol_0.5_ronly <- subset(defol_0.5, donor_or_recip %in% c('r'))
 defol_0.5_con_ronly <- subset(defol_0.5_ronly, treatment %in% c('con_0.5_donor_defol', 'con_0.5_recip_defol'))
-data.frame(defol_0.5_con_ronly)
 
 #make a graph: 
 pdf('./figs/control_0.5_ddefol_r_vs rdefol_r.pdf') #pdf will show up in figs folder
@@ -305,7 +272,7 @@ summary(lm_defol_0.5_con_ronly)
 #subset the data more to look at tissue groups and APE for donors in the donor defoliation treatment
 tissue_0.5_ddefol_d <- subset(mock_foliar, treatment %in% c('0.5_donor_defol'))
 tissue_0.5_ddefol_d <- subset(tissue_0.5_ddefol_d, donor_or_recip %in% c('d'))
-data.frame(tissue_0.5_ddefol_d)
+
 
 #build the model and run TukeyHSD
 aov_tissue_0.5_ddefol_d <- aov(APE ~ tissue, data = tissue_0.5_ddefol_d)
@@ -340,7 +307,6 @@ dev.off() #where to stop pdf
 #subset the data more to look at tissue groups and APE for recipients in the donor defoliation treatment
 tissue_0.5_ddefol_r <- subset(mock_foliar, treatment %in% c('0.5_donor_defol'))
 tissue_0.5_ddefol_r <- subset(tissue_0.5_ddefol_r, donor_or_recip %in% c('r'))
-data.frame(tissue_0.5_ddefol_r)
 
 #build the model and run TukeyHSD
 aov_tissue_0.5_ddefol_r <- aov(APE ~ tissue, data = tissue_0.5_ddefol_r)
@@ -374,7 +340,6 @@ dev.off() #where to stop pdf
 #subset the data more to look at tissue groups and APE for donors in the recipient defoliation treatment
 tissue_0.5_rdefol_d <- subset(mock_foliar, treatment %in% c('0.5_recip_defol'))
 tissue_0.5_rdefol_d <- subset(tissue_0.5_rdefol_d, donor_or_recip %in% c('d'))
-data.frame(tissue_0.5_rdefol_d)
 
 #build the model and run TukeyHSD
 aov_tissue_0.5_rdefol_d <- aov(APE ~ tissue, data = tissue_0.5_rdefol_d)
@@ -408,7 +373,6 @@ dev.off() #where to stop pdf
 #subset the data more to look at tissue groups and APE for recipients in the recipient defoliation treatment
 tissue_0.5_rdefol_r <- subset(mock_foliar, treatment %in% c('0.5_recip_defol'))
 tissue_0.5_rdefol_r <- subset(tissue_0.5_rdefol_r, donor_or_recip %in% c('r'))
-data.frame(tissue_0.5_rdefol_r)
 
 #build the model and run TukeyHSD
 aov_tissue_0.5_rdefol_r <- aov(APE ~ tissue, data = tissue_0.5_rdefol_r)
@@ -444,7 +408,6 @@ dev.off() #where to stop pdf
 #subset the data more to look at tissue groups and APE for donors in the donor defoliation treatment
 tissue_con_0.5_ddefol_d <- subset(mock_foliar, treatment %in% c('con_0.5_donor_defol'))
 tissue_con_0.5_ddefol_d <- subset(tissue_con_0.5_ddefol_d, donor_or_recip %in% c('d'))
-data.frame(tissue_con_0.5_ddefol_d)
 
 #build the model and run TukeyHSD
 aov_tissue_con_0.5_ddefol_d <- aov(APE ~ tissue, data = tissue_con_0.5_ddefol_d)
@@ -479,7 +442,6 @@ dev.off() #where to stop pdf
 #subset the data more to look at tissue groups and APE for recipients in the donor defoliation treatment
 tissue_con_0.5_ddefol_r <- subset(mock_foliar, treatment %in% c('con_0.5_donor_defol'))
 tissue_con_0.5_ddefol_r <- subset(tissue_con_0.5_ddefol_r, donor_or_recip %in% c('r'))
-data.frame(tissue_con_0.5_ddefol_r)
 
 #build the model and run TukeyHSD
 aov_tissue_con_0.5_ddefol_r <- aov(APE ~ tissue, data = tissue_con_0.5_ddefol_r)
@@ -513,7 +475,6 @@ dev.off() #where to stop pdf
 #subset the data more to look at tissue groups and APE for donors in the recipient defoliation treatment
 tissue_con_0.5_rdefol_d <- subset(mock_foliar, treatment %in% c('con_0.5_recip_defol'))
 tissue_con_0.5_rdefol_d <- subset(tissue_con_0.5_rdefol_d, donor_or_recip %in% c('d'))
-data.frame(tissue_con_0.5_rdefol_d)
 
 #build the model and run TukeyHSD
 aov_tissue_con_0.5_rdefol_d <- aov(APE ~ tissue, data = tissue_con_0.5_rdefol_d)
@@ -547,7 +508,6 @@ dev.off() #where to stop pdf
 #subset the data more to look at tissue groups and APE for recipients in the recipient defoliation treatment
 tissue_con_0.5_rdefol_r <- subset(mock_foliar, treatment %in% c('con_0.5_recip_defol'))
 tissue_con_0.5_rdefol_r <- subset(tissue_con_0.5_rdefol_r, donor_or_recip %in% c('r'))
-data.frame(tissue_con_0.5_rdefol_r)
 
 #build the model and run TukeyHSD
 aov_tissue_con_0.5_rdefol_r <- aov(APE ~ tissue, data = tissue_con_0.5_rdefol_r)
@@ -577,8 +537,6 @@ ggplot(tissue_waje, aes(tissue, w)) +
 dev.off() #where to stop pdf
 
 
-#Is there a way to get all of the tukey test graphs to show up in one panel??
 
-
-#####0.75 Defol and 1.0 Defol######################################################################################
+#####0.0 Defol, 0.75 Defol and 1.0 Defol######################################################################################
 #in order to analyze APE for the 0.0 defol, 0.75 defol and 1.0 defol, the above code will be replicated in a different r script
