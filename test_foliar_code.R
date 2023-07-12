@@ -36,28 +36,22 @@ test_foliar <- read.csv(file = './data/results_test_foliar.csv')
 #drop the random extra rows
     test_foliar <- test_foliar[-(232:1067),]
 
-    
-    
-    
-    
+#make a graph for 15N    
+par(mfrow = c(1,1))
+ggplot(test_foliar, aes(x = treatment, y=N, fill = donor_or_recip)) +
+geom_boxplot() +
+ylab("15N") + xlab("Treatment") +
+scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))   
 
-#make a scatterplot with some trendlines for N
-#pdf('./figs/mock_foliar_all_treatments_donorrecip.pdf') #pdf will show up in figs folder
-  ggplot(data=test_foliar, aes(x = defoliation, y =N, color = rotated))+
-  geom_boxplot()+ 
-  ylab('N')+xlab('Percent Defoliation')
-#dev.off() #where to stop pdf
-
-#make a scatterplot with some trendlines for C
- 
-   
- 
+#Make a graph for 13C
+par(mfrow = c(1,1))
+ggplot(test_foliar, aes(x = treatment, y= C, fill = donor_or_recip)) +
+  geom_boxplot() +
+  ylab("13C") + xlab("Treatment") +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))   
+    
   
-  
-  
-  
-  
-#sort by donor vs recipients and rotation
+#sort by donor vs recipients for 15N
   ggplot(test_foliar, aes(x = treatment, y = N, fill = donor_or_recip)) + 
     geom_boxplot() + 
     ylab("15N") + xlab("Treatment") +
@@ -65,13 +59,37 @@ test_foliar <- read.csv(file = './data/results_test_foliar.csv')
     facet_wrap(~ donor_or_recip)  
   
   
-#sort by donor vs recipients and rotation
+#sort by donor vs recipients and rotation for 15N
   ggplot(test_foliar, aes(x = treatment, y = N, fill = donor_or_recip)) + 
     geom_boxplot() + 
     ylab("15N") + xlab("Treatment") +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
     facet_wrap(~ donor_or_recip + rotated)
+  
+
+#sort by donor vs recipients for 13C
+  ggplot(test_foliar, aes(x = treatment, y = C, fill = donor_or_recip)) + 
+    geom_boxplot() + 
+    ylab("13C") + xlab("Treatment") +
+    scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
+    facet_wrap(~ donor_or_recip)  
+  
+  
+#sort by donor vs recipients and rotation for 13C
+  ggplot(test_foliar, aes(x = treatment, y = C, fill = donor_or_recip)) + 
+    geom_boxplot() + 
+    ylab("13C") + xlab("Treatment") +
+    scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
+    facet_wrap(~ donor_or_recip + rotated)
  
+  
+#Make a scatterplot with trendlines for 15N (one line for donors and another for recipients)
+  
+  
+#make a scatterplot with trendlines for 13C (one line for donors and another for recipients)
+  
+  
+  
 ---    
 #'Separate ANOVAs to see effect of defoliation 
 #'and tissue type on  C and N 
@@ -118,18 +136,25 @@ defol_0.6 <- subset(test_foliar, treatment %in% c('defoliate_0.6', 'control_0.6_
     ylab("13C") + xlab("Treatment") +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
   #dev.off()
+  
+ggplot(defol_0.6,aes(x=treatment,y=C))+geom_boxplot()+facet_wrap(~tissue+donor_or_recip, scales = "free")
 
 #' The control (rotated) and the non-rotated graphs look basically the same, 
 #' it looks like the label took well but did not make it into the recipient in either case
 #' I'd say defoliation did not initiate nutrient transfer here
   
 #run the lm
-  lm_0.6_C <- lm(C ~ donor_or_recip, data=defol_0.6)
+  lm_0.6_C <- lm(C ~ donor_or_recip * treatment * tissue, subset=tissue!="needles", data=defol_0.6)
   Anova(lm_0.6_C)
   summary(lm_0.6_C)
     
 #'The labeling worked, there is a significant difference in 13C between donor and recipient seedlings
-    
+    #look for interaction effect, donors respond differently to treatment
+    #rotated cores = donors hold onto C
+    #unrotated cores = donors don't hold onto as much C 
+    #have suggestive pattern in graphs
+    #reversal between stems and roots, stems have less C in controls, but more C in controls with roots
+    #
 
 ########1.0 defol: control (rotated) vs. nonrotated######################### 
 #Donor defoliation: donors vs recipients N
@@ -319,3 +344,8 @@ recipients <- na.omit(recipients)
   
 #' needles and stem are different this time, why?
 #' also why is this super negative?
+#' 
+#' 
+#' 
+#' see if defoliation in donors caused a shift (ignore recipients)
+#' google scholar: foliar labeling, look for it in pine and other species
