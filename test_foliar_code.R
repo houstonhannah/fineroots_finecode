@@ -83,25 +83,11 @@ ggplot(test_foliar, aes(x = treatment, y= C, fill = donor_or_recip)) +
     facet_wrap(~ donor_or_recip + rotated)
  
   
-#Make a scatterplot with trendlines for 15N (one line for donors and another for recipients)
-  
-  
-#make a scatterplot with trendlines for 13C (one line for donors and another for recipients)
-  
-  
-  
 ---    
-#'Separate ANOVAs to see effect of defoliation 
-#'and tissue type on  C and N 
-#'(data analyzed separately for donor and recipient plants and rotated and not rotated)
+#'available treatments: 
+  #'rotated control 0.6, 1.0, and no defol 
+  #'non-rotated defoliate 0.4, 0.6, 0.8, 1.0
 ---  
-#available treatments: 
-  #rotated control 0.6, 1.0, and no defol 
-  #non-rotated defoliate .4, .6, .8, 1.0
-    
-
-    
-#Did the labeling work relative to unlabeled recipients? can only answer this for 0.6 and 1.0
 
 ########0.6 defol: control (rotated) vs. nonrotated######################### 
 #Donor defoliation: donors vs recipients N
@@ -117,14 +103,17 @@ defol_0.6 <- subset(test_foliar, treatment %in% c('defoliate_0.6', 'control_0.6_
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
 #dev.off()
 
+#There is a slight difference in N in donors in the control (rotated cores, control _0.6_defol) vs. the non-rotated (defoliate_0.6), investigate by looking at individual tissue groups
+
+#make a graph for individual tissue groups for donors 0.6 defol for N
+  ggplot(defol_0.6,aes(x=treatment,y=N,fill = donor_or_recip))+geom_boxplot()+facet_wrap(~tissue+donor_or_recip, scales = "free") +
+    scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) 
+  
   
 #run the lm
-  lm_0.6_N <- lm(N ~ donor_or_recip, data=defol_0.6)
+  lm_0.6_N <- lm(N ~ donor_or_recip * treatment * tissue,subset=tissue!="needles", data=defol_0.6)
   Anova(lm_0.6_N)
-  summary(lm_0.6_N)
-    
-#' there is a difference between N label in donor and recipients here
-
+  
 
 #Donor defoliation: donors vs recipients C
 
@@ -136,25 +125,23 @@ defol_0.6 <- subset(test_foliar, treatment %in% c('defoliate_0.6', 'control_0.6_
     ylab("13C") + xlab("Treatment") +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
   #dev.off()
-  
-ggplot(defol_0.6,aes(x=treatment,y=C))+geom_boxplot()+facet_wrap(~tissue+donor_or_recip, scales = "free")
 
-#' The control (rotated) and the non-rotated graphs look basically the same, 
-#' it looks like the label took well but did not make it into the recipient in either case
-#' I'd say defoliation did not initiate nutrient transfer here
+#graph from Allan for C
+ggplot(defol_0.6,aes(x=treatment,y=C,fill = donor_or_recip))+geom_boxplot()+facet_wrap(~tissue+donor_or_recip, scales = "free") +
+    scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
+
   
 #run the lm
   lm_0.6_C <- lm(C ~ donor_or_recip * treatment * tissue, subset=tissue!="needles", data=defol_0.6)
   Anova(lm_0.6_C)
-  summary(lm_0.6_C)
+      #look for interaction effect, donors respond differently to   treatment
+        #rotated cores = donors hold onto C
+        #unrotated cores = donors don't hold onto as much C 
+        #have suggestive pattern in graphs
+        #reversal between stems and roots, stems have less C in controls,but more C in controls with roots
     
-#'The labeling worked, there is a significant difference in 13C between donor and recipient seedlings
-    #look for interaction effect, donors respond differently to treatment
-    #rotated cores = donors hold onto C
-    #unrotated cores = donors don't hold onto as much C 
-    #have suggestive pattern in graphs
-    #reversal between stems and roots, stems have less C in controls, but more C in controls with roots
-    #
+    
+    
 
 ########1.0 defol: control (rotated) vs. nonrotated######################### 
 #Donor defoliation: donors vs recipients N
@@ -170,14 +157,16 @@ ggplot(defol_0.6,aes(x=treatment,y=C))+geom_boxplot()+facet_wrap(~tissue+donor_o
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
   #dev.off()
   
+#make a graph for individual tissue groups for donors 1.0 defol for N
+  ggplot(defol_1.0,aes(x=treatment,y=N,fill = donor_or_recip))+geom_boxplot()+facet_wrap(~tissue+donor_or_recip, scales = "free") +
+    scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) 
   
-  #run the lm
-  lm_0.6_N <- lm(N ~ donor_or_recip, data=defol_0.6)
-  Anova(lm_0.6_N)
-  summary(lm_0.6_N)
-  #' there is a difference between N label in donor and recipients here
+#run the lm
+  lm_1.0_N <- lm(N ~ donor_or_recip * treatment * tissue,subset=tissue!="needles", data=defol_1.0)
+  Anova(lm_1.0_N)
   
-  
+
+
 #Donor defoliation: donors vs recipients C
   
 #make a graph: 
@@ -189,23 +178,25 @@ ggplot(defol_0.6,aes(x=treatment,y=C))+geom_boxplot()+facet_wrap(~tissue+donor_o
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
   #dev.off()
   
-#' The control (rotated) and the non-rotated graphs look basically the same, 
-#' it looks like the label took well but did not make it into the recipient in either case
-#' I'd say defoliation did not initiate nutrient transfer here
+#graph from Allan for C
+ggplot(defol_1.0,aes(x=treatment,y=C,fill = donor_or_recip))+geom_boxplot()+facet_wrap(~tissue+donor_or_recip, scales = "free") +
+    scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
+
   
 #run the lm
-  lm_0.6_C <- lm(C ~ donor_or_recip, data=defol_0.6)
-  Anova(lm_0.6_C)
-  summary(lm_0.6_C)
-  
-#'The labeling worked, there is a significant difference in 13C between donor and recipient seedlings
+  lm_1.0_C <- lm(C ~ donor_or_recip * treatment * tissue, subset=tissue!="needles", data=defol_1.0)
+  Anova(lm_1.0_C)
+
+
+
+
   
   
   
 ---  
-#' *Since the label looks like it worked well, let's see how the label appeared in different tissues*
+#' *Let's see how the label appeared in different tissues*
 ---
-#' all seedlings were labeled, so I will be looking at tissue differentiation in donor seedlings regardless of treatment
+#' all donor seedlings were labeled, so I will be looking at tissue differentiation in donor seedlings regardless of defoliation treatment
 #' note: since label was applied directly to needles, they will not be included as a plat tissue when evaluating donor seedlings
 
 #filter the data a little 
@@ -239,7 +230,6 @@ ggplot(defol_0.6,aes(x=treatment,y=C))+geom_boxplot()+facet_wrap(~tissue+donor_o
     geom_text(aes(label = cld, y = w + sd), vjust = -0.5)
   #dev.off() #where to stop pdf
   
-#graph being weird, investigate non-numeric arguments for N 
   
 
 #Tukey HSD test/graph for C
@@ -343,7 +333,6 @@ recipients <- na.omit(recipients)
   #dev.off() #where to stop pdf
   
 #' needles and stem are different this time, why?
-#' also why is this super negative?
 #' 
 #' 
 #' 
