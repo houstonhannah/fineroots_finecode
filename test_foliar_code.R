@@ -21,6 +21,7 @@ library(multcompView)
 library(car)
 library(pwr)
 library(tidyr)
+library(forcats)
 
 #download data
 test_foliar <- read.csv(file = './data/results_test_foliar.csv')
@@ -94,10 +95,13 @@ ggplot(test_foliar, aes(x = treatment, y= C, fill = donor_or_recip)) +
 #subset data a little more
 defol_0.6 <- subset(test_foliar, treatment %in% c('defoliate_0.6', 'control_0.6_defol'))
 
+#subset a little more to remove needles since we don't have that info for donors
+defol_0.6_nn <- subset(defol_0.6, tissue %in% c('stem', 'lowroot', 'highroot'))
+
 #make a graph: 
 #pdf('./figs/0.5_ddefol_d_vs_r.pdf') #pdf will show up in figs folder
   par(mfrow = c(1,1))
-  ggplot(defol_0.6, aes(x = treatment, y=N, fill = donor_or_recip)) +
+  ggplot(defol_0.6_nn, aes(x = treatment, y=N, fill = donor_or_recip)) +
     geom_boxplot() +
     ylab("15N") + xlab("Treatment") +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
@@ -106,10 +110,26 @@ defol_0.6 <- subset(test_foliar, treatment %in% c('defoliate_0.6', 'control_0.6_
 #There is a slight difference in N in donors in the control (rotated cores, control _0.6_defol) vs. the non-rotated (defoliate_0.6), investigate by looking at individual tissue groups
 
 #make a graph for individual tissue groups for donors 0.6 defol for N
-  ggplot(defol_0.6,aes(x=treatment,y=N,fill = donor_or_recip))+geom_boxplot()+facet_wrap(~tissue+donor_or_recip, scales = "free") +
-    scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) 
-  
-  
+# Custom labels for the x-axis
+custom_labels <- c('rotated', 'not rotated')
+
+# Function to customize facet labels
+custom_labeller <- function(variable, value) {
+  if (variable == "donor_or_recip") {
+    if (value == "d") return ("")
+    if (value == "r") return ("")
+  }
+  return (value)
+}
+
+#make the plot
+ggplot(defol_0.6_nn, aes(x = treatment, y = N, fill = donor_or_recip)) +
+  geom_boxplot() +
+  facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
+  scale_x_discrete(labels = custom_labels) + ylab('15N') +
+  ggtitle('60% Defoliation: Tissue 15N Content')+ theme(plot.title = element_text(hjust = 0.5))
+    
 #run the lm
   lm_0.6_N <- lm(N ~ donor_or_recip * treatment * tissue,subset=tissue!="needles", data=defol_0.6)
   Anova(lm_0.6_N)
@@ -126,9 +146,27 @@ defol_0.6 <- subset(test_foliar, treatment %in% c('defoliate_0.6', 'control_0.6_
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
   #dev.off()
 
-#graph from Allan for C
-ggplot(defol_0.6,aes(x=treatment,y=C,fill = donor_or_recip))+geom_boxplot()+facet_wrap(~tissue+donor_or_recip, scales = "free") +
-    scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
+#make a graph for individual tissue groups for donors 0.6 defol for C
+# Custom labels for the x-axis
+custom_labels <- c('rotated', 'not rotated')
+
+# Function to customize facet labels
+custom_labeller <- function(variable, value) {
+  if (variable == "donor_or_recip") {
+    if (value == "d") return ("")
+    if (value == "r") return ("")
+  }
+  return (value)
+}
+
+
+#make the graph
+ggplot(defol_0.6_nn, aes(x = treatment, y = C, fill = donor_or_recip)) +
+  geom_boxplot() +
+  facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
+  scale_x_discrete(labels = custom_labels) + ylab('13C') +
+  ggtitle('60% Defoliation: Tissue 13C Content')+ theme(plot.title = element_text(hjust = 0.5))
 
   
 #run the lm
@@ -147,20 +185,40 @@ ggplot(defol_0.6,aes(x=treatment,y=C,fill = donor_or_recip))+geom_boxplot()+face
 #Donor defoliation: donors vs recipients N
 #subset data a little more
   defol_1.0 <- subset(test_foliar, treatment %in% c('defoliate_1.0', 'control_1.0_defol'))
-  
-  #make a graph: 
+
+#subset a little more to remove needles since we don't have that info for donors
+defol_1.0_nn <- subset(defol_1.0, tissue %in% c('stem', 'lowroot', 'highroot'))
+
+#make a graph: 
   #pdf('./figs/0.5_ddefol_d_vs_r.pdf') #pdf will show up in figs folder
   par(mfrow = c(1,1))
-  ggplot(defol_1.0, aes(x = treatment, y=N, fill = donor_or_recip)) +
+  ggplot(defol_1.0_nn, aes(x = treatment, y=N, fill = donor_or_recip)) +
     geom_boxplot() +
     ylab("15N") + xlab("Treatment") +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
   #dev.off()
   
 #make a graph for individual tissue groups for donors 1.0 defol for N
-  ggplot(defol_1.0,aes(x=treatment,y=N,fill = donor_or_recip))+geom_boxplot()+facet_wrap(~tissue+donor_or_recip, scales = "free") +
-    scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) 
-  
+# Custom labels for the x-axis
+custom_labels <- c('rotated', 'not rotated')
+
+# Function to customize facet labels
+custom_labeller <- function(variable, value) {
+  if (variable == "donor_or_recip") {
+    if (value == "d") return ("")
+    if (value == "r") return ("")
+  }
+  return (value)
+}
+
+ggplot(defol_1.0_nn, aes(x = treatment, y = N, fill = donor_or_recip)) +
+  geom_boxplot() +
+  facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
+  scale_x_discrete(labels = custom_labels) + ylab('15N') +
+  ggtitle('100% Defoliation: Tissue 15N Content')+ theme(plot.title = element_text(hjust = 0.5))
+
+
 #run the lm
   lm_1.0_N <- lm(N ~ donor_or_recip * treatment * tissue,subset=tissue!="needles", data=defol_1.0)
   Anova(lm_1.0_N)
@@ -178,9 +236,25 @@ ggplot(defol_0.6,aes(x=treatment,y=C,fill = donor_or_recip))+geom_boxplot()+face
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
   #dev.off()
   
-#graph from Allan for C
-ggplot(defol_1.0,aes(x=treatment,y=C,fill = donor_or_recip))+geom_boxplot()+facet_wrap(~tissue+donor_or_recip, scales = "free") +
-    scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))
+#make a graph for individual tissue groups for donors 1.0 defol for C
+# Custom labels for the x-axis
+custom_labels <- c('rotated', 'not rotated')
+
+# Function to customize facet labels
+custom_labeller <- function(variable, value) {
+  if (variable == "donor_or_recip") {
+    if (value == "d") return ("")
+    if (value == "r") return ("")
+  }
+  return (value)
+}
+
+ggplot(defol_1.0_nn, aes(x = treatment, y = C, fill = donor_or_recip)) +
+  geom_boxplot() +
+  facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
+  scale_x_discrete(labels = custom_labels) + ylab('13C') +
+  ggtitle('100% Defoliation: Tissue 13C Content')+ theme(plot.title = element_text(hjust = 0.5))
 
   
 #run the lm
