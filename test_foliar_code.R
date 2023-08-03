@@ -281,6 +281,7 @@ ggplot(defol_1.0_nn, aes(x = treatment, y = C, fill = donor_or_recip)) +
   aov_donors <- aov(N ~ tissue, data = donors)
   summary(aov_donors)
   tukey <- TukeyHSD(aov_donors, 'tissue', ordered = TRUE, conf.level = 0.95)
+  tukey
   
   #compact letter display
   cld <- multcompLetters4(aov_donors, tukey)
@@ -301,7 +302,8 @@ ggplot(defol_1.0_nn, aes(x = treatment, y = C, fill = donor_or_recip)) +
     geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
     geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
     labs(x = "Plant Tissue Types", y = "15N") +
-    geom_text(aes(label = cld, y = w + sd), vjust = -0.5)
+    geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
+    ggtitle('Donor Seedlings: Tissue 15N Content')+ theme(plot.title = element_text(hjust = 0.5))
   #dev.off() #where to stop pdf
   
   
@@ -311,6 +313,7 @@ ggplot(defol_1.0_nn, aes(x = treatment, y = C, fill = donor_or_recip)) +
   aov_donors <- aov(C ~ tissue, data = donors)
   summary(aov_donors)
   tukey <- TukeyHSD(aov_donors, 'tissue', ordered = TRUE, conf.level = 0.95)
+  tukey
   
   #compact letter display
   cld <- multcompLetters4(aov_donors, tukey)
@@ -331,7 +334,8 @@ ggplot(defol_1.0_nn, aes(x = treatment, y = C, fill = donor_or_recip)) +
     geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
     geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
     labs(x = "Plant Tissue Types", y = "13C") +
-    geom_text(aes(label = cld, y = w + sd), vjust = -0.5)
+    geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
+    ggtitle('Donor Seedlings: Tissue 13C Content')+ theme(plot.title = element_text(hjust = 0.5))
   #dev.off() #where to stop pdf
   
 #'Most of the isotope label appeared in the stem, could be from label dripping onto stem surface instead of actual tissue incorporation?
@@ -350,6 +354,7 @@ recipients <- na.omit(recipients)
   aov_recipients <- aov(N ~ tissue, data = recipients)
   summary(aov_recipients)
   tukey <- TukeyHSD(aov_recipients, 'tissue', ordered = TRUE, conf.level = 0.95)
+  tukey
   
   #compact letter display
   cld <- multcompLetters4(aov_recipients, tukey)
@@ -362,7 +367,7 @@ recipients <- na.omit(recipients)
   #extracting compact letter display and adding to the Tukey table
   cld <- as.data.frame.list(cld$tissue)
   tissue_waje$cld <- cld$Letters
-  print(tissue_waje) #this prints the letters that are assigned based on significance, note that for the "mock" data these will not be significant
+  print(tissue_waje) #this prints the letters that are assigned based on significance
   
   #build the graph and save as a PDF to figs folder 
   #pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
@@ -370,7 +375,8 @@ recipients <- na.omit(recipients)
     geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
     geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
     labs(x = "Plant Tissue Types", y = "15N") +
-    geom_text(aes(label = cld, y = w + sd), vjust = -0.5)
+    geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +  
+    ggtitle('Recipient Seedlings: Tissue 15N Content')+ theme(plot.title = element_text(hjust = 0.5))
   #dev.off() #where to stop pdf
   
   
@@ -383,6 +389,7 @@ recipients <- na.omit(recipients)
   aov_recipients <- aov(C ~ tissue, data = recipients)
   summary(aov_recipients)
   tukey <- TukeyHSD(aov_recipients, 'tissue', ordered = TRUE, conf.level = 0.95)
+  tukey
   
   #compact letter display
   cld <- multcompLetters4(aov_recipients, tukey)
@@ -403,7 +410,8 @@ recipients <- na.omit(recipients)
     geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
     geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
     labs(x = "Plant Tissue Types", y = "13C") +
-    geom_text(aes(label = cld, y = w + sd), vjust = -0.5)
+    geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
+    ggtitle('Recipient Seedlings: Tissue 13C Content')+ theme(plot.title = element_text(hjust = 0.5))
   #dev.off() #where to stop pdf
   
 #' needles and stem are different this time, why?
