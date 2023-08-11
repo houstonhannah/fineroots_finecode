@@ -36,44 +36,37 @@ test_foliar <- read.csv(file = './data/results_test_foliar.csv')
     colnames(test_foliar)[15] ="C"
 #drop the random extra rows
     test_foliar <- test_foliar[-(232:1067),]
-
-#make a graph for 15N    
-par(mfrow = c(1,1))
-ggplot(test_foliar, aes(x = treatment, y=N, fill = donor_or_recip)) +
-geom_boxplot() +
-ylab("15N") + xlab("Treatment") +
-scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))   
-
-#Make a graph for 13C
-par(mfrow = c(1,1))
-ggplot(test_foliar, aes(x = treatment, y= C, fill = donor_or_recip)) +
-  geom_boxplot() +
-  ylab("13C") + xlab("Treatment") +
-  scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients'))   
-    
-  
-#sort by donor vs recipients for 15N
-  ggplot(test_foliar, aes(x = treatment, y = N, fill = donor_or_recip)) + 
-    geom_boxplot() + 
-    ylab("15N") + xlab("Treatment") +
-    scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-    facet_wrap(~ donor_or_recip)  
   
   
 #sort by donor vs recipients and rotation for 15N
+  # Function to customize facet labels
+  custom_labeller <- function(variable, value) {
+    if (variable == "donor_or_recip") {
+      if (value == "d") return ("")
+      if (value == "r") return ("")
+    }
+    if (variable == "rotated") {
+      if (value == "no") return ("not rotated")
+      if (value == "yes") return ("rotated")
+    }
+    return (value)
+  }
+  
   ggplot(test_foliar, aes(x = treatment, y = N, fill = donor_or_recip)) + 
     geom_boxplot() + 
     ylab("15N") + xlab("Treatment") +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-    facet_wrap(~ donor_or_recip + rotated)
+    facet_wrap(~ donor_or_recip + rotated, scales = "free", labeller = custom_labeller) +
+    ggtitle('Tissue 15N Content') + theme(plot.title = element_text(hjust = 0.5))
+    
+  
+  
   
 
-#sort by donor vs recipients for 13C
-  ggplot(test_foliar, aes(x = treatment, y = C, fill = donor_or_recip)) + 
-    geom_boxplot() + 
-    ylab("13C") + xlab("Treatment") +
-    scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-    facet_wrap(~ donor_or_recip)  
+  
+  
+  
+  
   
   
 #sort by donor vs recipients and rotation for 13C
