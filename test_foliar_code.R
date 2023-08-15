@@ -57,12 +57,42 @@ test_foliar <- read.csv(file = './data/results_test_foliar.csv')
     ylab("15N") + xlab("Treatment") +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
     facet_wrap(~ donor_or_recip + rotated, scales = "free", labeller = custom_labeller) +
-    ggtitle('Tissue 15N Content') + theme(plot.title = element_text(hjust = 0.5))
-    
-  
+    ggtitle('Tissue 15N Content') + theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
   
   
 
+  
+  
+  
+  
+  
+  
+  
+  
+  #sort by donor vs recipients and rotation for 15N
+  # Function to customize facet labels
+  custom_labeller <- function(variable, value) {
+    if (variable == "donor_or_recip") {
+      if (value == "d") return ("")
+      if (value == "r") return ("")
+    }
+    return (value)
+  }
+  
+  ggplot(test_foliar, aes(x = treatment, y = N, fill = donor_or_recip)) + 
+    geom_boxplot() + 
+    ylab("15N") + xlab("Treatment") +
+    scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
+    facet_wrap(~ donor_or_recip, scales = "free", labeller = custom_labeller) +
+    ggtitle('Tissue 15N Content') + theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+  
+  
+  
+  
+  
+  
   
   
   
