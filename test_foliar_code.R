@@ -323,13 +323,13 @@ ggplot(defol_1.0_nn, aes(x = treatment, y = C, fill = donor_or_recip)) +
   #pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
   ggplot(tissue_waje, aes(tissue, w)) + 
     geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
-    geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
-    labs(x = "Plant Tissue Types", y = "15N") +
+    geom_errorbar(aes(ymin = w - sd, ymax = w + sd), width = 0.05) +
+    labs(x = "Plant Tissue Types", y = expression(paste(delta, " 15N"))) +
     geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
-    ggtitle('Donor Seedlings: Tissue 15N Content')+ theme(plot.title = element_text(hjust = 0.5))
+    ggtitle(expression(paste("Donor Seedlings: Tissue ", delta, " 15N Content"))) +
+    theme(plot.title = element_text(hjust = 0.5))
   #dev.off() #where to stop pdf
-  
-  
+
 
 #Tukey HSD test/graph for C
   #build the model and run TukeyHSD
@@ -355,11 +355,15 @@ ggplot(defol_1.0_nn, aes(x = treatment, y = C, fill = donor_or_recip)) +
   #pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
   ggplot(tissue_waje, aes(tissue, w)) + 
     geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
-    geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
-    labs(x = "Plant Tissue Types", y = "13C") +
+    geom_errorbar(aes(ymin = w - sd, ymax = w + sd), width = 0.05) +
+    labs(x = "Plant Tissue Types", y = expression(paste(delta, " 13C"))) +
     geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
-    ggtitle('Donor Seedlings: Tissue 13C Content')+ theme(plot.title = element_text(hjust = 0.5))
+    ggtitle(expression(paste("Donor Seedlings: Tissue ", delta, " 13C Content"))) +
+    theme(plot.title = element_text(hjust = 0.5))
   #dev.off() #where to stop pdf
+  
+
+  
   
 #'Most of the isotope label appeared in the stem, could be from label dripping onto stem surface instead of actual tissue incorporation?
 #'Roots have negative 13C values, because it is a corrected isotope delta value for 13C measured against a primary reference scale?
@@ -396,13 +400,15 @@ recipients <- na.omit(recipients)
   #pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
   ggplot(tissue_waje, aes(tissue, w)) + 
     geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
-    geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
-    labs(x = "Plant Tissue Types", y = "15N") +
-    geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +  
-    ggtitle('Recipient Seedlings: Tissue 15N Content')+ theme(plot.title = element_text(hjust = 0.5))
+    geom_errorbar(aes(ymin = w - sd, ymax = w + sd), width = 0.05) +
+    labs(x = "Plant Tissue Types", y = expression(paste(delta, " 15N"))) +
+    geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
+    ggtitle(expression(paste("Recipient Seedlings: Tissue ", delta, " 15N Content"))) +
+    theme(plot.title = element_text(hjust = 0.5))
   #dev.off() #where to stop pdf
   
   
+
 #'Interesting that needles have a different 15N signal than roots or stem
 #'Why?
   
@@ -431,13 +437,14 @@ recipients <- na.omit(recipients)
   #pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
   ggplot(tissue_waje, aes(tissue, w)) + 
     geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
-    geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
-    labs(x = "Plant Tissue Types", y = "13C") +
+    geom_errorbar(aes(ymin = w - sd, ymax = w + sd), width = 0.05) +
+    labs(x = "Plant Tissue Types", y = expression(paste(delta, " 13C"))) +
     geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
-    ggtitle('Recipient Seedlings: Tissue 13C Content')+ theme(plot.title = element_text(hjust = 0.5))
+    ggtitle(expression(paste("Recipient Seedlings: Tissue ", delta, " 13C Content"))) +
+    theme(plot.title = element_text(hjust = 0.5))
   #dev.off() #where to stop pdf
 
-  
+
   
   
   
