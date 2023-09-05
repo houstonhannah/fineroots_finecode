@@ -51,60 +51,52 @@ test_foliar <- read.csv(file = './data/results_test_foliar.csv')
     }
     return (value)
   }
-  
   ggplot(test_foliar, aes(x = treatment, y = N, fill = donor_or_recip)) + 
     geom_boxplot() + 
-    ylab("15N") + xlab("Treatment") +
+    labs(x = "Treatment", y = expression(paste(delta, " 15N"))) +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
     facet_wrap(~ donor_or_recip + rotated, scales = "free", labeller = custom_labeller) +
-    ggtitle('Tissue 15N Content') + theme(plot.title = element_text(hjust = 0.5)) +
+    ggtitle(expression(paste("Tissue ", delta, " 15N Content"))) +
+   theme(plot.title = element_text(hjust = 0.5)) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+#rotation part is displaying "no" and "yes" instead of "rotated" and "not rotated"
   
   
 
+  #sort by donor vs recipients for 15N
+  # Define the custom x-axis labels
+  custom_labels <- c("Rotated 60%", "Rotated 100%", "Rotated 0%", "40%", "60%", "80%", "100%")
   
-  
-  
-  
-  
-  
-  
-  
-  #sort by donor vs recipients and rotation for 15N
-  # Function to customize facet labels
-  custom_labeller <- function(variable, value) {
-    if (variable == "donor_or_recip") {
-      if (value == "d") return ("")
-      if (value == "r") return ("")
-    }
-    return (value)
-  }
-  
-  ggplot(test_foliar, aes(x = treatment, y = N, fill = donor_or_recip)) + 
+ggplot(test_foliar, aes(x = treatment, y = N, fill = donor_or_recip)) + 
     geom_boxplot() + 
-    ylab("15N") + xlab("Treatment") +
+    labs(x = "Treatment", y = expression(paste(delta, " 15N"))) +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-    facet_wrap(~ donor_or_recip, scales = "free", labeller = custom_labeller) +
-    ggtitle('Tissue 15N Content') + theme(plot.title = element_text(hjust = 0.5)) +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+    facet_wrap(~ donor_or_recip, scales = "free") +
+    ggtitle(expression(paste("Tissue ", delta, " 15N Content"))) + 
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+    scale_x_discrete(labels = custom_labels)
+  
+  
+#sort by donor vs recipients for 13C
+# Define the custom x-axis labels
+custom_labels <- c("Rotated 60%", "Rotated 100%", "Rotated 0%", "40%", "60%", "80%", "100%")
+
+ggplot(test_foliar, aes(x = treatment, y = C, fill = donor_or_recip)) + 
+  geom_boxplot() + 
+  labs(x = "Treatment", y = expression(paste(delta, " 13C"))) +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
+  facet_wrap(~ donor_or_recip, scales = "free") +
+  ggtitle(expression(paste("Tissue ", delta, " 13C Content"))) + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_x_discrete(labels = custom_labels)
   
   
   
   
   
-  
-  
-  
-  
-  
-  
-  
-#sort by donor vs recipients and rotation for 13C
-  ggplot(test_foliar, aes(x = treatment, y = C, fill = donor_or_recip)) + 
-    geom_boxplot() + 
-    ylab("13C") + xlab("Treatment") +
-    scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-    facet_wrap(~ donor_or_recip + rotated)
+
  
   
 ---    
