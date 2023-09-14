@@ -142,13 +142,71 @@ ggplot(defol_0.6_nn, aes(x = treatment, y = N, fill = donor_or_recip)) +
   geom_boxplot() +
   facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
   scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-  scale_x_discrete(labels = custom_labels) + ylab('15N') +
-  ggtitle('60% Defoliation: Tissue 15N Content')+ theme(plot.title = element_text(hjust = 0.5))
-    
+  labs(x = "Treatment", y = expression(paste(delta, " 15N"))) +
+  scale_x_discrete(labels = custom_labels) +
+  ggtitle(expression(paste("60% Defoliation: ", delta," 15N Content"))) +
+  theme(plot.title = element_text(hjust = 0.5))
+
+
 #run the lm
   lm_0.6_N <- lm(N ~ donor_or_recip * treatment * tissue,subset=tissue!="needles", data=defol_0.6)
   Anova(lm_0.6_N)
   
+#lm for specific tissue groups
+  #highroots:
+    #donors: rotated vs. not rotated
+  lm_0.6_N_dr_vs_dnr <- lm(N ~ treatment, subset=donor_or_recip!="r" & tissue=="highroot", data=defol_0.6_nn)
+  Anova(lm_0.6_N_dr_vs_dnr)
+  
+  
+    #recipients: rotated vs. not rotated
+  lm_0.6_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="highroot", data=defol_0.6_nn)
+  Anova(lm_0.6_N_rr_vs_rnr)
+  
+    #rotated donors vs. rotated recipients
+  lm_0.6_N_rd_vs_rr <- lm(N ~ donor_or_recip, subset=treatment!="defoliate_0.6" & tissue=="highroot", data=defol_0.6_nn)
+  Anova(lm_0.6_N_rd_vs_rr)
+  
+    #not rotated donors vs. not rotated recipients
+  lm_0.6_N_dnr_vs_rnr <- lm(N ~ donor_or_recip, subset=treatment!="control_0.6_defol" & tissue=="highroot", data=defol_0.6_nn)
+  Anova(lm_0.6_N_dnr_vs_rnr)
+  
+  
+  #lowroots
+  #donors: rotated vs. not rotated
+  lm_0.6_N_dr_vs_dnr <- lm(N ~ treatment, subset=donor_or_recip!="r" & tissue=="lowroot", data=defol_0.6_nn)
+  Anova(lm_0.6_N_dr_vs_dnr)
+  
+  
+  #recipients: rotated vs. not rotated
+  lm_0.6_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="lowroot", data=defol_0.6_nn)
+  Anova(lm_0.6_N_rr_vs_rnr)
+  
+  #rotated donors vs. rotated recipients
+  lm_0.6_N_rd_vs_rr <- lm(N ~ donor_or_recip, subset=treatment!="defoliate_0.6" & tissue=="lowroot", data=defol_0.6_nn)
+  Anova(lm_0.6_N_rd_vs_rr)
+  
+  #not rotated donors vs. not rotated recipients
+  lm_0.6_N_dnr_vs_rnr <- lm(N ~ donor_or_recip, subset=treatment!="control_0.6_defol" & tissue=="lowroot", data=defol_0.6_nn)
+  Anova(lm_0.6_N_dnr_vs_rnr)
+ 
+   #stem
+      #donors: rotated vs. not rotated
+      lm_0.6_N_dr_vs_dnr <- lm(N ~ treatment, subset=donor_or_recip!="r" & tissue=="stem", data=defol_0.6_nn)
+      Anova(lm_0.6_N_dr_vs_dnr)
+      
+      
+      #recipients: rotated vs. not rotated
+      lm_0.6_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="stem", data=defol_0.6_nn)
+      Anova(lm_0.6_N_rr_vs_rnr)
+      
+      #rotated donors vs. rotated recipients
+      lm_0.6_N_rd_vs_rr <- lm(N ~ donor_or_recip, subset=treatment!="defoliate_0.6" & tissue=="stem", data=defol_0.6_nn)
+      Anova(lm_0.6_N_rd_vs_rr)
+      
+      #not rotated donors vs. not rotated recipients
+      lm_0.6_N_dnr_vs_rnr <- lm(N ~ donor_or_recip, subset=treatment!="control_0.6_defol" & tissue=="stem", data=defol_0.6_nn)
+      Anova(lm_0.6_N_dnr_vs_rnr)
 
 #Donor defoliation: donors vs recipients C
 
@@ -180,8 +238,11 @@ ggplot(defol_0.6_nn, aes(x = treatment, y = C, fill = donor_or_recip)) +
   geom_boxplot() +
   facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
   scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-  scale_x_discrete(labels = custom_labels) + ylab('13C') +
-  ggtitle('60% Defoliation: Tissue 13C Content')+ theme(plot.title = element_text(hjust = 0.5))
+  labs(x = "Treatment", y = expression(paste(delta, " 13C"))) +
+  scale_x_discrete(labels = custom_labels) +
+  ggtitle(expression(paste("60% Defoliation: ", delta," 13C Content"))) + 
+  theme(plot.title = element_text(hjust = 0.5))
+
 
   
 #run the lm
@@ -230,8 +291,10 @@ ggplot(defol_1.0_nn, aes(x = treatment, y = N, fill = donor_or_recip)) +
   geom_boxplot() +
   facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
   scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-  scale_x_discrete(labels = custom_labels) + ylab('15N') +
-  ggtitle('100% Defoliation: Tissue 15N Content')+ theme(plot.title = element_text(hjust = 0.5))
+  labs(x = "Treatment", y = expression(paste(delta, " 15N"))) +
+  scale_x_discrete(labels = custom_labels) +
+  ggtitle(expression(paste("100% Defoliation: ", delta," 15N Content"))) +
+  theme(plot.title = element_text(hjust = 0.5))
 
 
 #run the lm
@@ -268,8 +331,10 @@ ggplot(defol_1.0_nn, aes(x = treatment, y = C, fill = donor_or_recip)) +
   geom_boxplot() +
   facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
   scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-  scale_x_discrete(labels = custom_labels) + ylab('13C') +
-  ggtitle('100% Defoliation: Tissue 13C Content')+ theme(plot.title = element_text(hjust = 0.5))
+  labs(x = "Treatment", y = expression(paste(delta, " 13C"))) +
+  scale_x_discrete(labels = custom_labels) +
+  ggtitle(expression(paste("100% Defoliation: ", delta," 13C Content"))) + 
+  theme(plot.title = element_text(hjust = 0.5))
 
   
 #run the lm
