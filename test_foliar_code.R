@@ -152,62 +152,65 @@ ggplot(defol_0.6_nn, aes(x = treatment, y = N, fill = donor_or_recip)) +
   lm_0.6_N <- lm(N ~ donor_or_recip * treatment * tissue,subset=tissue!="needles", data=defol_0.6)
   Anova(lm_0.6_N)
   
-#lm for specific tissue groups
+#lm for specific tissue groups 60% Defol Delta N
   #highroots:
-    #donors: rotated vs. not rotated
-  lm_0.6_N_dr_vs_dnr <- lm(N ~ treatment, subset=donor_or_recip!="r" & tissue=="highroot", data=defol_0.6_nn)
-  Anova(lm_0.6_N_dr_vs_dnr)
-  
-  
-    #recipients: rotated vs. not rotated
-  lm_0.6_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="highroot", data=defol_0.6_nn)
-  Anova(lm_0.6_N_rr_vs_rnr)
-  
-    #rotated donors vs. rotated recipients
-  lm_0.6_N_rd_vs_rr <- lm(N ~ donor_or_recip, subset=treatment!="defoliate_0.6" & tissue=="highroot", data=defol_0.6_nn)
-  Anova(lm_0.6_N_rd_vs_rr)
-  
-    #not rotated donors vs. not rotated recipients
-  lm_0.6_N_dnr_vs_rnr <- lm(N ~ donor_or_recip, subset=treatment!="control_0.6_defol" & tissue=="highroot", data=defol_0.6_nn)
-  Anova(lm_0.6_N_dnr_vs_rnr)
+        #donors: rotated vs. not rotated
+      lm_0.6_N_dr_vs_dnr <- lm(N ~ treatment, subset=donor_or_recip!="r" & tissue=="highroot", data=defol_0.6_nn)
+      Anova(lm_0.6_N_dr_vs_dnr)
+      
+      
+        #recipients: rotated vs. not rotated
+      lm_0.6_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="highroot", data=defol_0.6_nn)
+      Anova(lm_0.6_N_rr_vs_rnr)
+      
+        #rotated donors vs. rotated recipients
+      lm_0.6_N_rd_vs_rr <- lm(N ~ donor_or_recip, subset=treatment!="defoliate_0.6" & tissue=="highroot", data=defol_0.6_nn)
+      Anova(lm_0.6_N_rd_vs_rr)
+      
+        #not rotated donors vs. not rotated recipients
+      lm_0.6_N_dnr_vs_rnr <- lm(N ~ donor_or_recip, subset=treatment!="control_0.6_defol" & tissue=="highroot", data=defol_0.6_nn)
+      Anova(lm_0.6_N_dnr_vs_rnr)
   
   
   #lowroots
-  #donors: rotated vs. not rotated
-  lm_0.6_N_dr_vs_dnr <- lm(N ~ treatment, subset=donor_or_recip!="r" & tissue=="lowroot", data=defol_0.6_nn)
-  Anova(lm_0.6_N_dr_vs_dnr)
-  
-  
-  #recipients: rotated vs. not rotated
-  lm_0.6_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="lowroot", data=defol_0.6_nn)
-  Anova(lm_0.6_N_rr_vs_rnr)
-  
-  #rotated donors vs. rotated recipients
-  lm_0.6_N_rd_vs_rr <- lm(N ~ donor_or_recip, subset=treatment!="defoliate_0.6" & tissue=="lowroot", data=defol_0.6_nn)
-  Anova(lm_0.6_N_rd_vs_rr)
-  
-  #not rotated donors vs. not rotated recipients
-  lm_0.6_N_dnr_vs_rnr <- lm(N ~ donor_or_recip, subset=treatment!="control_0.6_defol" & tissue=="lowroot", data=defol_0.6_nn)
-  Anova(lm_0.6_N_dnr_vs_rnr)
- 
-   #stem
       #donors: rotated vs. not rotated
-      lm_0.6_N_dr_vs_dnr <- lm(N ~ treatment, subset=donor_or_recip!="r" & tissue=="stem", data=defol_0.6_nn)
+      lm_0.6_N_dr_vs_dnr <- lm(N ~ treatment, subset=donor_or_recip!="r" & tissue=="lowroot", data=defol_0.6_nn)
       Anova(lm_0.6_N_dr_vs_dnr)
       
       
       #recipients: rotated vs. not rotated
-      lm_0.6_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="stem", data=defol_0.6_nn)
+      lm_0.6_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="lowroot", data=defol_0.6_nn)
       Anova(lm_0.6_N_rr_vs_rnr)
       
       #rotated donors vs. rotated recipients
-      lm_0.6_N_rd_vs_rr <- lm(N ~ donor_or_recip, subset=treatment!="defoliate_0.6" & tissue=="stem", data=defol_0.6_nn)
+      lm_0.6_N_rd_vs_rr <- lm(N ~ donor_or_recip, subset=treatment!="defoliate_0.6" & tissue=="lowroot", data=defol_0.6_nn)
       Anova(lm_0.6_N_rd_vs_rr)
       
       #not rotated donors vs. not rotated recipients
-      lm_0.6_N_dnr_vs_rnr <- lm(N ~ donor_or_recip, subset=treatment!="control_0.6_defol" & tissue=="stem", data=defol_0.6_nn)
+      lm_0.6_N_dnr_vs_rnr <- lm(N ~ donor_or_recip, subset=treatment!="control_0.6_defol" & tissue=="lowroot", data=defol_0.6_nn)
       Anova(lm_0.6_N_dnr_vs_rnr)
+ 
+   #stem
+        #donors: rotated vs. not rotated
+        lm_0.6_N_dr_vs_dnr <- lm(N ~ treatment, subset=donor_or_recip!="r" & tissue=="stem", data=defol_0.6_nn)
+        Anova(lm_0.6_N_dr_vs_dnr)
+        
+        
+        #recipients: rotated vs. not rotated
+        lm_0.6_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="stem", data=defol_0.6_nn)
+        Anova(lm_0.6_N_rr_vs_rnr)
+        
+        #rotated donors vs. rotated recipients
+        lm_0.6_N_rd_vs_rr <- lm(N ~ donor_or_recip, subset=treatment!="defoliate_0.6" & tissue=="stem", data=defol_0.6_nn)
+        Anova(lm_0.6_N_rd_vs_rr)
+        
+        #not rotated donors vs. not rotated recipients
+        lm_0.6_N_dnr_vs_rnr <- lm(N ~ donor_or_recip, subset=treatment!="control_0.6_defol" & tissue=="stem", data=defol_0.6_nn)
+        Anova(lm_0.6_N_dnr_vs_rnr)
 
+
+      
+      
 #Donor defoliation: donors vs recipients C
 
   #make a graph: 
@@ -254,8 +257,62 @@ ggplot(defol_0.6_nn, aes(x = treatment, y = C, fill = donor_or_recip)) +
         #have suggestive pattern in graphs
         #reversal between stems and roots, stems have less C in controls,but more C in controls with roots
     
+  #lm for specific tissue groups 60% Defol Delta C
+  #highroots:
+      #donors: rotated vs. not rotated
+      lm_0.6_C_dr_vs_dnr <- lm(C ~ treatment, subset=donor_or_recip!="r" & tissue=="highroot", data=defol_0.6_nn)
+      Anova(lm_0.6_C_dr_vs_dnr)
+  
+      #recipients: rotated vs. not rotated
+      lm_0.6_C_rr_vs_rnr <- lm(C ~ treatment, subset=donor_or_recip!="d" & tissue=="highroot", data=defol_0.6_nn)
+      Anova(lm_0.6_C_rr_vs_rnr)
+  
+      #rotated donors vs. rotated recipients
+      lm_0.6_C_rd_vs_rr <- lm(C ~ donor_or_recip, subset=treatment!="defoliate_0.6" & tissue=="highroot", data=defol_0.6_nn)
+      Anova(lm_0.6_C_rd_vs_rr)
+  
+      #not rotated donors vs. not rotated recipients
+      lm_0.6_C_dnr_vs_rnr <- lm(C ~ donor_or_recip, subset=treatment!="control_0.6_defol" & tissue=="highroot", data=defol_0.6_nn)
+      Anova(lm_0.6_C_dnr_vs_rnr)
+  
+  #lowroots
+      #donors: rotated vs. not rotated
+      lm_0.6_C_dr_vs_dnr <- lm(C ~ treatment, subset=donor_or_recip!="r" & tissue=="lowroot", data=defol_0.6_nn)
+      Anova(lm_0.6_C_dr_vs_dnr)
+      
+      
+      #recipients: rotated vs. not rotated
+      lm_0.6_C_rr_vs_rnr <- lm(C ~ treatment, subset=donor_or_recip!="d" & tissue=="lowroot", data=defol_0.6_nn)
+      Anova(lm_0.6_C_rr_vs_rnr)
+      
+      #rotated donors vs. rotated recipients
+      lm_0.6_C_rd_vs_rr <- lm(C ~ donor_or_recip, subset=treatment!="defoliate_0.6" & tissue=="lowroot", data=defol_0.6_nn)
+      Anova(lm_0.6_C_rd_vs_rr)
+      
+      #not rotated donors vs. not rotated recipients
+      lm_0.6_C_dnr_vs_rnr <- lm(C ~ donor_or_recip, subset=treatment!="control_0.6_defol" & tissue=="lowroot", data=defol_0.6_nn)
+      Anova(lm_0.6_C_dnr_vs_rnr)
+  
+  #stem
+      #donors: rotated vs. not rotated
+      lm_0.6_C_dr_vs_dnr <- lm(C ~ treatment, subset=donor_or_recip!="r" & tissue=="stem", data=defol_0.6_nn)
+      Anova(lm_0.6_C_dr_vs_dnr)
+      
+      
+      #recipients: rotated vs. not rotated
+      lm_0.6_C_rr_vs_rnr <- lm(C ~ treatment, subset=donor_or_recip!="d" & tissue=="stem", data=defol_0.6_nn)
+      Anova(lm_0.6_C_rr_vs_rnr)
+      
+      #rotated donors vs. rotated recipients
+      lm_0.6_C_rd_vs_rr <- lm(C ~ donor_or_recip, subset=treatment!="defoliate_0.6" & tissue=="stem", data=defol_0.6_nn)
+      Anova(lm_0.6_C_rd_vs_rr)
+      
+      #not rotated donors vs. not rotated recipients
+      lm_0.6_C_dnr_vs_rnr <- lm(C ~ donor_or_recip, subset=treatment!="control_0.6_defol" & tissue=="stem", data=defol_0.6_nn)
+      Anova(lm_0.6_C_dnr_vs_rnr)  
     
-    
+  
+  
 
 ########1.0 defol: control (rotated) vs. nonrotated######################### 
 #Donor defoliation: donors vs recipients N
@@ -301,7 +358,65 @@ ggplot(defol_1.0_nn, aes(x = treatment, y = N, fill = donor_or_recip)) +
   lm_1.0_N <- lm(N ~ donor_or_recip * treatment * tissue,subset=tissue!="needles", data=defol_1.0)
   Anova(lm_1.0_N)
   
-
+  
+  #lm for specific tissue groups 100% Defol Delta N
+  #highroots:
+  #donors: rotated vs. not rotated
+  lm_1.0_N_dr_vs_dnr <- lm(N ~ treatment, subset=donor_or_recip!="r" & tissue=="highroot", data=defol_1.0_nn)
+  Anova(lm_1.0_N_dr_vs_dnr)
+  
+  
+  #recipients: rotated vs. not rotated
+  lm_1.0_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="highroot", data=defol_1.0_nn)
+  Anova(lm_1.0_N_rr_vs_rnr)
+  
+  #rotated donors vs. rotated recipients
+  lm_1.0_N_rd_vs_rr <- lm(N ~ donor_or_recip, subset=treatment!="defoliate_1.0" & tissue=="highroot", data=defol_1.0_nn)
+  Anova(lm_1.0_N_rd_vs_rr)
+  
+  #not rotated donors vs. not rotated recipients
+  lm_1.0_N_dnr_vs_rnr <- lm(N ~ donor_or_recip, subset=treatment!="control_1.0_defol" & tissue=="highroot", data=defol_1.0_nn)
+  Anova(lm_1.0_N_dnr_vs_rnr)
+  
+  
+  #lowroots
+  #donors: rotated vs. not rotated
+  lm_1.0_N_dr_vs_dnr <- lm(N ~ treatment, subset=donor_or_recip!="r" & tissue=="lowroot", data=defol_1.0_nn)
+  Anova(lm_1.0_N_dr_vs_dnr)
+  
+  
+  #recipients: rotated vs. not rotated
+  lm_1.0_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="lowroot", data=defol_1.0_nn)
+  Anova(lm_1.0_N_rr_vs_rnr)
+  
+  #rotated donors vs. rotated recipients
+  lm_1.0_N_rd_vs_rr <- lm(N ~ donor_or_recip, subset=treatment!="defoliate_1.0" & tissue=="lowroot", data=defol_1.0_nn)
+  Anova(lm_1.0_N_rd_vs_rr)
+  
+  #not rotated donors vs. not rotated recipients
+  lm_1.0_N_dnr_vs_rnr <- lm(N ~ donor_or_recip, subset=treatment!="control_1.0_defol" & tissue=="lowroot", data=defol_1.0_nn)
+  Anova(lm_1.0_N_dnr_vs_rnr)
+  
+  #stem
+  #donors: rotated vs. not rotated
+  lm_1.0_N_dr_vs_dnr <- lm(N ~ treatment, subset=donor_or_recip!="r" & tissue=="stem", data=defol_1.0_nn)
+  Anova(lm_1.0_N_dr_vs_dnr)
+  
+  
+  #recipients: rotated vs. not rotated
+  lm_1.0_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="stem", data=defol_1.0_nn)
+  Anova(lm_1.0_N_rr_vs_rnr)
+  
+  #rotated donors vs. rotated recipients
+  lm_1.0_N_rd_vs_rr <- lm(N ~ donor_or_recip, subset=treatment!="defoliate_1.0" & tissue=="stem", data=defol_1.0_nn)
+  Anova(lm_0.6_N_rd_vs_rr)
+  
+  #not rotated donors vs. not rotated recipients
+  lm_1.0_N_dnr_vs_rnr <- lm(N ~ donor_or_recip, subset=treatment!="control_1.0_defol" & tissue=="stem", data=defol_1.0_nn)
+  Anova(lm_1.0_N_dnr_vs_rnr)
+  
+  
+  
 
 #Donor defoliation: donors vs recipients C
   
@@ -342,8 +457,69 @@ ggplot(defol_1.0_nn, aes(x = treatment, y = C, fill = donor_or_recip)) +
   Anova(lm_1.0_C)
 
 
+  #lm for specific tissue groups 100% Defol Delta C
+  #highroots:
+      #donors: rotated vs. not rotated
+      lm_1.0_C_dr_vs_dnr <- lm(C ~ treatment, subset=donor_or_recip!="r" & tissue=="highroot", data=defol_1.0_nn)
+      Anova(lm_1.0_C_dr_vs_dnr)
+      
+      
+      #recipients: rotated vs. not rotated
+      lm_1.0_C_rr_vs_rnr <- lm(C ~ treatment, subset=donor_or_recip!="d" & tissue=="highroot", data=defol_1.0_nn)
+      Anova(lm_1.0_C_rr_vs_rnr)
+      
+      #rotated donors vs. rotated recipients
+      lm_1.0_C_rd_vs_rr <- lm(C ~ donor_or_recip, subset=treatment!="defoliate_1.0" & tissue=="highroot", data=defol_1.0_nn)
+      Anova(lm_1.0_C_rd_vs_rr)
+      
+      #not rotated donors vs. not rotated recipients
+      lm_1.0_C_dnr_vs_rnr <- lm(C ~ donor_or_recip, subset=treatment!="control_1.0_defol" & tissue=="highroot", data=defol_1.0_nn)
+      Anova(lm_1.0_C_dnr_vs_rnr)
+  
+  
+  #lowroots
+      #donors: rotated vs. not rotated
+      lm_1.0_C_dr_vs_dnr <- lm(C ~ treatment, subset=donor_or_recip!="r" & tissue=="lowroot", data=defol_1.0_nn)
+      Anova(lm_1.0_C_dr_vs_dnr)
+      
+      #recipients: rotated vs. not rotated
+      lm_1.0_C_rr_vs_rnr <- lm(C ~ treatment, subset=donor_or_recip!="d" & tissue=="lowroot", data=defol_1.0_nn)
+      Anova(lm_1.0_C_rr_vs_rnr)
+      
+      #rotated donors vs. rotated recipients
+      lm_1.0_C_rd_vs_rr <- lm(C ~ donor_or_recip, subset=treatment!="defoliate_1.0" & tissue=="lowroot", data=defol_1.0_nn)
+      Anova(lm_1.0_C_rd_vs_rr)
+      
+      #not rotated donors vs. not rotated recipients
+      lm_1.0_C_dnr_vs_rnr <- lm(C ~ donor_or_recip, subset=treatment!="control_1.0_defol" & tissue=="lowroot", data=defol_1.0_nn)
+      Anova(lm_1.0_C_dnr_vs_rnr)
+  
+  #stem
+      #donors: rotated vs. not rotated
+      lm_1.0_C_dr_vs_dnr <- lm(C ~ treatment, subset=donor_or_recip!="r" & tissue=="stem", data=defol_1.0_nn)
+      Anova(lm_1.0_C_dr_vs_dnr)
+      
+      
+      #recipients: rotated vs. not rotated
+      lm_1.0_C_rr_vs_rnr <- lm(C ~ treatment, subset=donor_or_recip!="d" & tissue=="stem", data=defol_1.0_nn)
+      Anova(lm_1.0_C_rr_vs_rnr)
+      
+      #rotated donors vs. rotated recipients
+      lm_1.0_C_rd_vs_rr <- lm(C ~ donor_or_recip, subset=treatment!="defoliate_1.0" & tissue=="stem", data=defol_1.0_nn)
+      Anova(lm_0.6_C_rd_vs_rr)
+      
+      #not rotated donors vs. not rotated recipients
+      lm_1.0_C_dnr_vs_rnr <- lm(C ~ donor_or_recip, subset=treatment!="control_1.0_defol" & tissue=="stem", data=defol_1.0_nn)
+      Anova(lm_1.0_C_dnr_vs_rnr)
+  
 
-
+  
+  
+  
+  
+  
+  
+  
   
   
   
