@@ -728,8 +728,8 @@ recipients <- na.omit(recipients)
     geom_boxplot() +
     facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-    scale_x_discrete(labels = custom_labels) + ylab('% 15N') +
-    ggtitle('60% Defoliation: Tissue % 15N Content')+ theme(plot.title = element_text(hjust = 0.5))
+    scale_x_discrete(labels = custom_labels) + ylab('%15N') +
+    ggtitle('60% Defoliation: Tissue %15N Content')+ theme(plot.title = element_text(hjust = 0.5))
   
   #run the lm
   lm_0.6_X.N <- lm(X.N ~ donor_or_recip * treatment * tissue,subset=tissue!="needles", data=defol_0.6)
@@ -824,8 +824,8 @@ recipients <- na.omit(recipients)
     geom_boxplot() +
     facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-    scale_x_discrete(labels = custom_labels) + ylab('% 13C') +
-    ggtitle('60% Defoliation: Tissue % 13C Content')+ theme(plot.title = element_text(hjust = 0.5))
+    scale_x_discrete(labels = custom_labels) + ylab('%13C') +
+    ggtitle('60% Defoliation: Tissue %13C Content')+ theme(plot.title = element_text(hjust = 0.5))
   
   
   #run the lm
@@ -924,8 +924,8 @@ recipients <- na.omit(recipients)
     geom_boxplot() +
     facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-    scale_x_discrete(labels = custom_labels) + ylab('% 15N') +
-    ggtitle('100% Defoliation: Tissue % 15N Content')+ theme(plot.title = element_text(hjust = 0.5))
+    scale_x_discrete(labels = custom_labels) + ylab('%15N') +
+    ggtitle('100% Defoliation: Tissue %15N Content')+ theme(plot.title = element_text(hjust = 0.5))
   
   
   #run the lm
@@ -1019,8 +1019,8 @@ recipients <- na.omit(recipients)
     geom_boxplot() +
     facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-    scale_x_discrete(labels = custom_labels) + ylab('% 13C') +
-    ggtitle('100% Defoliation: Tissue % 13C Content')+ theme(plot.title = element_text(hjust = 0.5))
+    scale_x_discrete(labels = custom_labels) + ylab('%13C') +
+    ggtitle('100% Defoliation: Tissue %13C Content')+ theme(plot.title = element_text(hjust = 0.5))
   
   
   #run the lm
