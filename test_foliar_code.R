@@ -21,6 +21,7 @@ library(multcompView)
 library(car)
 library(pwr)
 library(tidyr)
+library(patchwork)
 
 
 #download data
@@ -668,7 +669,7 @@ recipients <- na.omit(recipients)
   
   #build the graph and save as a PDF to figs folder 
   #pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
-  ggplot(tissue_waje, aes(tissue, w)) + 
+ggplot(tissue_waje, aes(tissue, w)) + 
     geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
     geom_errorbar(aes(ymin = w - sd, ymax = w + sd), width = 0.05) +
     labs(x = "Plant Tissue Types", y = expression(paste(delta, " 13C"))) +
@@ -677,10 +678,368 @@ recipients <- na.omit(recipients)
     theme(plot.title = element_text(hjust = 0.5))
   #dev.off() #where to stop pdf
 
+  #filter the data a little 
+  recipients <- subset(test_foliar, donor_or_recip %in% c('r'))
+  #need to remove one lowroot line b/c NA
+  recipients <- na.omit(recipients)
+  
+  #Tukey HSD test/graph for N
+  #build the model and run TukeyHSD
+  aov_recipients <- aov(N ~ tissue, data = recipients)
+  summary(aov_recipients)
+  tukey <- TukeyHSD(aov_recipients, 'tissue', ordered = TRUE, conf.level = 0.95)
+  tukey
+  
+  #compact letter display
+  cld <- multcompLetters4(aov_recipients, tukey)
+  
+  #table with factors and 3rd quartile 
+  tissue_waje <- group_by(recipients, tissue) %>%
+    summarise(w=mean(N),sd = sd(N)) %>%
+    arrange(desc(w))
+  
+  #extracting compact letter display and adding to the Tukey table
+  cld <- as.data.frame.list(cld$tissue)
+  tissue_waje$cld <- cld$Letters
+  print(tissue_waje) #this prints the letters that are assigned based on significance
+  
+  #build the graph and save as a PDF to figs folder 
+  #pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
+ggplot(tissue_waje, aes(tissue, w)) + 
+    geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
+    geom_errorbar(aes(ymin = w - sd, ymax = w + sd), width = 0.05) +
+    labs(x = "Plant Tissue Types", y = expression(paste(delta, " 15N"))) +
+    geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
+    ggtitle(expression(paste("Recipient Seedlings: Tissue ", delta, " 15N Content"))) +
+    theme(plot.title = element_text(hjust = 0.5))
+  #dev.off() #where to stop pdf
+  
+  
+  
+  
+
+
+
+
 
   
+###########Combined Tukey Plots Delta 13C and 15N################################################################  
+  
+#try to get donors and recipients on one Tukey plot for delta 15N
+
+  #filter the data a little 
+  donors <- subset(test_foliar, donor_or_recip %in% c('d'))
+  
+  #Tukey HSD test/graph for N
+  #build the model and run TukeyHSD
+  aov_donors <- aov(N ~ tissue, data = donors)
+  summary(aov_donors)
+  tukey <- TukeyHSD(aov_donors, 'tissue', ordered = TRUE, conf.level = 0.95)
+  tukey
+  
+  #compact letter display
+  cld <- multcompLetters4(aov_donors, tukey)
+  
+  #table with factors and 3rd quartile 
+  tissue_waje <- group_by(donors, tissue) %>%
+    summarise(w=mean(N),sd = sd(N)) %>%
+    arrange(desc(w))
+  
+  #extracting compact letter display and adding to the Tukey table
+  cld <- as.data.frame.list(cld$tissue)
+  tissue_waje$cld <- cld$Letters
+  print(tissue_waje) #this prints the letters that are assigned based on significance, note that for the "mock" data these will not be significant
+  
+  #build the graph and save as a PDF to figs folder 
+  #pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
+  plot_donors_deltaN <- ggplot(tissue_waje, aes(tissue, w)) + 
+    geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
+    geom_errorbar(aes(ymin = w - sd, ymax = w + sd), width = 0.05) +
+    labs(x = "Plant Tissue Types", y = expression(paste(delta, " 15N"))) +
+    geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
+    ggtitle(expression(paste("Donor Seedlings: Tissue ", delta, " 15N Content"))) +
+    theme(plot.title = element_text(hjust = 0.5))
+  #dev.off() #where to stop pdf
+  
+  #filter the data a little 
+  recipients <- subset(test_foliar, donor_or_recip %in% c('r'))
+  #need to remove one lowroot line b/c NA
+  recipients <- na.omit(recipients)
+  
+  #Tukey HSD test/graph for N
+  #build the model and run TukeyHSD
+  aov_recipients <- aov(N ~ tissue, data = recipients)
+  summary(aov_recipients)
+  tukey <- TukeyHSD(aov_recipients, 'tissue', ordered = TRUE, conf.level = 0.95)
+  tukey
+  
+  #compact letter display
+  cld <- multcompLetters4(aov_recipients, tukey)
+  
+  #table with factors and 3rd quartile 
+  tissue_waje <- group_by(recipients, tissue) %>%
+    summarise(w=mean(N),sd = sd(N)) %>%
+    arrange(desc(w))
+  
+  #extracting compact letter display and adding to the Tukey table
+  cld <- as.data.frame.list(cld$tissue)
+  tissue_waje$cld <- cld$Letters
+  print(tissue_waje) #this prints the letters that are assigned based on significance
+  
+  #build the graph and save as a PDF to figs folder 
+  #pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
+plot_recip_deltaN <-  ggplot(tissue_waje, aes(tissue, w)) + 
+    geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
+    geom_errorbar(aes(ymin = w - sd, ymax = w + sd), width = 0.05) +
+    labs(x = "Plant Tissue Types", y = expression(paste(delta, " 15N"))) +
+    geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
+    ggtitle(expression(paste("Recipient Seedlings: Tissue ", delta, " 15N Content"))) +
+    theme(plot.title = element_text(hjust = 0.5))
+  #dev.off() #where to stop pdf
+
+# Combine the two plots using patchwork
+combined_plot_deltaN <- plot_donors_deltaN + plot_recip_deltaN
+combined_plot_deltaN
+  
+
+##############try to get donors and recipients on one Tukey plot for delta 13C 
+
+#filter the data a little 
+donors <- subset(test_foliar, donor_or_recip %in% c('d'))
+
+#Tukey HSD test/graph for C
+#build the model and run TukeyHSD
+aov_donors <- aov(C ~ tissue, data = donors)
+summary(aov_donors)
+tukey <- TukeyHSD(aov_donors, 'tissue', ordered = TRUE, conf.level = 0.95)
+tukey
+
+#compact letter display
+cld <- multcompLetters4(aov_donors, tukey)
+
+#table with factors and 3rd quartile 
+tissue_waje <- group_by(donors, tissue) %>%
+  summarise(w=mean(C),sd = sd(C)) %>%
+  arrange(desc(w))
+
+#extracting compact letter display and adding to the Tukey table
+cld <- as.data.frame.list(cld$tissue)
+tissue_waje$cld <- cld$Letters
+print(tissue_waje) #this prints the letters that are assigned based on significance, note that for the "mock" data these will not be significant
+
+#build the graph and save as a PDF to figs folder 
+#pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
+plot_donors_deltaC <- ggplot(tissue_waje, aes(tissue, w)) + 
+  geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
+  geom_errorbar(aes(ymin = w - sd, ymax = w + sd), width = 0.05) +
+  labs(x = "Plant Tissue Types", y = expression(paste(delta, " 13C"))) +
+  geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
+  ggtitle(expression(paste("Donor Seedlings: Tissue ", delta, " 13C Content"))) +
+  theme(plot.title = element_text(hjust = 0.5))
+#dev.off() #where to stop pdf
+  
+#filter the data a little 
+recipients <- subset(test_foliar, donor_or_recip %in% c('r'))
+#need to remove one lowroot line b/c NA
+recipients <- na.omit(recipients) 
+  
+aov_recipients <- aov(C ~ tissue, data = recipients)
+summary(aov_recipients)
+tukey <- TukeyHSD(aov_recipients, 'tissue', ordered = TRUE, conf.level = 0.95)
+tukey
+
+#compact letter display
+cld <- multcompLetters4(aov_recipients, tukey)
+
+#table with factors and 3rd quartile 
+tissue_waje <- group_by(recipients, tissue) %>%
+  summarise(w=mean(C),sd = sd(C)) %>%
+  arrange(desc(w))
+
+#extracting compact letter display and adding to the Tukey table
+cld <- as.data.frame.list(cld$tissue)
+tissue_waje$cld <- cld$Letters
+print(tissue_waje) #this prints the letters that are assigned based on significance, note that for the "mock" data these will not be significant
+
+#build the graph and save as a PDF to figs folder 
+#pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
+plot_recip_deltaC <- ggplot(tissue_waje, aes(tissue, w)) + 
+  geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
+  geom_errorbar(aes(ymin = w - sd, ymax = w + sd), width = 0.05) +
+  labs(x = "Plant Tissue Types", y = expression(paste(delta, " 13C"))) +
+  geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
+  ggtitle(expression(paste("Recipient Seedlings: Tissue ", delta, " 13C Content"))) +
+  theme(plot.title = element_text(hjust = 0.5))
+#dev.off() #where to stop pdf
+  
+#Combine the plots
+combined_plot_deltaC <- plot_donors_deltaC + plot_recip_deltaC
+combined_plot_deltaC
   
   
+  
+  
+  
+  
+  
+  
+#########Combined Tukey Plots %N and %C###############################################
+  
+  
+##########Try to get donos and recipiens on one Tukey plot for %N #########
+#filter the data a little 
+donors <- subset(test_foliar, donor_or_recip %in% c('d'))
+
+#Tukey HSD test/graph for N
+#build the model and run TukeyHSD
+aov_donors <- aov(X.N ~ tissue, data = donors)
+summary(aov_donors)
+tukey <- TukeyHSD(aov_donors, 'tissue', ordered = TRUE, conf.level = 0.95)
+tukey
+
+#compact letter display
+cld <- multcompLetters4(aov_donors, tukey)
+
+#table with factors and 3rd quartile 
+tissue_waje <- group_by(donors, tissue) %>%
+  summarise(w=mean(X.N),sd = sd(X.N)) %>%
+  arrange(desc(w))
+
+#extracting compact letter display and adding to the Tukey table
+cld <- as.data.frame.list(cld$tissue)
+tissue_waje$cld <- cld$Letters
+print(tissue_waje) #this prints the letters that are assigned based on significance, note that for the "mock" data these will not be significant
+
+#build the graph and save as a PDF to figs folder 
+#pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
+plot_donors_perN <- ggplot(tissue_waje, aes(tissue, w)) + 
+  geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
+  geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
+  labs(x = "Plant Tissue Types", y = "%N") +
+  geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
+  ggtitle('Donor Seedlings: Tissue %N Content')+ theme(plot.title = element_text(hjust = 0.5))
+#dev.off() #where to stop pdf 
+  
+  
+#filter the data a little 
+recipients <- subset(test_foliar, donor_or_recip %in% c('r'))
+#need to remove one lowroot line b/c NA
+recipients <- na.omit(recipients)
+
+#Tukey HSD test/graph for % N
+#build the model and run TukeyHSD
+aov_recipients <- aov(X.N ~ tissue, data = recipients)
+summary(aov_recipients)
+tukey <- TukeyHSD(aov_recipients, 'tissue', ordered = TRUE, conf.level = 0.95)
+tukey
+
+#compact letter display
+cld <- multcompLetters4(aov_recipients, tukey)
+
+#table with factors and 3rd quartile 
+tissue_waje <- group_by(recipients, tissue) %>%
+  summarise(w=mean(X.N),sd = sd(X.N)) %>%
+  arrange(desc(w))
+
+#extracting compact letter display and adding to the Tukey table
+cld <- as.data.frame.list(cld$tissue)
+tissue_waje$cld <- cld$Letters
+print(tissue_waje) #this prints the letters that are assigned based on significance
+
+#build the graph and save as a PDF to figs folder 
+#pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
+plot_recip_perN <- ggplot(tissue_waje, aes(tissue, w)) + 
+  geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
+  geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
+  labs(x = "Plant Tissue Types", y = "%N") +
+  geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +  
+  ggtitle('Recipient Seedlings: Tissue %N Content')+ theme(plot.title = element_text(hjust = 0.5))
+#dev.off() #where to stop pdf
+  
+# Combine the two plots using patchwork
+combined_plot_perN <- plot_donors_perN + plot_recip_perN
+combined_plot_perN
+  
+
+
+  
+##########Try to get donos and recipiens on one Tukey plot for %C #########  
+#filter the data a little 
+donors <- subset(test_foliar, donor_or_recip %in% c('d'))  
+#build the model and run TukeyHSD
+aov_donors <- aov(X.C ~ tissue, data = donors)
+summary(aov_donors)
+tukey <- TukeyHSD(aov_donors, 'tissue', ordered = TRUE, conf.level = 0.95)
+tukey
+
+#compact letter display
+cld <- multcompLetters4(aov_donors, tukey)
+
+#table with factors and 3rd quartile 
+tissue_waje <- group_by(donors, tissue) %>%
+  summarise(w=mean(X.C),sd = sd(X.C)) %>%
+  arrange(desc(w))
+
+#extracting compact letter display and adding to the Tukey table
+cld <- as.data.frame.list(cld$tissue)
+tissue_waje$cld <- cld$Letters
+print(tissue_waje) #this prints the letters that are assigned based on significance, note that for the "mock" data these will not be significant
+
+#build the graph and save as a PDF to figs folder 
+#pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
+plot_donors_perC <- ggplot(tissue_waje, aes(tissue, w)) + 
+  geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
+  geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
+  labs(x = "Plant Tissue Types", y = "%C") +
+  geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
+  ggtitle('Donor Seedlings: Tissue %C Content')+ theme(plot.title = element_text(hjust = 0.5))
+#dev.off() #where to stop pdf  
+  
+
+#Tukey HSD test/graph for % C
+#build the model and run TukeyHSD
+aov_recipients <- aov(X.C ~ tissue, data = recipients)
+summary(aov_recipients)
+tukey <- TukeyHSD(aov_recipients, 'tissue', ordered = TRUE, conf.level = 0.95)
+tukey
+
+#compact letter display
+cld <- multcompLetters4(aov_recipients, tukey)
+
+#table with factors and 3rd quartile 
+tissue_waje <- group_by(recipients, tissue) %>%
+  summarise(w=mean(X.C),sd = sd(X.C)) %>%
+  arrange(desc(w))
+
+#extracting compact letter display and adding to the Tukey table
+cld <- as.data.frame.list(cld$tissue)
+tissue_waje$cld <- cld$Letters
+print(tissue_waje) #this prints the letters that are assigned based on significance, note that for the "mock" data these will not be significant
+
+#build the graph and save as a PDF to figs folder 
+#pdf('./figs/tukey_control_0.5_recip_defol_recip_tissue.pdf') #pdf will show up in figs folder
+plot_recip_perC <- ggplot(tissue_waje, aes(tissue, w)) + 
+  geom_bar(stat = "identity", aes(fill = tissue), show.legend = TRUE) +
+  geom_errorbar(aes(ymin = w-sd, ymax=w+sd), width = 0.05) +
+  labs(x = "Plant Tissue Types", y = "%C") +
+  geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
+  ggtitle('Recipient Seedlings: Tissue %C Content')+ theme(plot.title = element_text(hjust = 0.5))
+#dev.off() #where to stop pdf
+
+  
+# Combine the two plots using patchwork
+combined_plot_perC <- plot_donors_perC + plot_recip_perC
+combined_plot_perC
+
+
+
+
+
+
+
+
+
+ 
   
     
 #' 
@@ -1094,7 +1453,7 @@ recipients <- na.omit(recipients)
    
   
   ---  
-    #' *Let's see how the label appeared in different tissues: % C and N*
+    #' *Let's see how the label appeared in different tissues: % C and %N*
     ---
     #' all donor seedlings were labeled, so I will be looking at tissue differentiation in donor seedlings regardless of defoliation treatment
     #' note: since label was applied directly to needles, they will not be included as a plat tissue when evaluating donor seedlings
