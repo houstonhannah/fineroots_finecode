@@ -158,8 +158,13 @@ ggplot(defol_0.6_nn, aes(x = treatment, y = N, fill = donor_or_recip)) +
         #donors: rotated vs. not rotated
       lm_0.6_N_dr_vs_dnr <- lm(N ~ treatment, subset=donor_or_recip!="r" & tissue=="highroot", data=defol_0.6_nn)
       Anova(lm_0.6_N_dr_vs_dnr)
-      
-      
+            #find the mean of rotated donors
+            mean_N <- mean(subset(defol_0.6_nn, donor_or_recip != "r" & tissue == "highroot" & treatment == "control_0.6_defol")$N)
+            mean_N
+            #find the mean of not rotated donors
+            mean_N <- mean(subset(defol_0.6_nn, donor_or_recip != "r" & tissue == "highroot" & treatment == "defoliate_0.6")$N)
+            mean_N
+            
         #recipients: rotated vs. not rotated
       lm_0.6_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="highroot", data=defol_0.6_nn)
       Anova(lm_0.6_N_rr_vs_rnr)
@@ -389,6 +394,13 @@ ggplot(defol_1.0_nn, aes(x = treatment, y = N, fill = donor_or_recip)) +
   #recipients: rotated vs. not rotated
   lm_1.0_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="lowroot", data=defol_1.0_nn)
   Anova(lm_1.0_N_rr_vs_rnr)
+  
+          #find the mean of rotated recips
+          mean_N <- mean(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "control_1.0_defol")$N)
+          mean_N
+          #find the mean of not rotated recips
+          mean_N <- mean(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "defoliate_1.0")$N)
+          mean_N
   
   #rotated donors vs. rotated recipients
   lm_1.0_N_rd_vs_rr <- lm(N ~ donor_or_recip, subset=treatment!="defoliate_1.0" & tissue=="lowroot", data=defol_1.0_nn)
@@ -1049,7 +1061,42 @@ combined_plot_perC
 #' 
 #' 
 #' *Let's look at %N and %C"*
+#' 
+###############make a graph showing all treatments
+
+#sort by donor vs recipients for %N
+# Define the custom x-axis labels
+custom_labels <- c("Rotated 60%", "Rotated 100%", "Rotated 0%", "40%", "60%", "80%", "100%")
+
+ggplot(test_foliar, aes(x = treatment, y = X.N, fill = donor_or_recip)) + 
+  geom_boxplot() + 
+  labs(x = "Treatment", y = "%N") +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
+  facet_wrap(~ donor_or_recip, scales = "free") +
+  ggtitle("Tissue %N Content") + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_x_discrete(labels = custom_labels)
+
+#sort by donor vs recipients for 13C
+# Define the custom x-axis labels
+custom_labels <- c("Rotated 60%", "Rotated 100%", "Rotated 0%", "40%", "60%", "80%", "100%")
+
+ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) + 
+  geom_boxplot() + 
+  labs(x = "Treatment", y = "%C") +
+  scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
+  facet_wrap(~ donor_or_recip, scales = "free") +
+  ggtitle("Tissue %C Content") + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_x_discrete(labels = custom_labels)
   
+
+
+
+
+
   ########0.6 defol: control (rotated) vs. nonrotated######################### 
   #Donor defoliation: donors vs recipients %N
   #subset data a little more
@@ -1087,8 +1134,8 @@ combined_plot_perC
     geom_boxplot() +
     facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-    scale_x_discrete(labels = custom_labels) + ylab('%15N') +
-    ggtitle('60% Defoliation: Tissue %15N Content')+ theme(plot.title = element_text(hjust = 0.5))
+    scale_x_discrete(labels = custom_labels) + ylab('%N') +
+    ggtitle('60% Defoliation: Tissue %N Content')+ theme(plot.title = element_text(hjust = 0.5))
   
   #run the lm
   lm_0.6_X.N <- lm(X.N ~ donor_or_recip * treatment * tissue,subset=tissue!="needles", data=defol_0.6)
@@ -1183,8 +1230,8 @@ combined_plot_perC
     geom_boxplot() +
     facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-    scale_x_discrete(labels = custom_labels) + ylab('%13C') +
-    ggtitle('60% Defoliation: Tissue %13C Content')+ theme(plot.title = element_text(hjust = 0.5))
+    scale_x_discrete(labels = custom_labels) + ylab('%C') +
+    ggtitle('60% Defoliation: Tissue %C Content')+ theme(plot.title = element_text(hjust = 0.5))
   
   
   #run the lm
@@ -1283,8 +1330,8 @@ combined_plot_perC
     geom_boxplot() +
     facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-    scale_x_discrete(labels = custom_labels) + ylab('%15N') +
-    ggtitle('100% Defoliation: Tissue %15N Content')+ theme(plot.title = element_text(hjust = 0.5))
+    scale_x_discrete(labels = custom_labels) + ylab('%N') +
+    ggtitle('100% Defoliation: Tissue %N Content')+ theme(plot.title = element_text(hjust = 0.5))
   
   
   #run the lm
@@ -1317,6 +1364,14 @@ combined_plot_perC
         Anova(lm_1.0_X.N_dr_vs_dnr)
         
         
+        mean_N <- mean(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "control_1.0_defol")$X.N)
+        mean_N
+        
+        mean_N <- mean(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "defoliate_1.0")$X.N)
+        mean_N
+        
+        
+        
         #recipients: rotated vs. not rotated
         lm_1.0_X.N_rr_vs_rnr <- lm(X.N ~ treatment, subset=donor_or_recip!="d" & tissue=="lowroot", data=defol_1.0_nn)
         Anova(lm_1.0_X.N_rr_vs_rnr)
@@ -1334,6 +1389,12 @@ combined_plot_perC
         lm_1.0_X.N_dr_vs_dnr <- lm(X.N ~ treatment, subset=donor_or_recip!="r" & tissue=="stem", data=defol_1.0_nn)
         Anova(lm_1.0_X.N_dr_vs_dnr)
         
+        
+        mean_N <- mean(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "stem" & treatment == "control_1.0_defol")$X.N)
+        mean_N
+        
+        mean_N <- mean(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "stem" & treatment == "defoliate_1.0")$X.N)
+        mean_N
         
         #recipients: rotated vs. not rotated
         lm_1.0_X.N_rr_vs_rnr <- lm(X.N ~ treatment, subset=donor_or_recip!="d" & tissue=="stem", data=defol_1.0_nn)
@@ -1378,8 +1439,8 @@ combined_plot_perC
     geom_boxplot() +
     facet_wrap(~ tissue + donor_or_recip, scales = "free", labeller = custom_labeller) +
     scale_fill_discrete(name = 'Seedling Type', label = c('Donors', 'Recipients')) +
-    scale_x_discrete(labels = custom_labels) + ylab('%13C') +
-    ggtitle('100% Defoliation: Tissue %13C Content')+ theme(plot.title = element_text(hjust = 0.5))
+    scale_x_discrete(labels = custom_labels) + ylab('%C') +
+    ggtitle('100% Defoliation: Tissue %C Content')+ theme(plot.title = element_text(hjust = 0.5))
   
   
   #run the lm
@@ -1595,3 +1656,208 @@ combined_plot_perC
     geom_text(aes(label = cld, y = w + sd), vjust = -0.5) +
     ggtitle('Recipient Seedlings: Tissue % 13C Content')+ theme(plot.title = element_text(hjust = 0.5))
   #dev.off() #where to stop pdf
+  
+  
+  
+  
+  
+  
+  
+  
+#####################Make scatterplots of all data points########################
+  
+  
+  # %N Recipients: Create the line graph with unique points for each tissue type for recipients
+  #filter the dataset a bit
+  alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
+  alltreat_don <- subset(test_foliar, donor_or_recip == "d")
+  
+  # Determine y-axis limits
+  y_limits <- range(c(alltreat_recip$X.N, alltreat_don$X.N))  # Get the range of X.N values for both recipients and donors
+  
+  # Create the line graph for recipients with specified y-axis limits
+  plot_recip_X.N <- ggplot(alltreat_recip, aes(x = defoliation, y = X.N, color = tissue, group = tissue, shape = tissue)) +
+    geom_line() +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = "%N", color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    theme_minimal() +
+    ggtitle("Recipient %N Defoliation Gradient") + 
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    ylim(y_limits)  # Set y-axis limits
+  
+  # %N Donors: Create the line graph with unique points for each tissue type for donors
+
+  
+  # Create the line graph for donors with the same y-axis limits as recipients
+  plot_don_X.N <- ggplot(alltreat_don, aes(x = defoliation, y = X.N, color = tissue, group = tissue, shape = tissue)) +
+    geom_line() +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = "%N", color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    theme_minimal() +
+    ggtitle("Donor %N Defoliation Gradient") + 
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    ylim(y_limits)  # Set the same y-axis limits as recipients
+  
+  # View the plots (or save them, export them, etc.)
+  print(plot_recip_X.N)
+  print(plot_don_X.N)
+  
+  # Combine the two plots using patchwork
+  combined_plot_alltreat_X.N <- plot_don_X.N + plot_recip_X.N
+  combined_plot_alltreat_X.N
+  
+  
+  
+  
+  
+  
+  
+  # %C Recipients: Create the line graph with unique points for each tissue type for recipients
+  #filter the dataset a bit
+  alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
+  alltreat_don <- subset(test_foliar, donor_or_recip == "d")
+  
+  # Determine y-axis limits
+  y_limits <- range(c(alltreat_recip$X.C, alltreat_don$X.C))  # Get the range of X.C values for both recipients and donors
+  
+  # Create the line graph for recipients with specified y-axis limits
+  plot_recip_X.C <- ggplot(alltreat_recip, aes(x = defoliation, y = X.C, color = tissue, group = tissue, shape = tissue)) +
+    geom_line() +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = "%C", color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    theme_minimal() +
+    ggtitle("Recipient %C Defoliation Gradient") + 
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    ylim(y_limits)  # Set y-axis limits
+  
+  # %C Donors: Create the line graph with unique points for each tissue type for donors
+  
+  # Create the line graph for donors with the same y-axis limits as recipients
+  plot_don_X.C <- ggplot(alltreat_don, aes(x = defoliation, y = X.C, color = tissue, group = tissue, shape = tissue)) +
+    geom_line() +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = "%C", color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    theme_minimal() +
+    ggtitle("Donor %C Defoliation Gradient") + 
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    ylim(y_limits)  # Set the same y-axis limits as recipients
+  
+  # View the plots (or save them, export them, etc.)
+  print(plot_recip_X.C)
+  print(plot_don_X.C)
+  
+  # Combine the two plots using patchwork
+  combined_plot_alltreat_X.C <- plot_don_X.C + plot_recip_X.C
+  combined_plot_alltreat_X.C
+
+  
+  
+  
+  
+  
+  
+  
+  
+  # Delta N Recipients: Create the line graph with unique points for each tissue type for recipients
+  alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
+  alltreat_don <- subset(test_foliar, donor_or_recip == "d")
+  
+  # Determine y-axis limits
+  y_limits <- range(c(alltreat_recip$N, alltreat_don$N))  # Get the range of N values for both recipients and donors
+  
+  # Create the line graph for recipients with specified y-axis limits
+  plot_recip_N <- ggplot(alltreat_recip, aes(x = defoliation, y = N, color = tissue, group = tissue, shape = tissue)) +
+    geom_line() +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = expression(paste(delta, " 15N")), color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    theme_minimal() +
+    ggtitle(expression(paste("Recipient ", delta, "15N Defoliation Gradient"))) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    ylim(y_limits)  # Set y-axis limits
+  
+  # Delta N Donors: Create the line graph with unique points for each tissue type for donors
+  
+  # Create the line graph for donors with the same y-axis limits as recipients
+  plot_don_N <- ggplot(alltreat_don, aes(x = defoliation, y = N, color = tissue, group = tissue, shape = tissue)) +
+    geom_line() +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = expression(paste(delta, " 15N")), color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    theme_minimal() +
+    ggtitle(expression(paste("Donor ", delta, "15N Defoliation Gradient"))) + 
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    ylim(y_limits)  # Set the same y-axis limits as recipients
+  
+  # View the plots (or save them, export them, etc.)
+  print(plot_recip_N)
+  print(plot_don_N)
+  
+  # Combine the two plots using patchwork
+  combined_plot_alltreat_N <- plot_don_N + plot_recip_N
+  combined_plot_alltreat_N
+  
+  
+  
+  # Delta C Recipients: Create the line graph with unique points for each tissue type for recipients
+  alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
+  alltreat_don <- subset(test_foliar, donor_or_recip == "d")
+  
+  # Determine y-axis limits
+  y_limits <- range(c(alltreat_recip$C, alltreat_don$C))  # Get the range of C values for both recipients and donors
+  
+  # Create the line graph for recipients with specified y-axis limits
+  plot_recip_C <- ggplot(alltreat_recip, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
+    geom_line() +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = expression(paste(delta, " 13C")), color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    theme_minimal() +
+    ggtitle(expression(paste("Recipient ", delta, "13C Defoliation Gradient"))) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    ylim(y_limits)  # Set y-axis limits
+  
+  # Delta C Donors: Create the line graph with unique points for each tissue type for donors
+  alltreat_don <- subset(test_foliar, donor_or_recip == "d")
+  
+  # Create the line graph for donors with the same y-axis limits as recipients
+  plot_don_C <- ggplot(alltreat_don, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
+    geom_line() +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = expression(paste(delta, " 13C")), color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    theme_minimal() +
+    ggtitle(expression(paste("Donor ", delta, "13C Defoliation Gradient"))) + 
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    ylim(y_limits)  # Set the same y-axis limits as recipients
+  
+  # View the plots (or save them, export them, etc.)
+  print(plot_recip_C)
+  print(plot_don_C)
+  
+  # Combine the two plots using patchwork
+  combined_plot_alltreat_C <- plot_don_C + plot_recip_C
+  combined_plot_alltreat_C
+  
+  
+
