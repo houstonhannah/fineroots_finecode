@@ -1665,199 +1665,357 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   
   
 #####################Make scatterplots of all data points########################
+
   
-  
-  # %N Recipients: Create the line graph with unique points for each tissue type for recipients
+# %N Recipients: Create the line graph with unique points for each tissue type for recipients
   #filter the dataset a bit
   alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
   alltreat_don <- subset(test_foliar, donor_or_recip == "d")
   
-  # Determine y-axis limits
-  y_limits <- range(c(alltreat_recip$X.N, alltreat_don$X.N))  # Get the range of X.N values for both recipients and donors
+  # Filter the dataset for rotation and non-rotation values
+  rotated_recip <- subset(alltreat_recip, rotated == "yes")
+  non_rotated_recip <- subset(alltreat_recip, rotated == "no")
   
-  # Create the line graph for recipients with specified y-axis limits
-  plot_recip_X.N <- ggplot(alltreat_recip, aes(x = defoliation, y = X.N, color = tissue, group = tissue, shape = tissue)) +
-    geom_line() +
+  # Determine y-axis limits for both datasets
+  y_limits_rotated <- range(c(rotated_recip$X.N, alltreat_don$X.N))
+  y_limits_non_rotated <- range(c(non_rotated_recip$X.N, alltreat_don$X.N))
+  
+  # Create separate plots for rotation and non-rotation and arrange them side by side
+  plot_rotated <- ggplot(rotated_recip, aes(x = defoliation, y = X.N, color = tissue, group = tissue, shape = tissue)) +
     geom_point(size = 3) +
     labs(x = "% Defoliated", y = "%N", color = "Tissue", shape = "Tissue") +
     scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
-    ggtitle("Recipient %N Defoliation Gradient") + 
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    ylim(y_limits)  # Set y-axis limits
+    ggtitle("Rotated: Recipient %N Defoliation Gradient") +
+    ylim(y_limits_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
-  # %N Donors: Create the line graph with unique points for each tissue type for donors
+  plot_non_rotated <- ggplot(non_rotated_recip, aes(x = defoliation, y = X.N, color = tissue, group = tissue, shape = tissue)) +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = "%N", color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
+    theme_minimal() +
+    ggtitle("Not Rotated: Recipient %N Defoliation Gradient") +
+    ylim(y_limits_non_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
+  
+  # Arrange the plots side by side
+  library(gridExtra)
+  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2) 
+  
 
-  
-  # Create the line graph for donors with the same y-axis limits as recipients
-  plot_don_X.N <- ggplot(alltreat_don, aes(x = defoliation, y = X.N, color = tissue, group = tissue, shape = tissue)) +
-    geom_line() +
-    geom_point(size = 3) +
-    labs(x = "% Defoliated", y = "%N", color = "Tissue", shape = "Tissue") +
-    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
-    theme_minimal() +
-    ggtitle("Donor %N Defoliation Gradient") + 
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    ylim(y_limits)  # Set the same y-axis limits as recipients
-  
-  # View the plots (or save them, export them, etc.)
-  print(plot_recip_X.N)
-  print(plot_don_X.N)
-  
-  # Combine the two plots using patchwork
-  combined_plot_alltreat_X.N <- plot_don_X.N + plot_recip_X.N
-  combined_plot_alltreat_X.N
-  
-  
-  
-  
-  
-  
-  
-  # %C Recipients: Create the line graph with unique points for each tissue type for recipients
+# %N Donors: Create the line graph with unique points for each tissue type for donors
   #filter the dataset a bit
   alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
   alltreat_don <- subset(test_foliar, donor_or_recip == "d")
   
-  # Determine y-axis limits
-  y_limits <- range(c(alltreat_recip$X.C, alltreat_don$X.C))  # Get the range of X.C values for both recipients and donors
+  # Filter the dataset for rotation and non-rotation values
+  rotated_don <- subset(alltreat_don, rotated == "yes")
+  non_rotated_don <- subset(alltreat_don, rotated == "no")
   
-  # Create the line graph for recipients with specified y-axis limits
-  plot_recip_X.C <- ggplot(alltreat_recip, aes(x = defoliation, y = X.C, color = tissue, group = tissue, shape = tissue)) +
-    geom_line() +
+  # Determine y-axis limits for both datasets
+  y_limits_rotated <- range(c(rotated_recip$X.N, alltreat_don$X.N))
+  y_limits_non_rotated <- range(c(non_rotated_recip$X.N, alltreat_don$X.N))
+  
+  # Create separate plots for rotation and non-rotation and arrange them side by side
+  plot_rotated <- ggplot(rotated_don, aes(x = defoliation, y = X.N, color = tissue, group = tissue, shape = tissue)) +
     geom_point(size = 3) +
-    labs(x = "% Defoliated", y = "%C", color = "Tissue", shape = "Tissue") +
+    labs(x = "% Defoliated", y = "%N", color = "Tissue", shape = "Tissue") +
     scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
-    ggtitle("Recipient %C Defoliation Gradient") + 
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    ylim(y_limits)  # Set y-axis limits
+    ggtitle("Rotated: Donor %N Defoliation Gradient") +
+    ylim(y_limits_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
-  # %C Donors: Create the line graph with unique points for each tissue type for donors
-  
-  # Create the line graph for donors with the same y-axis limits as recipients
-  plot_don_X.C <- ggplot(alltreat_don, aes(x = defoliation, y = X.C, color = tissue, group = tissue, shape = tissue)) +
-    geom_line() +
+  plot_non_rotated <- ggplot(non_rotated_don, aes(x = defoliation, y = X.N, color = tissue, group = tissue, shape = tissue)) +
     geom_point(size = 3) +
-    labs(x = "% Defoliated", y = "%C", color = "Tissue", shape = "Tissue") +
+    labs(x = "% Defoliated", y = "%N", color = "Tissue", shape = "Tissue") +
     scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
-    ggtitle("Donor %C Defoliation Gradient") + 
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    ylim(y_limits)  # Set the same y-axis limits as recipients
+    ggtitle("Not Rotated: Donor %N Defoliation Gradient") +
+    ylim(y_limits_non_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
-  # View the plots (or save them, export them, etc.)
-  print(plot_recip_X.C)
-  print(plot_don_X.C)
+  # Arrange the plots side by side
+  library(gridExtra)
+  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2) 
   
-  # Combine the two plots using patchwork
-  combined_plot_alltreat_X.C <- plot_don_X.C + plot_recip_X.C
-  combined_plot_alltreat_X.C
+  
 
-  
-  
-  
-  
-  
-  
-  
-  
-  # Delta N Recipients: Create the line graph with unique points for each tissue type for recipients
+# %C Recipients: Create the line graph with unique points for each tissue type for recipients
+  #filter the dataset a bit
   alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
   alltreat_don <- subset(test_foliar, donor_or_recip == "d")
   
-  # Determine y-axis limits
-  y_limits <- range(c(alltreat_recip$N, alltreat_don$N))  # Get the range of N values for both recipients and donors
+  # Filter the dataset for rotation and non-rotation values
+  rotated_recip <- subset(alltreat_recip, rotated == "yes")
+  non_rotated_recip <- subset(alltreat_recip, rotated == "no")
   
-  # Create the line graph for recipients with specified y-axis limits
-  plot_recip_N <- ggplot(alltreat_recip, aes(x = defoliation, y = N, color = tissue, group = tissue, shape = tissue)) +
-    geom_line() +
+  # Determine y-axis limits for both datasets
+  y_limits_rotated <- range(c(rotated_recip$X.C, alltreat_don$X.C))
+  y_limits_non_rotated <- range(c(non_rotated_recip$X.C, alltreat_don$X.C))
+  
+  # Create separate plots for rotation and non-rotation and arrange them side by side
+  plot_rotated <- ggplot(rotated_recip, aes(x = defoliation, y = X.C, color = tissue, group = tissue, shape = tissue)) +
     geom_point(size = 3) +
-    labs(x = "% Defoliated", y = expression(paste(delta, " 15N")), color = "Tissue", shape = "Tissue") +
+    labs(x = "% Defoliated", y = "%C", color = "Tissue", shape = "Tissue") +
     scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
-    ggtitle(expression(paste("Recipient ", delta, "15N Defoliation Gradient"))) +
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    ylim(y_limits)  # Set y-axis limits
+    ggtitle("Rotated: Recipient %C Defoliation Gradient") +
+    ylim(y_limits_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
-  # Delta N Donors: Create the line graph with unique points for each tissue type for donors
-  
-  # Create the line graph for donors with the same y-axis limits as recipients
-  plot_don_N <- ggplot(alltreat_don, aes(x = defoliation, y = N, color = tissue, group = tissue, shape = tissue)) +
-    geom_line() +
+  plot_non_rotated <- ggplot(non_rotated_recip, aes(x = defoliation, y = X.C, color = tissue, group = tissue, shape = tissue)) +
     geom_point(size = 3) +
-    labs(x = "% Defoliated", y = expression(paste(delta, " 15N")), color = "Tissue", shape = "Tissue") +
+    labs(x = "% Defoliated", y = "%C", color = "Tissue", shape = "Tissue") +
     scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
-    ggtitle(expression(paste("Donor ", delta, "15N Defoliation Gradient"))) + 
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    ylim(y_limits)  # Set the same y-axis limits as recipients
+    ggtitle("Not Rotated: Recipient %C Defoliation Gradient") +
+    ylim(y_limits_non_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
-  # View the plots (or save them, export them, etc.)
-  print(plot_recip_N)
-  print(plot_don_N)
-  
-  # Combine the two plots using patchwork
-  combined_plot_alltreat_N <- plot_don_N + plot_recip_N
-  combined_plot_alltreat_N
+  # Arrange the plots side by side
+  library(gridExtra)
+  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2) 
   
   
-  
-  # Delta C Recipients: Create the line graph with unique points for each tissue type for recipients
+# %C Donors: Create the line graph with unique points for each tissue type for donors
+  #filter the dataset a bit
   alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
   alltreat_don <- subset(test_foliar, donor_or_recip == "d")
   
-  # Determine y-axis limits
-  y_limits <- range(c(alltreat_recip$C, alltreat_don$C))  # Get the range of C values for both recipients and donors
+  # Filter the dataset for rotation and non-rotation values
+  rotated_don <- subset(alltreat_don, rotated == "yes")
+  non_rotated_don <- subset(alltreat_don, rotated == "no")
   
-  # Create the line graph for recipients with specified y-axis limits
-  plot_recip_C <- ggplot(alltreat_recip, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
-    geom_line() +
+  # Determine y-axis limits for both datasets
+  y_limits_rotated <- range(c(rotated_recip$X.C, alltreat_don$X.C))
+  y_limits_non_rotated <- range(c(non_rotated_recip$X.C, alltreat_don$X.C))
+  
+  # Create separate plots for rotation and non-rotation and arrange them side by side
+  plot_rotated <- ggplot(rotated_don, aes(x = defoliation, y = X.C, color = tissue, group = tissue, shape = tissue)) +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = "%C", color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
+    theme_minimal() +
+    ggtitle("Rotated: Donor %C Defoliation Gradient") +
+    ylim(y_limits_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
+  
+  plot_non_rotated <- ggplot(non_rotated_don, aes(x = defoliation, y = X.C, color = tissue, group = tissue, shape = tissue)) +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = "%C", color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
+    theme_minimal() +
+    ggtitle("Not Rotated: Donor %C Defoliation Gradient") +
+    ylim(y_limits_non_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
+  
+  # Arrange the plots side by side
+  library(gridExtra)
+  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2)  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
+# Delta N Recipients: Create the line graph with unique points for each tissue type for recipients
+  #filter the dataset a bit
+  alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
+  alltreat_don <- subset(test_foliar, donor_or_recip == "d")
+  
+  # Filter the dataset for rotation and non-rotation values
+  rotated_recip <- subset(alltreat_recip, rotated == "yes")
+  non_rotated_recip <- subset(alltreat_recip, rotated == "no")
+  
+  # Determine y-axis limits for both datasets
+  y_limits_rotated <- range(c(rotated_recip$N, alltreat_don$N))
+  y_limits_non_rotated <- range(c(non_rotated_recip$N, alltreat_don$N))
+  
+  # Create separate plots for rotation and non-rotation and arrange them side by side
+  plot_rotated <- ggplot(rotated_recip, aes(x = defoliation, y = N, color = tissue, group = tissue, shape = tissue)) +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = expression(paste(delta, " 15N")), color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
+    theme_minimal() +
+    ggtitle(expression(paste("Rotated: Recipient ", delta, "15N Defoliation Gradient"))) +
+    ylim(y_limits_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
+  
+  plot_non_rotated <- ggplot(non_rotated_recip, aes(x = defoliation, y = N, color = tissue, group = tissue, shape = tissue)) +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = expression(paste(delta, " 15N")), color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
+    theme_minimal() +
+    ggtitle(expression(paste("Not Rotated: Recipient ", delta, "15N Defoliation Gradient"))) +
+    ylim(y_limits_non_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
+  
+  # Arrange the plots side by side
+  library(gridExtra)
+  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2) 
+  
+  
+# Delta N Donors: Create the line graph with unique points for each tissue type for donors
+  #filter the dataset a bit
+  alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
+  alltreat_don <- subset(test_foliar, donor_or_recip == "d")
+  
+  # Filter the dataset for rotation and non-rotation values
+  rotated_don <- subset(alltreat_don, rotated == "yes")
+  non_rotated_don <- subset(alltreat_don, rotated == "no")
+  
+  # Determine y-axis limits for both datasets
+  y_limits_rotated <- range(c(rotated_recip$N, alltreat_don$N))
+  y_limits_non_rotated <- range(c(non_rotated_recip$N, alltreat_don$N))
+  
+  # Create separate plots for rotation and non-rotation and arrange them side by side
+  plot_rotated <- ggplot(rotated_don, aes(x = defoliation, y = N, color = tissue, group = tissue, shape = tissue)) +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = expression(paste(delta, " 15N")), color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
+    theme_minimal() +
+    ggtitle(expression(paste("Rotated: Donor ", delta, "15N Defoliation Gradient"))) +
+    ylim(y_limits_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
+  
+  plot_non_rotated <- ggplot(non_rotated_don, aes(x = defoliation, y = N, color = tissue, group = tissue, shape = tissue)) +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = expression(paste(delta, " 15N")), color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
+    theme_minimal() +
+    ggtitle(expression(paste("Not Rotated: Donor ", delta, "15N Defoliation Gradient"))) +
+    ylim(y_limits_non_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
+  
+  # Arrange the plots side by side
+  library(gridExtra)
+  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2) 
+  
+  
+  
+  
+  
+  
+  
+# Delta C Recipients: Create the line graph with unique points for each tissue type for recipients
+  #filter the dataset a bit
+  alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
+  alltreat_don <- subset(test_foliar, donor_or_recip == "d")
+  
+  # Filter the dataset for rotation and non-rotation values
+  rotated_recip <- subset(alltreat_recip, rotated == "yes")
+  non_rotated_recip <- subset(alltreat_recip, rotated == "no")
+  
+  # Determine y-axis limits for both datasets
+  y_limits_rotated <- range(c(rotated_recip$C, alltreat_don$C))
+  y_limits_non_rotated <- range(c(non_rotated_recip$C, alltreat_don$C))
+  
+  # Create separate plots for rotation and non-rotation and arrange them side by side
+  plot_rotated <- ggplot(rotated_recip, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
     geom_point(size = 3) +
     labs(x = "% Defoliated", y = expression(paste(delta, " 13C")), color = "Tissue", shape = "Tissue") +
     scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
-    ggtitle(expression(paste("Recipient ", delta, "13C Defoliation Gradient"))) +
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    ylim(y_limits)  # Set y-axis limits
+    ggtitle(expression(paste("Rotated: Recipient ", delta, "13C Defoliation Gradient"))) +
+    ylim(y_limits_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
+  
+  plot_non_rotated <- ggplot(non_rotated_recip, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = expression(paste(delta, " 13C")), color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
+    theme_minimal() +
+    ggtitle(expression(paste("Not Rotated: Recipient ", delta, "13C Defoliation Gradient"))) +
+    ylim(y_limits_non_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
+  
+  # Arrange the plots side by side
+  library(gridExtra)
+  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2) 
+  
   
   # Delta C Donors: Create the line graph with unique points for each tissue type for donors
+  #filter the dataset a bit
+  alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
   alltreat_don <- subset(test_foliar, donor_or_recip == "d")
   
-  # Create the line graph for donors with the same y-axis limits as recipients
-  plot_don_C <- ggplot(alltreat_don, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
-    geom_line() +
+  # Filter the dataset for rotation and non-rotation values
+  rotated_don <- subset(alltreat_don, rotated == "yes")
+  non_rotated_don <- subset(alltreat_don, rotated == "no")
+  
+  # Determine y-axis limits for both datasets
+  y_limits_rotated <- range(c(rotated_recip$C, alltreat_don$C))
+  y_limits_non_rotated <- range(c(non_rotated_recip$C, alltreat_don$C))
+  
+  # Create separate plots for rotation and non-rotation and arrange them side by side
+  plot_rotated <- ggplot(rotated_don, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
     geom_point(size = 3) +
     labs(x = "% Defoliated", y = expression(paste(delta, " 13C")), color = "Tissue", shape = "Tissue") +
     scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
-    scale_shape_manual(values = c(16, 17, 18, 19)) + # Use different point shapes for each tissue type
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
-    ggtitle(expression(paste("Donor ", delta, "13C Defoliation Gradient"))) + 
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    ylim(y_limits)  # Set the same y-axis limits as recipients
+    ggtitle(expression(paste("Rotated: Donor ", delta, "13C Defoliation Gradient"))) +
+    ylim(y_limits_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
-  # View the plots (or save them, export them, etc.)
-  print(plot_recip_C)
-  print(plot_don_C)
+  plot_non_rotated <- ggplot(non_rotated_don, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
+    geom_point(size = 3) +
+    labs(x = "% Defoliated", y = expression(paste(delta, " 13C")), color = "Tissue", shape = "Tissue") +
+    scale_x_continuous(breaks = c(0, 20, 40, 60, 80, 100)) +
+    scale_shape_manual(values = c(16, 17, 18, 19)) +
+    theme_minimal() +
+    ggtitle(expression(paste("Not Rotated: Donor ", delta, "13C Defoliation Gradient"))) +
+    ylim(y_limits_non_rotated) +
+    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
-  # Combine the two plots using patchwork
-  combined_plot_alltreat_C <- plot_don_C + plot_recip_C
-  combined_plot_alltreat_C
+  # Arrange the plots side by side
+  library(gridExtra)
+  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2) 
+  
+  
+  
+  
+  
+  
   
   
 
+
+
+  
+  
+  
+  
+  
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
