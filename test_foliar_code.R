@@ -2021,19 +2021,87 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   
   
   
+#############################################R2 calculations######################
+#model_name <- lm(y~x) where x is the % defoliated (defoliated) and y is whatever isotope value, then use sumary(model_name)
   
+#filter the dataset a bit
+  alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
+  alltreat_don <- subset(test_foliar, donor_or_recip == "d")
+
+# Filter the dataset for rotation and non-rotation values
+  rotated_recip <- subset(alltreat_recip, rotated == "yes")
+  non_rotated_recip <- subset(alltreat_recip, rotated == "no")
+  
+  rotated_don <- subset(alltreat_don, rotated == "yes")
+  non_rotated_don <- subset(alltreat_don, rotated == "no")
+  
+  
+  
+##################recipient %N
+lm_recip_perN_norot <- lm(X.N ~ defoliation * tissue, data = non_rotated_recip)
+summary(lm_recip_perN_norot)
+
+lm_recip_perN_rot <- lm(X.N ~ defoliation * tissue, data = rotated_recip)
+summary(lm_recip_perN_rot)
+  
+#donor %N
+lm_don_perN_norot <- lm(X.N ~ defoliation * tissue, data = non_rotated_don)
+summary(lm_don_perN_norot)
+
+lm_don_perN_rot <- lm(X.N ~ defoliation * tissue, data = rotated_don)
+summary(lm_don_perN_rot)
   
 
 
 
-  
-  
-  
+#######################recipient %C
+lm_recip_perC_norot <- lm(X.C ~ defoliation*tissue, data = non_rotated_recip)
+summary(lm_recip_perC_norot)
+
+lm_recip_perC_rot <- lm(X.C ~ defoliation*tissue, data = rotated_recip)
+summary(lm_recip_perC_rot)
+
+#donor %C
+lm_don_perC_norot <- lm(X.C ~ defoliation*tissue, data = non_rotated_don)
+summary(lm_don_perC_norot)
+
+lm_don_perC_rot <- lm(X.C ~ defoliation*tissue, data = rotated_don)
+summary(lm_don_perC_rot)
   
   
   
 
-  
+
+##################recipient  Delta N
+lm_recip_deltaN_norot <- lm(N ~ defoliation*tissue, data = non_rotated_recip)
+summary(lm_recip_deltaN_norot)
+
+lm_recip_deltaN_rot <- lm(N ~ defoliation*tissue, data = rotated_recip)
+summary(lm_recip_deltaN_rot)
+
+#donor  delta N
+lm_don_deltaN_norot <- lm(N ~ defoliation*tissue, data = non_rotated_don)
+summary(lm_don_deltaN_norot)
+
+lm_don_deltaN_rot <- lm(N ~ defoliation*tissue, data = rotated_don)
+summary(lm_don_deltaN_rot)
+
+
+
+
+#######################recipient Delta C
+lm_recip_deltaC_norot <- lm(C ~ defoliation*tissue, data = non_rotated_recip)
+summary(lm_recip_deltaC_norot)
+
+lm_recip_deltaC_rot <- lm(C ~ defoliation*tissue, data = rotated_recip)
+summary(lm_recip_deltaC_rot)
+
+#donor delta C
+lm_don_deltaC_norot <- lm(C ~ defoliation*tissue, data = non_rotated_don)
+summary(lm_don_deltaC_norot)
+
+lm_don_deltaC_rot <- lm(C ~ defoliation*tissue, data = rotated_don)
+summary(lm_don_deltaC_rot)
   
   
   
