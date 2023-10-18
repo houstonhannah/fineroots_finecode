@@ -1676,9 +1676,12 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   rotated_recip <- subset(alltreat_recip, rotated == "yes")
   non_rotated_recip <- subset(alltreat_recip, rotated == "no")
   
+  rotated_don <- subset(alltreat_don, rotated == "yes")
+  non_rotated_don <- subset(alltreat_don, rotated == "no")
+  
   # Determine y-axis limits for both datasets
-  y_limits_rotated <- range(c(rotated_recip$X.N, alltreat_don$X.N))
-  y_limits_non_rotated <- range(c(non_rotated_recip$X.N, alltreat_don$X.N))
+  y_limits_rotated <- range(c(rotated_recip$X.N, rotated_don$X.N))
+  y_limits_non_rotated <- range(c(non_rotated_recip$X.N, non_rotated_don$X.N))
   
   # Create separate plots for rotation and non-rotation and arrange them side by side
   plot_rotated <- ggplot(rotated_recip, aes(x = defoliation, y = X.N, color = tissue, group = tissue, shape = tissue)) +
@@ -1712,12 +1715,15 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   alltreat_don <- subset(test_foliar, donor_or_recip == "d")
   
   # Filter the dataset for rotation and non-rotation values
+  rotated_recip <- subset(alltreat_recip, rotated == "yes")
+  non_rotated_recip <- subset(alltreat_recip, rotated == "no")
+  
   rotated_don <- subset(alltreat_don, rotated == "yes")
   non_rotated_don <- subset(alltreat_don, rotated == "no")
   
   # Determine y-axis limits for both datasets
-  y_limits_rotated <- range(c(rotated_recip$X.N, alltreat_don$X.N))
-  y_limits_non_rotated <- range(c(non_rotated_recip$X.N, alltreat_don$X.N))
+  y_limits_rotated <- range(c(rotated_recip$X.N, rotated_don$X.N))
+  y_limits_non_rotated <- range(c(non_rotated_recip$X.N, non_rotated_don$X.N))
   
   # Create separate plots for rotation and non-rotation and arrange them side by side
   plot_rotated <- ggplot(rotated_don, aes(x = defoliation, y = X.N, color = tissue, group = tissue, shape = tissue)) +
@@ -1755,9 +1761,12 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   rotated_recip <- subset(alltreat_recip, rotated == "yes")
   non_rotated_recip <- subset(alltreat_recip, rotated == "no")
   
+  rotated_don <- subset(alltreat_don, rotated == "yes")
+  non_rotated_don <- subset(alltreat_don, rotated == "no")
+  
   # Determine y-axis limits for both datasets
-  y_limits_rotated <- range(c(rotated_recip$X.C, alltreat_don$X.C))
-  y_limits_non_rotated <- range(c(non_rotated_recip$X.C, alltreat_don$X.C))
+  y_limits_rotated <- range(c(rotated_recip$X.C, rotated_don$X.C))
+  y_limits_non_rotated <- range(c(non_rotated_recip$X.C, non_rotated_don$X.C))
   
   # Create separate plots for rotation and non-rotation and arrange them side by side
   plot_rotated <- ggplot(rotated_recip, aes(x = defoliation, y = X.C, color = tissue, group = tissue, shape = tissue)) +
@@ -1791,12 +1800,15 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   alltreat_don <- subset(test_foliar, donor_or_recip == "d")
   
   # Filter the dataset for rotation and non-rotation values
+  rotated_recip <- subset(alltreat_recip, rotated == "yes")
+  non_rotated_recip <- subset(alltreat_recip, rotated == "no")
+  
   rotated_don <- subset(alltreat_don, rotated == "yes")
   non_rotated_don <- subset(alltreat_don, rotated == "no")
   
   # Determine y-axis limits for both datasets
-  y_limits_rotated <- range(c(rotated_recip$X.C, alltreat_don$X.C))
-  y_limits_non_rotated <- range(c(non_rotated_recip$X.C, alltreat_don$X.C))
+  y_limits_rotated <- range(c(rotated_recip$X.C, rotated_don$X.C))
+  y_limits_non_rotated <- range(c(non_rotated_recip$X.C, non_rotated_don$X.C))
   
   # Create separate plots for rotation and non-rotation and arrange them side by side
   plot_rotated <- ggplot(rotated_don, aes(x = defoliation, y = X.C, color = tissue, group = tissue, shape = tissue)) +
@@ -1841,9 +1853,12 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   rotated_recip <- subset(alltreat_recip, rotated == "yes")
   non_rotated_recip <- subset(alltreat_recip, rotated == "no")
   
+  rotated_don <- subset(alltreat_don, rotated == "yes")
+  non_rotated_don <- subset(alltreat_don, rotated == "no")
+  
   # Determine y-axis limits for both datasets
-  y_limits_rotated <- range(c(rotated_recip$N, alltreat_don$N))
-  y_limits_non_rotated <- range(c(non_rotated_recip$N, alltreat_don$N))
+  y_limits_rotated <- range(c(rotated_recip$N, rotated_don$N))
+  y_limits_non_rotated <- range(c(non_rotated_recip$N, non_rotated_don$N))
   
   # Create separate plots for rotation and non-rotation and arrange them side by side
   plot_rotated <- ggplot(rotated_recip, aes(x = defoliation, y = N, color = tissue, group = tissue, shape = tissue)) +
@@ -1877,12 +1892,15 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   alltreat_don <- subset(test_foliar, donor_or_recip == "d")
   
   # Filter the dataset for rotation and non-rotation values
+  rotated_recip <- subset(alltreat_recip, rotated == "yes")
+  non_rotated_recip <- subset(alltreat_recip, rotated == "no")
+  
   rotated_don <- subset(alltreat_don, rotated == "yes")
   non_rotated_don <- subset(alltreat_don, rotated == "no")
   
   # Determine y-axis limits for both datasets
-  y_limits_rotated <- range(c(rotated_recip$N, alltreat_don$N))
-  y_limits_non_rotated <- range(c(non_rotated_recip$N, alltreat_don$N))
+  y_limits_rotated <- range(c(rotated_recip$N, rotated_don$N))
+  y_limits_non_rotated <- range(c(non_rotated_recip$N, non_rotated_don$N))
   
   # Create separate plots for rotation and non-rotation and arrange them side by side
   plot_rotated <- ggplot(rotated_don, aes(x = defoliation, y = N, color = tissue, group = tissue, shape = tissue)) +
@@ -1924,9 +1942,12 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   rotated_recip <- subset(alltreat_recip, rotated == "yes")
   non_rotated_recip <- subset(alltreat_recip, rotated == "no")
   
+  rotated_don <- subset(alltreat_don, rotated == "yes")
+  non_rotated_don <- subset(alltreat_don, rotated == "no")
+  
   # Determine y-axis limits for both datasets
-  y_limits_rotated <- range(c(rotated_recip$C, alltreat_don$C))
-  y_limits_non_rotated <- range(c(non_rotated_recip$C, alltreat_don$C))
+  y_limits_rotated <- range(c(rotated_recip$C, rotated_don$C))
+  y_limits_non_rotated <- range(c(non_rotated_recip$C, non_rotated_don$C))
   
   # Create separate plots for rotation and non-rotation and arrange them side by side
   plot_rotated <- ggplot(rotated_recip, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
@@ -1954,18 +1975,21 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   grid.arrange(plot_rotated, plot_non_rotated, ncol = 2) 
   
   
-  # Delta C Donors: Create the line graph with unique points for each tissue type for donors
+# Delta C Donors: Create the line graph with unique points for each tissue type for donors
   #filter the dataset a bit
   alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
   alltreat_don <- subset(test_foliar, donor_or_recip == "d")
   
   # Filter the dataset for rotation and non-rotation values
+  rotated_recip <- subset(alltreat_recip, rotated == "yes")
+  non_rotated_recip <- subset(alltreat_recip, rotated == "no")
+  
   rotated_don <- subset(alltreat_don, rotated == "yes")
   non_rotated_don <- subset(alltreat_don, rotated == "no")
   
   # Determine y-axis limits for both datasets
-  y_limits_rotated <- range(c(rotated_recip$C, alltreat_don$C))
-  y_limits_non_rotated <- range(c(non_rotated_recip$C, alltreat_don$C))
+  y_limits_rotated <- range(c(rotated_recip$C, rotated_don$C))
+  y_limits_non_rotated <- range(c(non_rotated_recip$C, non_rotated_don$C))
   
   # Create separate plots for rotation and non-rotation and arrange them side by side
   plot_rotated <- ggplot(rotated_don, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
@@ -2009,11 +2033,6 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   
   
 
-
-  
-  
-  
-  
   
   
   
