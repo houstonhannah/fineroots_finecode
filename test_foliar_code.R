@@ -1868,7 +1868,6 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle(expression(paste("Rotated: Recipient ", delta, "15N Defoliation Gradient"))) +
-    ylim(y_limits_rotated) +
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   plot_non_rotated <- ggplot(non_rotated_recip, aes(x = defoliation, y = N, color = tissue, group = tissue, shape = tissue)) +
@@ -1957,7 +1956,6 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle(expression(paste("Rotated: Recipient ", delta, "13C Defoliation Gradient"))) +
-    ylim(y_limits_rotated) +
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   plot_non_rotated <- ggplot(non_rotated_recip, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
@@ -1967,7 +1965,6 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle(expression(paste("Not Rotated: Recipient ", delta, "13C Defoliation Gradient"))) +
-    ylim(y_limits_non_rotated) +
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   # Arrange the plots side by side
