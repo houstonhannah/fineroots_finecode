@@ -161,9 +161,34 @@ ggplot(defol_0.6_nn, aes(x = treatment, y = N, fill = donor_or_recip)) +
             #find the mean of rotated donors
             mean_N <- mean(subset(defol_0.6_nn, donor_or_recip != "r" & tissue == "highroot" & treatment == "control_0.6_defol")$N)
             mean_N
+            #SEM of rotated donors
+                # Calculate standard deviation
+                standard_deviation <- sd(subset(defol_0.6_nn, donor_or_recip != "r" & tissue == "highroot" & treatment == "control_0.6_defol")$N)
+                
+                # Calculate sample size
+                sample_size <- length(subset(defol_0.6_nn, donor_or_recip != "r" & tissue == "highroot" & treatment == "control_0.6_defol")$N)
+                
+                # Calculate SEM
+                sem <- standard_deviation / sqrt(sample_size)
+                
+                # Print the SEM
+                print(sem)
+            
             #find the mean of not rotated donors
             mean_N <- mean(subset(defol_0.6_nn, donor_or_recip != "r" & tissue == "highroot" & treatment == "defoliate_0.6")$N)
             mean_N
+            #SEM of non rotated donors
+                # Calculate standard deviation
+                standard_deviation <- sd(subset(defol_0.6_nn, donor_or_recip != "r" & tissue == "highroot" & treatment == "defoliate_0.6")$N)
+                
+                # Calculate sample size
+                sample_size <- length(subset(defol_0.6_nn, donor_or_recip != "r" & tissue == "highroot" & treatment == "defoliate_0.6")$N)
+                
+                # Calculate SEM
+                sem <- standard_deviation / sqrt(sample_size)
+                
+                # Print the SEM
+                print(sem)
             
         #recipients: rotated vs. not rotated
       lm_0.6_N_rr_vs_rnr <- lm(N ~ treatment, subset=donor_or_recip!="d" & tissue=="highroot", data=defol_0.6_nn)
@@ -398,9 +423,35 @@ ggplot(defol_1.0_nn, aes(x = treatment, y = N, fill = donor_or_recip)) +
           #find the mean of rotated recips
           mean_N <- mean(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "control_1.0_defol")$N)
           mean_N
+          #find SEM
+              # Calculate standard deviation
+              standard_deviation <- sd(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "control_1.0_defol")$N)
+              
+              # Calculate sample size
+              sample_size <- length(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "control_1.0_defol")$N)
+              
+              # Calculate SEM
+              sem <- standard_deviation / sqrt(sample_size)
+              
+              # Print the SEM
+              print(sem)
+              
           #find the mean of not rotated recips
           mean_N <- mean(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "defoliate_1.0")$N)
           mean_N
+          #Find SEM 
+              # Calculate standard deviation
+              standard_deviation <- sd(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "defoliate_1.0")$N)
+              
+              # Calculate sample size
+              sample_size <- length(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "defoliate_1.0")$N)
+              
+              # Calculate SEM
+              sem <- standard_deviation / sqrt(sample_size)
+              
+              # Print the SEM
+              print(sem)
+          
   
   #rotated donors vs. rotated recipients
   lm_1.0_N_rd_vs_rr <- lm(N ~ donor_or_recip, subset=treatment!="defoliate_1.0" & tissue=="lowroot", data=defol_1.0_nn)
@@ -1363,12 +1414,38 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
         lm_1.0_X.N_dr_vs_dnr <- lm(X.N ~ treatment, subset=donor_or_recip!="r" & tissue=="lowroot", data=defol_1.0_nn)
         Anova(lm_1.0_X.N_dr_vs_dnr)
         
-        
+        #find the mean for rotated
         mean_N <- mean(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "control_1.0_defol")$X.N)
         mean_N
+        #SEM
+            # Calculate standard deviation
+            standard_deviation <- sd(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "control_1.0_defol")$X.N)
+            
+            # Calculate sample size
+            sample_size <- length(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "control_1.0_defol")$X.N)
+            
+            # Calculate SEM
+            sem <- standard_deviation / sqrt(sample_size)
+            
+            # Print the SEM
+            print(sem)
+       
         
+         #find the mean for not rotated
         mean_N <- mean(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "defoliate_1.0")$X.N)
         mean_N
+        #SEM
+            # Calculate standard deviation
+            standard_deviation <- sd(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "defoliate_1.0")$X.N)
+            
+            # Calculate sample size
+            sample_size <- length(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "lowroot" & treatment == "defoliate_1.0")$X.N)
+            
+            # Calculate SEM
+            sem <- standard_deviation / sqrt(sample_size)
+            
+            # Print the SEM
+            print(sem)
         
         
         
@@ -1389,12 +1466,37 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
         lm_1.0_X.N_dr_vs_dnr <- lm(X.N ~ treatment, subset=donor_or_recip!="r" & tissue=="stem", data=defol_1.0_nn)
         Anova(lm_1.0_X.N_dr_vs_dnr)
         
-        
-        mean_N <- mean(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "stem" & treatment == "control_1.0_defol")$X.N)
-        mean_N
-        
-        mean_N <- mean(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "stem" & treatment == "defoliate_1.0")$X.N)
-        mean_N
+          #calculate mean for rotated
+          mean_N <- mean(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "stem" & treatment == "control_1.0_defol")$X.N)
+          mean_N
+          #SEM
+              # Calculate standard deviation
+              standard_deviation <- sd(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "stem" & treatment == "control_1.0_defol")$X.N)
+              
+              # Calculate sample size
+              sample_size <- length(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "stem" & treatment == "control_1.0_defol")$X.N)
+              
+              # Calculate SEM
+              sem <- standard_deviation / sqrt(sample_size)
+              
+              # Print the SEM
+              print(sem)
+         
+           #calculate mean for unrotated
+          mean_N <- mean(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "stem" & treatment == "defoliate_1.0")$X.N)
+          mean_N
+          #SEM
+              # Calculate standard deviation
+              standard_deviation <- sd(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "stem" & treatment == "defoliate_1.0")$X.N)
+              
+              # Calculate sample size
+              sample_size <- length(subset(defol_1.0_nn, donor_or_recip != "r" & tissue == "stem" & treatment == "defoliate_1.0")$X.N)
+              
+              # Calculate SEM
+              sem <- standard_deviation / sqrt(sample_size)
+              
+              # Print the SEM
+              print(sem)
         
         #recipients: rotated vs. not rotated
         lm_1.0_X.N_rr_vs_rnr <- lm(X.N ~ treatment, subset=donor_or_recip!="d" & tissue=="stem", data=defol_1.0_nn)
