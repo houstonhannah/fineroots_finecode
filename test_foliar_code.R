@@ -1781,6 +1781,8 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   rotated_don <- subset(alltreat_don, rotated == "yes")
   non_rotated_don <- subset(alltreat_don, rotated == "no")
   
+  # ...
+  
   # Determine y-axis limits for both datasets
   y_limits_rotated <- range(c(rotated_recip$X.N, rotated_don$X.N))
   y_limits_non_rotated <- range(c(non_rotated_recip$X.N, non_rotated_don$X.N))
@@ -1793,7 +1795,7 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle("Rotated: Recipient %N Defoliation Gradient") +
-    ylim(y_limits_rotated) +
+    ylim(y_limits_rotated) +  # Set y-axis limits for rotated plot
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   plot_non_rotated <- ggplot(non_rotated_recip, aes(x = defoliation, y = X.N, color = tissue, group = tissue, shape = tissue)) +
@@ -1803,12 +1805,17 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle("Not Rotated: Recipient %N Defoliation Gradient") +
-    ylim(y_limits_non_rotated) +
+    ylim(y_limits_non_rotated) +  # Set y-axis limits for non-rotated plot
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   # Arrange the plots side by side
   library(gridExtra)
   grid.arrange(plot_rotated, plot_non_rotated, ncol = 2) 
+ 
+   # ...
+  
+  
+  
   
 
 # %N Donors: Create the line graph with unique points for each tissue type for donors
@@ -1823,9 +1830,10 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   rotated_don <- subset(alltreat_don, rotated == "yes")
   non_rotated_don <- subset(alltreat_don, rotated == "no")
   
-  # Determine y-axis limits for both datasets
-  y_limits_rotated <- range(c(rotated_recip$X.N, rotated_don$X.N))
-  y_limits_non_rotated <- range(c(non_rotated_recip$X.N, non_rotated_don$X.N))
+  # ...
+  
+  # Determine overall y-axis limits for both datasets
+  y_limits_overall <- range(c(rotated_don$X.N, non_rotated_don$X.N))
   
   # Create separate plots for rotation and non-rotation and arrange them side by side
   plot_rotated <- ggplot(rotated_don, aes(x = defoliation, y = X.N, color = tissue, group = tissue, shape = tissue)) +
@@ -1835,7 +1843,7 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle("Rotated: Donor %N Defoliation Gradient") +
-    ylim(y_limits_rotated) +
+    ylim(y_limits_overall) +  # Set y-axis limits for both rotated and non-rotated plots
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   plot_non_rotated <- ggplot(non_rotated_don, aes(x = defoliation, y = X.N, color = tissue, group = tissue, shape = tissue)) +
@@ -1845,8 +1853,11 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle("Not Rotated: Donor %N Defoliation Gradient") +
-    ylim(y_limits_non_rotated) +
+    ylim(y_limits_overall) +  # Set y-axis limits for both rotated and non-rotated plots
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
+  
+  # ...
+  
   
   # Arrange the plots side by side
   library(gridExtra)
@@ -1866,9 +1877,10 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   rotated_don <- subset(alltreat_don, rotated == "yes")
   non_rotated_don <- subset(alltreat_don, rotated == "no")
   
-  # Determine y-axis limits for both datasets
-  y_limits_rotated <- range(c(rotated_recip$X.C, rotated_don$X.C))
-  y_limits_non_rotated <- range(c(non_rotated_recip$X.C, non_rotated_don$X.C))
+  # ...
+  
+  # Determine overall y-axis limits for both datasets
+  y_limits_overall <- range(c(rotated_recip$X.C, non_rotated_recip$X.C, rotated_don$X.C, non_rotated_don$X.C))
   
   # Create separate plots for rotation and non-rotation and arrange them side by side
   plot_rotated <- ggplot(rotated_recip, aes(x = defoliation, y = X.C, color = tissue, group = tissue, shape = tissue)) +
@@ -1878,7 +1890,7 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle("Rotated: Recipient %C Defoliation Gradient") +
-    ylim(y_limits_rotated) +
+    ylim(y_limits_overall) +  # Set y-axis limits for both rotated and non-rotated plots
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   plot_non_rotated <- ggplot(non_rotated_recip, aes(x = defoliation, y = X.C, color = tissue, group = tissue, shape = tissue)) +
@@ -1888,8 +1900,11 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle("Not Rotated: Recipient %C Defoliation Gradient") +
-    ylim(y_limits_non_rotated) +
+    ylim(y_limits_overall) +  # Set y-axis limits for both rotated and non-rotated plots
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
+  
+  # ...
+  
   
   # Arrange the plots side by side
   library(gridExtra)
@@ -1908,9 +1923,10 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   rotated_don <- subset(alltreat_don, rotated == "yes")
   non_rotated_don <- subset(alltreat_don, rotated == "no")
   
-  # Determine y-axis limits for both datasets
-  y_limits_rotated <- range(c(rotated_recip$X.C, rotated_don$X.C))
-  y_limits_non_rotated <- range(c(non_rotated_recip$X.C, non_rotated_don$X.C))
+  # ...
+  
+  # Determine overall y-axis limits for both datasets
+  y_limits_overall <- range(c(rotated_recip$X.C, non_rotated_recip$X.C, rotated_don$X.C, non_rotated_don$X.C))
   
   # Create separate plots for rotation and non-rotation and arrange them side by side
   plot_rotated <- ggplot(rotated_don, aes(x = defoliation, y = X.C, color = tissue, group = tissue, shape = tissue)) +
@@ -1920,8 +1936,8 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle("Rotated: Donor %C Defoliation Gradient") +
-    ylim(y_limits_rotated) +
-    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
+    ylim(y_limits_overall) +  # Set y-axis limits for both rotated and non-rotated plots
+    geom_smooth(method = "lm", se = FALSE)  # Add the best fit line without confidence interval
   
   plot_non_rotated <- ggplot(non_rotated_don, aes(x = defoliation, y = X.C, color = tissue, group = tissue, shape = tissue)) +
     geom_point(size = 3) +
@@ -1930,8 +1946,10 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle("Not Rotated: Donor %C Defoliation Gradient") +
-    ylim(y_limits_non_rotated) +
-    geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
+    ylim(y_limits_overall) +  # Set y-axis limits for both rotated and non-rotated plots
+    geom_smooth(method = "lm", se = FALSE)  # Add the best fit line without confidence interval
+  
+  # ...
   
   # Arrange the plots side by side
   library(gridExtra)
@@ -1947,7 +1965,7 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   
  
 # Delta N Recipients: Create the line graph with unique points for each tissue type for recipients
-  #filter the dataset a bit
+  # Filter the dataset a bit
   alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
   alltreat_don <- subset(test_foliar, donor_or_recip == "d")
   
@@ -1970,6 +1988,7 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle(expression(paste("Rotated: Recipient ", delta, "15N Defoliation Gradient"))) +
+    ylim(c(0, 16)) +  # Set y-axis limits between 0 and 16
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   plot_non_rotated <- ggplot(non_rotated_recip, aes(x = defoliation, y = N, color = tissue, group = tissue, shape = tissue)) +
@@ -1979,16 +1998,17 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle(expression(paste("Not Rotated: Recipient ", delta, "15N Defoliation Gradient"))) +
-    ylim(y_limits_non_rotated) +
+    ylim(c(0, 16)) +  # Set y-axis limits between 0 and 16
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   # Arrange the plots side by side
   library(gridExtra)
-  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2) 
+  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2)
   
   
-# Delta N Donors: Create the line graph with unique points for each tissue type for donors
-  #filter the dataset a bit
+  
+  # Delta N Donors: Create the line graph with unique points for each tissue type for donors
+  # Filter the dataset a bit
   alltreat_recip <- subset(test_foliar, donor_or_recip == "r")
   alltreat_don <- subset(test_foliar, donor_or_recip == "d")
   
@@ -2011,7 +2031,7 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle(expression(paste("Rotated: Donor ", delta, "15N Defoliation Gradient"))) +
-    ylim(y_limits_rotated) +
+    ylim(c(0, 1000)) +  # Set y-axis limits from 0 to 1000
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   plot_non_rotated <- ggplot(non_rotated_don, aes(x = defoliation, y = N, color = tissue, group = tissue, shape = tissue)) +
@@ -2021,12 +2041,13 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle(expression(paste("Not Rotated: Donor ", delta, "15N Defoliation Gradient"))) +
-    ylim(y_limits_non_rotated) +
+    ylim(c(0, 1000)) +  # Set y-axis limits from 0 to 1000
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   # Arrange the plots side by side
   library(gridExtra)
-  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2) 
+  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2)
+  
   
   
   
@@ -2046,11 +2067,10 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   rotated_don <- subset(alltreat_don, rotated == "yes")
   non_rotated_don <- subset(alltreat_don, rotated == "no")
   
-  # Determine y-axis limits for both datasets
-  y_limits_rotated <- range(c(rotated_recip$C, rotated_don$C))
-  y_limits_non_rotated <- range(c(non_rotated_recip$C, non_rotated_don$C))
+  # Set common y-axis limits with a specified range
+  y_limits_common <- c(-34, -28)
   
-  # Create separate plots for rotation and non-rotation and arrange them side by side
+  # Create separate plots for rotation and non-rotation
   plot_rotated <- ggplot(rotated_recip, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
     geom_point(size = 3) +
     labs(x = "% Defoliated", y = expression(paste(delta, " 13C")), color = "Tissue", shape = "Tissue") +
@@ -2058,6 +2078,7 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle(expression(paste("Rotated: Recipient ", delta, "13C Defoliation Gradient"))) +
+    ylim(y_limits_common) +  # Set common y-axis limits
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   plot_non_rotated <- ggplot(non_rotated_recip, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
@@ -2067,11 +2088,14 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle(expression(paste("Not Rotated: Recipient ", delta, "13C Defoliation Gradient"))) +
+    ylim(y_limits_common) +  # Set common y-axis limits
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   # Arrange the plots side by side
   library(gridExtra)
-  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2) 
+  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2)
+  
+  
   
   
 # Delta C Donors: Create the line graph with unique points for each tissue type for donors
@@ -2086,11 +2110,10 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
   rotated_don <- subset(alltreat_don, rotated == "yes")
   non_rotated_don <- subset(alltreat_don, rotated == "no")
   
-  # Determine y-axis limits for both datasets
-  y_limits_rotated <- range(c(rotated_recip$C, rotated_don$C))
-  y_limits_non_rotated <- range(c(non_rotated_recip$C, non_rotated_don$C))
+  # Determine common y-axis limits for both datasets
+  y_limits_common <- range(c(rotated_recip$C, rotated_don$C, non_rotated_recip$C, non_rotated_don$C))
   
-  # Create separate plots for rotation and non-rotation and arrange them side by side
+  # Create separate plots for rotation and non-rotation
   plot_rotated <- ggplot(rotated_don, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
     geom_point(size = 3) +
     labs(x = "% Defoliated", y = expression(paste(delta, " 13C")), color = "Tissue", shape = "Tissue") +
@@ -2098,7 +2121,7 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle(expression(paste("Rotated: Donor ", delta, "13C Defoliation Gradient"))) +
-    ylim(y_limits_rotated) +
+    ylim(y_limits_common) +  # Set common y-axis limits
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   plot_non_rotated <- ggplot(non_rotated_don, aes(x = defoliation, y = C, color = tissue, group = tissue, shape = tissue)) +
@@ -2108,12 +2131,13 @@ ggplot(test_foliar, aes(x = treatment, y = X.C, fill = donor_or_recip)) +
     scale_shape_manual(values = c(16, 17, 18, 19)) +
     theme_minimal() +
     ggtitle(expression(paste("Not Rotated: Donor ", delta, "13C Defoliation Gradient"))) +
-    ylim(y_limits_non_rotated) +
+    ylim(y_limits_common) +  # Set common y-axis limits
     geom_smooth(method = "lm", se = FALSE)  # Add best fit line without confidence interval
   
   # Arrange the plots side by side
   library(gridExtra)
-  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2) 
+  grid.arrange(plot_rotated, plot_non_rotated, ncol = 2)
+  
   
   
   
